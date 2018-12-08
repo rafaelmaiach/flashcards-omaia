@@ -1,0 +1,23 @@
+{
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "react-native/react-native": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "react-native"
+  ],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:react-native/all"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  }
+}
