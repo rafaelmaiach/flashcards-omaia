@@ -3,9 +3,8 @@ import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigat
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomBottomTabBar from './CustomBottomTabBar';
 import Home from '../screens/Home';
-import NewSet from '../screens/NewSet';
 import Trash from '../screens/Trash';
-import { $grey, $lightRed } from '../utils/colors';
+import { $black, $grey, $lightBlue } from '../utils/colors';
 
 const createTab = (screen, label, icon) => ({
   screen,
@@ -20,7 +19,6 @@ const createTab = (screen, label, icon) => ({
 const NavigationTabs = createMaterialTopTabNavigator(
   {
     Home: createTab(Home, 'Home', 'home'),
-    NewSet: createTab(NewSet, 'New Set', 'plus-box'),
     Trash: createTab(Trash, 'Trash', 'trash-can'),
   },
   {
@@ -30,9 +28,8 @@ const NavigationTabs = createMaterialTopTabNavigator(
     animationEnabled: true,
     tabBarComponent: props => <CustomBottomTabBar {...props} />,
     tabBarOptions: {
-      activeTintColor: $lightRed,
-      inactiveTintColor: $grey,
-      pressOpacity: 0.6,
+      activeTintColor: $lightBlue,
+      inactiveTintColor: $black,
       style: {
         backgroundColor: 'transparent',
         borderTopWidth: 0.3,
