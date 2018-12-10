@@ -1,36 +1,47 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import HomeScreen from '../screens/Home';
-import TrashScreen from '../screens/Trash';
-import { $white, $lightRed } from '../utils/colors';
+import React from 'react';
+import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Home from '../screens/Home';
+import NewSet from '../screens/NewSet';
+import Trash from '../screens/Trash';
+import { $grey, $lightRed } from '../utils/colors';
 
-const screens = {
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      title: 'Flashcards',
+const createTab = (screen, label, icon) => ({
+  screen,
+  navigationOptions: {
+    tabBarLabel: label,
+    tabBarIcon: ({ tintColor }) => ( // eslint-disable-line react/prop-types
+      <MaterialCommunityIcons name={icon} color={tintColor} size={25} />
+    ),
+  },
+});
+
+const NavigationTabs = createMaterialTopTabNavigator(
+  {
+    Home: createTab(Home, 'Home', 'home'),
+    NewSet: createTab(NewSet, 'New Set', 'plus-box'),
+    Trash: createTab(Trash, 'Trash', 'trash-can'),
+  },
+  {
+    initialRouteName: 'Home',
+    tabBarPosition: 'bottom',
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: $lightRed,
+      inactiveTintColor: $grey,
+      pressOpacity: 0.6,
+      style: {
+        backgroundColor: 'transparent',
+        borderTopWidth: 0.3,
+        borderTopColor: $grey,
+      },
+      indicatorStyle: {
+        height: 0,
+      },
+      showIcon: true,
     },
   },
-  Trash: {
-    screen: TrashScreen,
-    navigationOptions: {
-      title: 'Trash',
-    },
-  },
-};
+);
 
-const navigationOptions = {
-  initialRouteName: 'Home',
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: $lightRed,
-    },
-    headerTintColor: $white,
-    headerTitleStyle: {
-      letterSpacing: 3,
-    },
-  },
-};
-
-const MainNavigation = createStackNavigator(screens, navigationOptions);
-
-export default createAppContainer(MainNavigation);
+export default createAppContainer(NavigationTabs);
