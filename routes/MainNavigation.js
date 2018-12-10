@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CustomBottomTabBar from './CustomBottomTabBar';
 import Home from '../screens/Home';
 import NewSet from '../screens/NewSet';
 import Trash from '../screens/Trash';
@@ -27,6 +28,7 @@ const NavigationTabs = createMaterialTopTabNavigator(
     tabBarPosition: 'bottom',
     swipeEnabled: true,
     animationEnabled: true,
+    tabBarComponent: props => <CustomBottomTabBar {...props} />,
     tabBarOptions: {
       activeTintColor: $lightRed,
       inactiveTintColor: $grey,
