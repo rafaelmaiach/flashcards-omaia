@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
-import HomeScreen from './HomeScreen';
+import NewSetScreen from './NewSetScreen';
 
 export default createStackNavigator({
-  HomeScreen,
+  NewSetScreen,
 });

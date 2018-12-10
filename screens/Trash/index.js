@@ -1,16 +1,4 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import TrashScreen from './TrashScreen';
 
-const TrashScreen = () => (
-  <View style={styles.trashContainer}>
-    <Text>Trash Screen</Text>
-  </View>
-);
-
-const styles = StyleSheet.create({
-  trashContainer: {
-    flex: 1,
-  },
-});
-
-export default TrashScreen;
+export default createStackNavigator({ TrashScreen });
