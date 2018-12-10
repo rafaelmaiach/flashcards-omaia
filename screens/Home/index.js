@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import Footer from './Footer';
-import { $lightGray } from '../../utils/colors';
+import { $white } from '../../utils/colors';
 
 const HomeScreen = ({ navigation }) => (
   <View style={styles.homeContainer}>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    backgroundColor: $lightGray,
+    backgroundColor: $white,
   },
 });
 

@@ -4,7 +4,9 @@ import {
   View, TouchableOpacity, StyleSheet,
 } from 'react-native';
 import { Entypo, FontAwesome } from '@expo/vector-icons';
-import { $lightBlue, $white, $lightRed } from '../../utils/colors';
+import {
+  $lightBlue, $white, $lightRed, $black,
+} from '../../utils/colors';
 
 const HomeScreenFooter = ({ navigation }) => {
   const goHomeScreen = () => {
@@ -46,6 +48,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: $white,
+    shadowColor: $black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowRadius: 1,
+    shadowOpacity: 0.5,
+    elevation: 5,
   },
   button: {
     flex: 1,
