@@ -11,7 +11,8 @@ const AppStatusBar = ({ backgroundColor, ...props }) => (
 const styles = StyleSheet.create({
   container: backgroundColor => ({
     backgroundColor,
-    height: Constants.statusBarHeight / 3,
+    height: Constants.statusBarHeight,
   }),
 });
+
 export default AppStatusBar;

@@ -1,28 +1,40 @@
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  View, ScrollView, Text, StyleSheet,
+} from 'react-native';
+import { Constants } from 'expo';
 
-import { $lightRed, $white } from '../../utils/colors';
+import { $white, $darkBlue } from '../../utils/colors';
 
 class TrashScreen extends PureComponent {
   static navigationOptions = () => ({
     title: 'Trash',
     headerStyle: {
-      backgroundColor: $lightRed,
+      height: 10,
+      backgroundColor: $darkBlue,
+    },
+    headerTitleStyle: {
+      marginTop: -Constants.statusBarHeight + 10,
     },
     headerTintColor: $white,
   });
 
   render() {
     return (
-      <View style={styles.trashContainer}>
-        <Text>Trash Screen</Text>
+      <View style={styles.container}>
+        <ScrollView style={styles.contentContainer}>
+          <Text>TRASH</Text>
+        </ScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  trashContainer: {
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
     flex: 1,
     backgroundColor: $white,
   },

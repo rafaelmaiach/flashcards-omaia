@@ -1,39 +1,63 @@
 import React, { PureComponent } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import {
+  View, TouchableOpacity, StyleSheet,
+} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { $lightRed } from '../utils/colors';
 
 class CustomBottomTabBar extends PureComponent {
-  state = {}
+  static propTypes = {
+    navigation: PropTypes.shape({
+      state: PropTypes.shape({
+        index: PropTypes.number,
+      }),
+    }).isRequired,
+    activeTintColor: PropTypes.string.isRequired,
+    inactiveTintColor: PropTypes.string.isRequired,
+    jumpTo: PropTypes.func.isRequired,
+  }
 
-  render() {
+  state = {
+    newSetButtonClicked: false,
+  }
+
+  getIcon = (condition, icon) => {
     const {
-      navigation: { state: { index, routes } },
-      style,
       activeTintColor,
       inactiveTintColor,
-      renderIcon,
+    } = this.props;
+
+    return condition ? [icon, activeTintColor] : [`${icon}-outline`, inactiveTintColor];
+  }
+
+  render() {
+    const { newSetButtonClicked } = this.state;
+    const {
+      navigation: { state: { index } },
       jumpTo,
     } = this.props;
 
+    const jumpToHome = () => jumpTo('Home');
+    const jumpToTrash = () => jumpTo('Trash');
+
+    const isAtHomeScreen = index === 0 && !newSetButtonClicked;
+    const isAtTrashScreen = index === 1 && !newSetButtonClicked;
+
+    const [homeIcon, homeIconColor] = this.getIcon(isAtHomeScreen, 'home');
+    const [trashIcon, trashIconColor] = this.getIcon(isAtTrashScreen, 'trash-can');
+    const [newSetIcon, newSetIconColor] = this.getIcon(newSetButtonClicked, 'plus-box');
+
     return (
-      <View style={Object.assign({}, styles.container, style)}>
-        {
-            routes.map((route, idx) => (
-              <View
-                key={route.key}
-                style={styles.tabContainer}
-              >
-                <TouchableOpacity onPress={() => jumpTo(route.key)}>
-                  {renderIcon({
-                    route,
-                    focused: index === idx,
-                    tintColor: index === idx ? activeTintColor : inactiveTintColor,
-                  })}
-                </TouchableOpacity>
-              </View>
-            ))
-        }
+      <View style={styles.container}>
+        <TouchableOpacity onPress={jumpToHome} activeOpacity={0.75}>
+          <MaterialCommunityIcons name={homeIcon} size={25} color={homeIconColor} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}} activeOpacity={0.75}>
+          <MaterialCommunityIcons name={newSetIcon} size={25} color={newSetIconColor} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={jumpToTrash} activeOpacity={0.75}>
+          <MaterialCommunityIcons name={trashIcon} size={25} color={trashIconColor} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -42,13 +66,10 @@ class CustomBottomTabBar extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 50,
-    width: '100%',
-  },
-  tabContainer: {
-    flex: 1,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    justifyContent: 'center',
+    height: 65,
+    width: '100%',
   },
 });
 
