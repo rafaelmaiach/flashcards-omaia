@@ -7,9 +7,9 @@ import {
 
 import { $white, $darkBlue } from '../../utils/colors';
 
-class NewSetScreen extends PureComponent {
+class NewFolderScreen extends PureComponent {
   static navigationOptions = () => ({
-    title: 'New Set',
+    title: 'New Folder',
     headerStyle: {
       height: 10,
       backgroundColor: $darkBlue,
@@ -24,7 +24,7 @@ class NewSetScreen extends PureComponent {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.contentContainer}>
-          <Text>NEW SET</Text>
+          <Text>NEW FOLDER</Text>
         </ScrollView>
       </View>
     );
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewSetScreen;
+export default NewFolderScreen;
