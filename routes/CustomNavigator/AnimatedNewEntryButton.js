@@ -8,6 +8,8 @@ import { $darkBlue } from '../../utils/colors';
 
 class AnimatedNewSetButton extends PureComponent {
   static propTypes = {
+    jumpToNewSet: PropTypes.func.isRequired,
+    jumpToNewFolder: PropTypes.func.isRequired,
     newSetButtonClicked: PropTypes.bool.isRequired,
     toggleNewSet: PropTypes.func.isRequired,
   }
@@ -98,9 +100,26 @@ class AnimatedNewSetButton extends PureComponent {
     ]).start();
   }
 
+  createAnimatedView = (params) => {
+    const {
+      containerStyles, buttonSize, onPress, iconName, iconText,
+    } = params;
+
+    return (
+      <Animated.View style={containerStyles}>
+        <TouchableOpacity onPress={onPress} style={buttonSize} activeOpacity={0.8}>
+          <View style={styles.iconContainer}>
+            <MaterialCommunityIcons name={iconName} size={35} color={$darkBlue} />
+            <Text style={styles.iconText}>{iconText}</Text>
+          </View>
+        </TouchableOpacity>
+      </Animated.View>
+    );
+  }
+
   render() {
     const { hiddenIconSize, hiddenIconsContainerSize } = this.state;
-    const { toggleNewSet } = this.props;
+    const { toggleNewSet, jumpToNewSet, jumpToNewFolder } = this.props;
 
     const aditionalHiddenContainerStyles = {
       height: this.windowHeight - 110,
@@ -119,25 +138,27 @@ class AnimatedNewSetButton extends PureComponent {
 
     const AnimatedTouchable = Animated.createAnimatedComponent(TouchableHighlight);
 
+    const NewSetButton = this.createAnimatedView({
+      containerStyles: hiddenIconStylesLeft,
+      buttonSize,
+      onPress: jumpToNewSet,
+      iconName: 'cards',
+      iconText: 'New Set',
+    });
+
+    const NewFolderButton = this.createAnimatedView({
+      containerStyles: hiddenIconStylesRight,
+      buttonSize,
+      onPress: jumpToNewFolder,
+      iconName: 'folder',
+      iconText: 'New Folder',
+    });
+
     return (
       <AnimatedTouchable style={hiddenContainerStyles} onPress={toggleNewSet} underlayColor="transparent">
         <View style={styles.iconsViewContainer}>
-          <Animated.View style={hiddenIconStylesLeft}>
-            <TouchableOpacity onPress={() => {}} style={buttonSize}>
-              <View style={styles.iconContainer}>
-                <MaterialCommunityIcons name="cards" size={30} color={$darkBlue} />
-                <Text style={styles.iconText}>New Set</Text>
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
-          <Animated.View style={hiddenIconStylesRight}>
-            <TouchableOpacity onPress={() => {}} style={buttonSize}>
-              <View style={styles.iconContainer}>
-                <MaterialCommunityIcons name="folder" size={30} color={$darkBlue} />
-                <Text style={styles.iconText}>New Folder</Text>
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
+          {NewSetButton}
+          {NewFolderButton}
         </View>
       </AnimatedTouchable>
     );
