@@ -107,7 +107,7 @@ class AnimatedNewSetButton extends PureComponent {
 
     return (
       <Animated.View style={containerStyles}>
-        <TouchableOpacity onPress={onPress} style={buttonSize} activeOpacity={0.8}>
+        <TouchableOpacity onPress={onPress} style={buttonSize} activeOpacity={0.90}>
           <View style={styles.iconContainer}>
             <MaterialCommunityIcons name={iconName} size={35} color={$darkBlue} />
             <Text style={styles.iconText}>{iconText}</Text>
