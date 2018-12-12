@@ -5,7 +5,6 @@ import Home from '../screens/Home';
 import NewSet from '../screens/NewSet';
 import NewFolder from '../screens/NewFolder';
 import Trash from '../screens/Trash';
-import { $grey } from '../utils/colors';
 
 const NavigationTabs = createMaterialTopTabNavigator(
   {
