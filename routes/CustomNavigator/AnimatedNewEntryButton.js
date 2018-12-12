@@ -8,9 +8,9 @@ import { $darkBlue } from '../../utils/colors';
 
 class AnimatedNewSetButton extends PureComponent {
   static propTypes = {
-    jumpToNewSet: PropTypes.func.isRequired,
-    jumpToNewFolder: PropTypes.func.isRequired,
-    newSetButtonClicked: PropTypes.bool.isRequired,
+    navigateToNewSet: PropTypes.func.isRequired,
+    navigateToNewFolder: PropTypes.func.isRequired,
+    newEntryIconClicked: PropTypes.bool.isRequired,
     toggleNewSet: PropTypes.func.isRequired,
   }
 
@@ -28,11 +28,11 @@ class AnimatedNewSetButton extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { newSetButtonClicked } = nextProps;
+    const { newEntryIconClicked } = nextProps;
 
-    const parallelAnimation = this.createParallelAnimation(newSetButtonClicked);
+    const parallelAnimation = this.createParallelAnimation(newEntryIconClicked);
 
-    if (newSetButtonClicked) {
+    if (newEntryIconClicked) {
       this.openNewSetAnimation(parallelAnimation);
       return;
     }
@@ -40,13 +40,13 @@ class AnimatedNewSetButton extends PureComponent {
     this.closeNewSetAnimation(parallelAnimation);
   }
 
-  createParallelAnimation = (newSetButtonClicked) => {
+  createParallelAnimation = (newEntryIconClicked) => {
     const { hiddenIconXPosition, hiddenIconYPosition, hiddenIconSize } = this.state;
     return Animated.parallel([
       Animated.timing(
         hiddenIconYPosition,
         {
-          toValue: newSetButtonClicked ? 10 : 0,
+          toValue: newEntryIconClicked ? 10 : 0,
           duration: 350,
           useNativeDriver: true,
         },
@@ -54,7 +54,7 @@ class AnimatedNewSetButton extends PureComponent {
       Animated.timing(
         hiddenIconXPosition,
         {
-          toValue: newSetButtonClicked ? 65 : 0,
+          toValue: newEntryIconClicked ? 65 : 0,
           duration: 350,
           useNativeDriver: true,
         },
@@ -62,7 +62,7 @@ class AnimatedNewSetButton extends PureComponent {
       Animated.timing(
         hiddenIconSize,
         {
-          toValue: newSetButtonClicked ? 1 : 0,
+          toValue: newEntryIconClicked ? 1 : 0,
           duration: 350,
           useNativeDriver: true,
         },
@@ -119,7 +119,7 @@ class AnimatedNewSetButton extends PureComponent {
 
   render() {
     const { hiddenIconSize, hiddenIconsContainerSize } = this.state;
-    const { toggleNewSet, jumpToNewSet, jumpToNewFolder } = this.props;
+    const { toggleNewSet, navigateToNewSet, navigateToNewFolder } = this.props;
 
     const aditionalHiddenContainerStyles = {
       height: this.windowHeight - 110,
@@ -141,7 +141,7 @@ class AnimatedNewSetButton extends PureComponent {
     const NewSetButton = this.createAnimatedView({
       containerStyles: hiddenIconStylesLeft,
       buttonSize,
-      onPress: jumpToNewSet,
+      onPress: navigateToNewSet,
       iconName: 'cards',
       iconText: 'New Set',
     });
@@ -149,7 +149,7 @@ class AnimatedNewSetButton extends PureComponent {
     const NewFolderButton = this.createAnimatedView({
       containerStyles: hiddenIconStylesRight,
       buttonSize,
-      onPress: jumpToNewFolder,
+      onPress: navigateToNewFolder,
       iconName: 'folder',
       iconText: 'New Folder',
     });
