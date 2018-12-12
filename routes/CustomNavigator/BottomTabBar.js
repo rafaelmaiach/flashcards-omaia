@@ -1,10 +1,9 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Ripple from 'react-native-material-ripple';
+import TabBarButton from './TabBarButton';
 import AnimatedNewEntryButton from './AnimatedNewEntryButton';
-import { hexToRgb, $yellow } from '../../utils/colors';
+import { $grey } from '../../utils/colors';
 
 class CustomBottomTabBar extends PureComponent {
   static propTypes = {
@@ -14,31 +13,27 @@ class CustomBottomTabBar extends PureComponent {
         index: PropTypes.number,
       }),
     }).isRequired,
-    activeTintColor: PropTypes.string.isRequired,
-    inactiveTintColor: PropTypes.string.isRequired,
   }
 
   state = {
-    newSetButtonClicked: false,
+    newEntryIconClicked: false,
   }
 
-  getIcon = (condition, icon) => {
-    const {
-      activeTintColor,
-      inactiveTintColor,
-    } = this.props;
+  getIcon = (condition, icon) => (condition ? icon : `${icon}-outline`);
 
-    return condition ? [icon, activeTintColor] : [`${icon}-outline`, inactiveTintColor];
-  }
+  toggleNewSet = () => this.setState(prev => ({ newEntryIconClicked: !prev.newEntryIconClicked }));
 
-  toggleNewSet = () => {
-    this.setState(prev => ({ newSetButtonClicked: !prev.newSetButtonClicked }));
-  }
+  changeScreen = screen => () => {
+    const { navigation } = this.props;
+
+    this.setState(
+      () => ({ newEntryIconClicked: false }),
+      () => navigation.navigate(screen),
+    );
+  };
 
   render() {
-    const {
-      newSetButtonClicked,
-    } = this.state;
+    const { newEntryIconClicked } = this.state;
 
     const {
       navigation,
@@ -46,54 +41,30 @@ class CustomBottomTabBar extends PureComponent {
 
     const { state: { index } } = navigation;
 
-    const changeScreen = screen => () => {
-      if (newSetButtonClicked) {
-        this.setState(() => ({ newSetButtonClicked: false }), () => {
-          navigation.navigate(screen);
-        });
-        return;
-      }
-      navigation.navigate(screen);
-    };
+    const navigateToHome = this.changeScreen('Home');
+    const navigateToNewSet = this.changeScreen('NewSet');
+    const navigateToNewFolder = this.changeScreen('NewFolder');
+    const navigateToTrash = this.changeScreen('Trash');
 
-    const jumpToHome = changeScreen('Home');
-    const jumpToNewSet = changeScreen('NewSet');
-    const jumpToNewFolder = changeScreen('NewFolder');
-    const jumpToTrash = changeScreen('Trash');
+    const isAtHomeScreen = index === 0 && !newEntryIconClicked;
+    const isAtNewEntryScreen = index === 1 || index === 2 || newEntryIconClicked;
+    const isAtTrashScreen = index === 3 && !newEntryIconClicked;
 
-    const isAtHomeScreen = index === 0 && !newSetButtonClicked;
-    const isAtNewEntryScreen = (index === 1 || index === 2) || newSetButtonClicked;
-    const isAtTrashScreen = index === 3 && !newSetButtonClicked;
-
-    const [homeIcon, homeIconColor] = this.getIcon(isAtHomeScreen, 'home');
-    const [newSetIcon, newSetIconColor] = this.getIcon(isAtNewEntryScreen, 'plus-box');
-    const [trashIcon, trashIconColor] = this.getIcon(isAtTrashScreen, 'trash-can');
-
-    const yellow = hexToRgb($yellow);
-
-    const rippleProps = {
-      style: styles.button,
-      rippleCentered: true,
-      rippleColor: yellow,
-    };
+    const homeIcon = this.getIcon(isAtHomeScreen, 'home');
+    const newSetIcon = this.getIcon(isAtNewEntryScreen, 'plus-box');
+    const trashIcon = this.getIcon(isAtTrashScreen, 'trash-can');
 
     return (
       <Fragment>
         <View style={styles.container}>
-          <Ripple {...rippleProps} onPress={jumpToHome}>
-            <MaterialCommunityIcons name={homeIcon} size={30} color={homeIconColor} />
-          </Ripple>
-          <Ripple {...rippleProps} onPress={this.toggleNewSet}>
-            <MaterialCommunityIcons name={newSetIcon} size={30} color={newSetIconColor} />
-          </Ripple>
-          <Ripple {...rippleProps} onPress={jumpToTrash}>
-            <MaterialCommunityIcons name={trashIcon} size={30} color={trashIconColor} />
-          </Ripple>
+          <TabBarButton onPress={navigateToHome} icon={homeIcon} />
+          <TabBarButton onPress={this.toggleNewSet} icon={newSetIcon} />
+          <TabBarButton onPress={navigateToTrash} icon={trashIcon} />
         </View>
         <AnimatedNewEntryButton
-          jumpToNewSet={jumpToNewSet}
-          jumpToNewFolder={jumpToNewFolder}
-          newSetButtonClicked={newSetButtonClicked}
+          navigateToNewSet={navigateToNewSet}
+          navigateToNewFolder={navigateToNewFolder}
+          newEntryIconClicked={newEntryIconClicked}
           toggleNewSet={this.toggleNewSet}
         />
       </Fragment>
@@ -107,12 +78,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 65,
     width: '100%',
-  },
-  button: {
-    width: '33.33%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
+    borderTopColor: $grey,
+    borderTopWidth: 0.25,
   },
 });
 

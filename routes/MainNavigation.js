@@ -5,7 +5,7 @@ import Home from '../screens/Home';
 import NewSet from '../screens/NewSet';
 import NewFolder from '../screens/NewFolder';
 import Trash from '../screens/Trash';
-import { $black, $grey, $lightBlue } from '../utils/colors';
+import { $grey } from '../utils/colors';
 
 const NavigationTabs = createMaterialTopTabNavigator(
   {
@@ -27,21 +27,7 @@ const NavigationTabs = createMaterialTopTabNavigator(
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     animationEnabled: false,
-    lazy: true,
     tabBarComponent: props => <BottomTabBar {...props} />,
-    tabBarOptions: {
-      activeTintColor: $lightBlue,
-      inactiveTintColor: $black,
-      style: {
-        backgroundColor: 'transparent',
-        borderTopWidth: 0.3,
-        borderTopColor: $grey,
-      },
-      indicatorStyle: {
-        height: 0,
-      },
-      showIcon: true,
-    },
   },
 );
 
