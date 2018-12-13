@@ -46,19 +46,17 @@ class CustomBottomTabBar extends PureComponent {
     const navigateToNewFolder = this.changeScreen('NewFolder');
     const navigateToTrash = this.changeScreen('Trash');
 
-    const isAtHomeScreen = index === 0 && !newEntryIconClicked;
-    const isAtNewEntryScreen = index === 1 || index === 2 || newEntryIconClicked;
-    const isAtTrashScreen = index === 3 && !newEntryIconClicked;
+    const isAtHomeScreen = index === 0;
+    const isAtTrashScreen = index === 3;
 
     const homeIcon = this.getIcon(isAtHomeScreen, 'home');
-    const newSetIcon = this.getIcon(isAtNewEntryScreen, 'plus-box');
     const trashIcon = this.getIcon(isAtTrashScreen, 'trash-can');
 
     return (
       <Fragment>
         <View style={styles.container}>
           <TabBarButton onPress={navigateToHome} icon={homeIcon} />
-          <TabBarButton onPress={this.toggleNewSet} icon={newSetIcon} />
+          <TabBarButton onPress={this.toggleNewSet} icon="lottie" newEntryIconClicked={newEntryIconClicked} />
           <TabBarButton onPress={navigateToTrash} icon={trashIcon} />
         </View>
         <AnimatedNewEntryButton

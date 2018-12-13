@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  TouchableHighlight, TouchableOpacity, Dimensions, Animated, StyleSheet, Text, View,
+  TouchableHighlight, TouchableOpacity, Dimensions, Animated, StyleSheet, Text, View, Platform,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { $darkBlue } from '../../utils/colors';
@@ -20,60 +20,54 @@ class AnimatedNewSetButton extends PureComponent {
     this.windowHeight = Dimensions.get('window').height;
 
     this.state = {
-      hiddenIconsContainerSize: new Animated.Value(this.windowHeight),
-      hiddenIconYPosition: new Animated.Value(0),
-      hiddenIconXPosition: new Animated.Value(0),
-      hiddenIconSize: new Animated.Value(0),
+      hiddenIconsContainerSize: new Animated.Value(0),
+      buttonContainerOpacity: new Animated.Value(0),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     const { newEntryIconClicked } = nextProps;
 
-    const parallelAnimation = this.createParallelAnimation(newEntryIconClicked);
-
     if (newEntryIconClicked) {
-      this.openNewSetAnimation(parallelAnimation);
+      this.openNewSetAnimation();
       return;
     }
 
-    this.closeNewSetAnimation(parallelAnimation);
+    this.closeNewSetAnimation();
   }
 
-  createParallelAnimation = (newEntryIconClicked) => {
-    const { hiddenIconXPosition, hiddenIconYPosition, hiddenIconSize } = this.state;
-    return Animated.parallel([
-      Animated.timing(
-        hiddenIconYPosition,
-        {
-          toValue: newEntryIconClicked ? 10 : 0,
-          duration: 350,
-          useNativeDriver: true,
-        },
-      ),
-      Animated.timing(
-        hiddenIconXPosition,
-        {
-          toValue: newEntryIconClicked ? 65 : 0,
-          duration: 350,
-          useNativeDriver: true,
-        },
-      ),
-      Animated.timing(
-        hiddenIconSize,
-        {
-          toValue: newEntryIconClicked ? 1 : 0,
-          duration: 350,
-          useNativeDriver: true,
-        },
-      ),
-    ]);
-  }
-
-  openNewSetAnimation = (parallelAnimation) => {
-    const { hiddenIconsContainerSize } = this.state;
+  openNewSetAnimation = () => {
+    const { hiddenIconsContainerSize, buttonContainerOpacity } = this.state;
 
     Animated.sequence([
+      Animated.timing(
+        hiddenIconsContainerSize,
+        {
+          toValue: 1,
+          duration: 100,
+        },
+      ),
+      Animated.timing(
+        buttonContainerOpacity,
+        {
+          toValue: 1,
+          duration: 350,
+        },
+      ),
+    ]).start();
+  }
+
+  closeNewSetAnimation = () => {
+    const { hiddenIconsContainerSize, buttonContainerOpacity } = this.state;
+
+    Animated.sequence([
+      Animated.timing(
+        buttonContainerOpacity,
+        {
+          toValue: 0,
+          duration: 350,
+        },
+      ),
       Animated.timing(
         hiddenIconsContainerSize,
         {
@@ -81,85 +75,49 @@ class AnimatedNewSetButton extends PureComponent {
           duration: 100,
         },
       ),
-      parallelAnimation,
     ]).start();
-  }
-
-  closeNewSetAnimation = (parallelAnimation) => {
-    const { hiddenIconsContainerSize } = this.state;
-
-    Animated.sequence([
-      parallelAnimation,
-      Animated.timing(
-        hiddenIconsContainerSize,
-        {
-          toValue: this.windowHeight,
-          duration: 100,
-        },
-      ),
-    ]).start();
-  }
-
-  createAnimatedView = (params) => {
-    const {
-      containerStyles, buttonSize, onPress, iconName, iconText,
-    } = params;
-
-    return (
-      <Animated.View style={containerStyles}>
-        <TouchableOpacity onPress={onPress} style={buttonSize} activeOpacity={0.90}>
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name={iconName} size={35} color={$darkBlue} />
-            <Text style={styles.iconText}>{iconText}</Text>
-          </View>
-        </TouchableOpacity>
-      </Animated.View>
-    );
   }
 
   render() {
-    const { hiddenIconSize, hiddenIconsContainerSize } = this.state;
+    const { hiddenIconsContainerSize, buttonContainerOpacity } = this.state;
     const { toggleNewSet, navigateToNewSet, navigateToNewFolder } = this.props;
-
-    const aditionalHiddenContainerStyles = {
-      height: this.windowHeight - 110,
-      top: hiddenIconsContainerSize,
-    };
 
     const hiddenContainerStyles = {
       ...styles.hiddenIconsContainer,
-      ...aditionalHiddenContainerStyles,
+      height: Platform.OS === 'ios' ? this.windowHeight * 0.88 : this.windowHeight * 0.87,
+      transform: [{ scale: hiddenIconsContainerSize }],
     };
 
-    const hiddenIconStylesLeft = { ...styles.hiddenIcons, alignItems: 'flex-end', paddingRight: 20 };
-    const hiddenIconStylesRight = { ...styles.hiddenIcons, alignItems: 'flex-start', paddingLeft: 5 };
-
-    const buttonSize = { transform: [{ scale: hiddenIconSize }] };
+    const buttonContainerAnimation = {
+      opacity: buttonContainerOpacity,
+    };
 
     const AnimatedTouchable = Animated.createAnimatedComponent(TouchableHighlight);
 
-    const NewSetButton = this.createAnimatedView({
-      containerStyles: hiddenIconStylesLeft,
-      buttonSize,
-      onPress: navigateToNewSet,
-      iconName: 'cards',
-      iconText: 'New Set',
-    });
-
-    const NewFolderButton = this.createAnimatedView({
-      containerStyles: hiddenIconStylesRight,
-      buttonSize,
-      onPress: navigateToNewFolder,
-      iconName: 'folder',
-      iconText: 'New Folder',
-    });
-
     return (
       <AnimatedTouchable style={hiddenContainerStyles} onPress={toggleNewSet} underlayColor="transparent">
-        <View style={styles.iconsViewContainer}>
-          {NewSetButton}
-          {NewFolderButton}
-        </View>
+        <Animated.View style={[styles.buttonsContainer, buttonContainerAnimation]}>
+          <View style={[styles.iconContainer, styles.iconContainerLeft]}>
+            <TouchableOpacity
+              style={styles.iconContainerPosition}
+              activeOpacity={0.8}
+              onPress={navigateToNewSet}
+            >
+              <MaterialCommunityIcons name="cards" size={30} color={$darkBlue} />
+              <Text style={styles.iconText}>New Set</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.iconContainer, styles.iconContainerRight]}>
+            <TouchableOpacity
+              style={styles.iconContainerPosition}
+              activeOpacity={0.8}
+              onPress={navigateToNewFolder}
+            >
+              <MaterialCommunityIcons name="folder" size={30} color={$darkBlue} />
+              <Text style={styles.iconText}>New Folder</Text>
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
       </AnimatedTouchable>
     );
   }
@@ -170,19 +128,27 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     left: 0,
+    justifyContent: 'flex-end',
   },
-  hiddenIcons: {
-    justifyContent: 'center',
-    width: '50%',
-    height: 65,
-  },
-  iconsViewContainer: {
-    flex: 1,
+  buttonsContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    width: '100%',
+    height: 60,
+    justifyContent: 'space-between',
   },
   iconContainer: {
-    flex: 1,
+    width: '50%',
+    justifyContent: 'center',
+  },
+  iconContainerLeft: {
+    alignItems: 'flex-end',
+    paddingRight: 10,
+  },
+  iconContainerRight: {
+    alignItems: 'flex-start',
+    paddingLeft: 10,
+  },
+  iconContainerPosition: {
     justifyContent: 'center',
     alignItems: 'center',
   },
