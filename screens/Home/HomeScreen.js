@@ -1,23 +1,28 @@
 import React, { PureComponent } from 'react';
 import {
-  View, ScrollView, Text, StyleSheet,
+  View, ScrollView, Text, StyleSheet, Platform,
 } from 'react-native';
 import { Constants } from 'expo';
 
 import { $white, $darkBlue } from '../../utils/colors';
 
 class HomeScreen extends PureComponent {
-  static navigationOptions = () => ({
-    title: 'Home',
-    headerStyle: {
-      height: 10,
-      backgroundColor: $darkBlue,
-    },
-    headerTitleStyle: {
-      marginTop: -Constants.statusBarHeight + 10,
-    },
-    headerTintColor: $white,
-  });
+  static navigationOptions = () => {
+    const height = Platform.OS === 'ios' ? 10 : 30;
+    const margin = Platform.OS === 'ios' ? 10 : 0;
+
+    return ({
+      title: 'Home',
+      headerStyle: {
+        height,
+        backgroundColor: $darkBlue,
+      },
+      headerTitleStyle: {
+        marginTop: -Constants.statusBarHeight + margin,
+      },
+      headerTintColor: $white,
+    });
+  };
 
   render() {
     return (

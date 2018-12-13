@@ -2,23 +2,28 @@ import React, { PureComponent } from 'react';
 import { Constants } from 'expo';
 
 import {
-  View, ScrollView, Text, StyleSheet,
+  View, ScrollView, Text, StyleSheet, Platform,
 } from 'react-native';
 
 import { $white, $darkBlue } from '../../utils/colors';
 
 class NewFolderScreen extends PureComponent {
-  static navigationOptions = () => ({
-    title: 'New Folder',
-    headerStyle: {
-      height: 10,
-      backgroundColor: $darkBlue,
-    },
-    headerTitleStyle: {
-      marginTop: -Constants.statusBarHeight + 10,
-    },
-    headerTintColor: $white,
-  });
+  static navigationOptions = () => {
+    const height = Platform.OS === 'ios' ? 10 : 30;
+    const margin = Platform.OS === 'ios' ? 10 : 0;
+
+    return ({
+      title: 'New Folder',
+      headerStyle: {
+        height,
+        backgroundColor: $darkBlue,
+      },
+      headerTitleStyle: {
+        marginTop: -Constants.statusBarHeight + margin,
+      },
+      headerTintColor: $white,
+    });
+  };
 
   render() {
     return (
