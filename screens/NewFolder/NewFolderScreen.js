@@ -6,7 +6,10 @@ import { $white } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class NewFolderScreen extends PureComponent {
-  static navigationOptions = commonNavigationOptions;
+  static navigationOptions = {
+    ...commonNavigationOptions,
+    title: 'New Folder',
+  }
 
   render() {
     return (
