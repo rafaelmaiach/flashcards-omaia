@@ -17,7 +17,8 @@ class AnimatedNewSetButton extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.windowHeight = Dimensions.get('window').height;
+    const { height } = Dimensions.get('window');
+    this.windowHeight = Platform.OS === 'ios' ? height * 0.88 : height * 0.87;
 
     this.state = {
       hiddenIconsContainerSize: new Animated.Value(0),
@@ -43,7 +44,7 @@ class AnimatedNewSetButton extends PureComponent {
       Animated.timing(
         hiddenIconsContainerSize,
         {
-          toValue: 1,
+          toValue: this.windowHeight,
           duration: 100,
         },
       ),
@@ -84,8 +85,7 @@ class AnimatedNewSetButton extends PureComponent {
 
     const hiddenContainerStyles = {
       ...styles.hiddenIconsContainer,
-      height: Platform.OS === 'ios' ? this.windowHeight * 0.88 : this.windowHeight * 0.87,
-      transform: [{ scale: hiddenIconsContainerSize }],
+      height: hiddenIconsContainerSize,
     };
 
     const buttonContainerAnimation = {
