@@ -1,19 +1,23 @@
 import React, { PureComponent } from 'react';
 import {
-  View, ScrollView, Text, StyleSheet,
+  View, FlatList, Text, StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
 import { $white } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class HomeScreen extends PureComponent {
-  static navigationOptions = commonNavigationOptions;
+  static navigationOptions = {
+    ...commonNavigationOptions,
+    title: 'Home',
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.contentContainer}>
+        <FlatList style={styles.contentContainer}>
           <Text>HOME</Text>
-        </ScrollView>
+        </FlatList>
       </View>
     );
   }
@@ -29,4 +33,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+const mapStateToProps = state => ({
+  sets: state.sets,
+});
+
+export default connect(mapStateToProps)(HomeScreen);
