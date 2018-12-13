@@ -13,14 +13,6 @@ class TabBarButton extends PureComponent {
     progress: new Animated.Value(0),
   }
 
-  showNewEntryIcons = () => {
-    const { onPress } = this.props;
-
-    this.animateNewEntry();
-
-    onPress();
-  }
-
   animateNewEntry = () => {
     const { progress } = this.state;
     const { newEntryIconClicked } = this.props;
@@ -44,10 +36,8 @@ class TabBarButton extends PureComponent {
 
     this.animateNewEntry();
 
-    const rippleOnPress = icon === 'lottie' ? this.showNewEntryIcons : onPress;
-
     return (
-      <Ripple {...rippleProps} onPress={rippleOnPress}>
+      <Ripple {...rippleProps} onPress={onPress}>
         {icon !== 'lottie'
           ? <MaterialCommunityIcons name={icon} size={30} color={$darkBlue} />
           : (

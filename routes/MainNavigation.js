@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
-import BottomTabBar from './CustomNavigator/BottomTabBar';
+import BottomTabBar from '../components/CustomNavigator/BottomTabBar';
 import Home from '../screens/Home';
 import NewSet from '../screens/NewSet';
 import NewFolder from '../screens/NewFolder';
