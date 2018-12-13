@@ -1,29 +1,12 @@
 import React, { PureComponent } from 'react';
-import { Constants } from 'expo';
-
 import {
-  View, ScrollView, Text, StyleSheet, Platform,
+  View, ScrollView, Text, StyleSheet,
 } from 'react-native';
-
-import { $white, $darkBlue } from '../../utils/colors';
+import { $white } from '../../utils/colors';
+import commonNavigationOptions from '../commonNavigationOptions';
 
 class NewSetScreen extends PureComponent {
-  static navigationOptions = () => {
-    const height = Platform.OS === 'ios' ? 10 : 30;
-    const margin = Platform.OS === 'ios' ? 10 : 0;
-
-    return ({
-      title: 'New Set',
-      headerStyle: {
-        height,
-        backgroundColor: $darkBlue,
-      },
-      headerTitleStyle: {
-        marginTop: -Constants.statusBarHeight + margin,
-      },
-      headerTintColor: $white,
-    });
-  };
+  static navigationOptions = commonNavigationOptions;
 
   render() {
     return (

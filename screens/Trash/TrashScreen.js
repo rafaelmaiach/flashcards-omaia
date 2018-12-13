@@ -1,28 +1,12 @@
 import React, { PureComponent } from 'react';
 import {
-  View, ScrollView, Text, StyleSheet, Platform,
+  View, ScrollView, Text, StyleSheet,
 } from 'react-native';
-import { Constants } from 'expo';
-
-import { $white, $darkBlue } from '../../utils/colors';
+import { $white } from '../../utils/colors';
+import commonNavigationOptions from '../commonNavigationOptions';
 
 class TrashScreen extends PureComponent {
-  static navigationOptions = () => {
-    const height = Platform.OS === 'ios' ? 10 : 30;
-    const margin = Platform.OS === 'ios' ? 10 : 0;
-
-    return ({
-      title: 'Trash',
-      headerStyle: {
-        height,
-        backgroundColor: $darkBlue,
-      },
-      headerTitleStyle: {
-        marginTop: -Constants.statusBarHeight + margin,
-      },
-      headerTintColor: $white,
-    });
-  };
+  static navigationOptions = commonNavigationOptions;
 
   render() {
     return (
