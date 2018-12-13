@@ -1,12 +1,37 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { DangerZone } from 'expo';
 import { hexToRgb, $yellow, $darkBlue } from '../../utils/colors';
 
+const { Lottie } = DangerZone;
+const NewEntryIcon = require('./newEntry.json');
+
 class TabBarButton extends PureComponent {
+  state = {
+    progress: new Animated.Value(0),
+  }
+
+  showNewEntryIcons = () => {
+    const { onPress } = this.props;
+
+    this.animateNewEntry();
+
+    onPress();
+  }
+
+  animateNewEntry = () => {
+    const { progress } = this.state;
+    const { newEntryIconClicked } = this.props;
+    Animated.timing(progress, {
+      toValue: newEntryIconClicked ? 1 : 0,
+      duration: 800,
+    }).start();
+  }
+
   render() {
+    const { progress } = this.state;
     const { onPress, icon } = this.props;
 
     const yellow = hexToRgb($yellow);
@@ -17,9 +42,24 @@ class TabBarButton extends PureComponent {
       rippleColor: yellow,
     };
 
+    this.animateNewEntry();
+
+    const rippleOnPress = icon === 'lottie' ? this.showNewEntryIcons : onPress;
+
     return (
-      <Ripple {...rippleProps} onPress={onPress}>
-        <MaterialCommunityIcons name={icon} size={30} color={$darkBlue} />
+      <Ripple {...rippleProps} onPress={rippleOnPress}>
+        {icon !== 'lottie'
+          ? <MaterialCommunityIcons name={icon} size={30} color={$darkBlue} />
+          : (
+            <Lottie
+              ref={(animation) => {
+                this.animation = animation;
+              }}
+              style={styles.lottie}
+              progress={progress}
+              source={NewEntryIcon}
+            />
+          )}
       </Ripple>
     );
   }
@@ -31,6 +71,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+  },
+  lottie: {
+    width: '95%',
+    height: '115%',
   },
 });
 
