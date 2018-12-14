@@ -13,6 +13,7 @@ export default createStore(rootReducer);
         id: {
           id,
           title,
+          createdDate,
           backgroundColor,
           cards: [cardId],
         }
