@@ -3,7 +3,7 @@ import {
   View, FlatList, Text, StyleSheet,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { $darkBlue } from '../../utils/colors';
+import { $darkBlue, $white } from '../../utils/colors';
 
 import commonNavigationOptions from '../commonNavigationOptions';
 import SetItem from '../../components/Home/SetItem';
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: $white,
   },
   title: {
     color: $darkBlue,
