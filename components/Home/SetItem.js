@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Text, StyleSheet } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 
@@ -6,6 +7,14 @@ import { $black, $lightBlack } from '../../utils/colors';
 import { timeConverter } from '../../utils/helpers';
 
 class SetItem extends PureComponent {
+  static propTypes = {
+    backgroundColor: PropTypes.string.isRequired,
+    cards: PropTypes.arrayOf(PropTypes.number).isRequired,
+    createdDate: PropTypes.number.isRequired,
+    onPressItem: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+  }
+
   render() {
     const {
       title,
@@ -28,7 +37,7 @@ class SetItem extends PureComponent {
     };
 
     return (
-      <Ripple {...rippleProps}>
+      <Ripple {...rippleProps} onPress={() => onPressItem(title)}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
         <Text style={styles.date}>{date}</Text>
@@ -40,8 +49,11 @@ class SetItem extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    padding: 20,
-    borderRadius: 5,
+    paddingTop: 25,
+    paddingRight: 20,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    borderRadius: 3,
   },
   title: {
     fontSize: 22,
