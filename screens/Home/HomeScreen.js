@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import {
+  View, FlatList, Text, StyleSheet,
+} from 'react-native';
 import { connect } from 'react-redux';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { $darkBlue } from '../../utils/colors';
 
 import commonNavigationOptions from '../commonNavigationOptions';
 import SetItem from '../../components/Home/SetItem';
-import HiddenSetItem from '../../components/Home/HiddenSetItem';
 
 class HomeScreen extends PureComponent {
   static navigationOptions = {
@@ -15,21 +16,7 @@ class HomeScreen extends PureComponent {
 
   keyExtractor = item => `${item.id}`;
 
-  renderItem = ({ item }) => (
-    <SetItem
-      {...item}
-      onPressItem={title => console.log(title)}
-    />
-  )
-
-  renderHiddenItem = ({ item }) => <HiddenSetItem {...item} />
-
-  shouldRowUpdate = (currItem, newItem) => {
-    const titleChanged = currItem.title !== newItem.title;
-    const cardsQuantityChanged = currItem.cards.length !== newItem.cards.length;
-
-    return titleChanged || cardsQuantityChanged;
-  }
+  renderItem = ({ item }) => <SetItem {...item} onPressItem={title => console.log(title)} />;
 
   render() {
     const { sets } = this.props;
@@ -38,16 +25,11 @@ class HomeScreen extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <SwipeListView
+        <Text style={styles.title}>SETS</Text>
+        <FlatList
           data={allSets}
-          disableRightSwipe
           keyExtractor={this.keyExtractor}
-          previewRowKey="1"
-          renderHiddenItem={this.renderHiddenItem}
           renderItem={this.renderItem}
-          rightOpenValue={-75}
-          shouldItemUpdate={this.shouldRowUpdate}
-          useFlatList
         />
       </View>
     );
@@ -58,6 +40,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+  title: {
+    color: $darkBlue,
+    fontWeight: '600',
+    fontSize: 14,
+    letterSpacing: 1.7,
+    marginBottom: 10,
   },
 });
 
