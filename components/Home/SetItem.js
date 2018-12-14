@@ -1,7 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import Ripple from 'react-native-material-ripple';
+import Swipeout from 'react-native-swipeout';
+import chroma from 'chroma-js';
+
+import HiddenSetItem from './HiddenSetItem';
 
 import { $black, $lightBlack } from '../../utils/colors';
 import { timeConverter } from '../../utils/helpers';
@@ -27,33 +32,80 @@ class SetItem extends PureComponent {
     const date = timeConverter(createdDate);
     const cardsQuantity = cards.length;
 
+    const chromaBackground = chroma(backgroundColor);
+    const darkenColor = chromaBackground.darken(0.9).hex();
+    const darkenColorRgb = `rgb(${chroma(darkenColor).rgb().toString()})`;
+    const rgbColor = `rgb(${chromaBackground.rgb().toString()})`;
+
+
     const containerStyles = {
       ...styles.container,
       backgroundColor,
     };
 
     const rippleProps = {
-      style: containerStyles,
+      rippleDuration: 800,
+      rippleColor: darkenColorRgb,
+      style: styles.ripple,
     };
 
+    const swipeoutBtns = [
+      {
+        component: (
+          <HiddenSetItem
+            backgroundColor={darkenColor}
+            color={rgbColor}
+          />),
+      },
+    ];
+
     return (
-      <Ripple {...rippleProps} onPress={() => onPressItem(title)}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
-        <Text style={styles.date}>{date}</Text>
-      </Ripple>
+      <Swipeout
+        backgroundColor={darkenColor}
+        buttonWidth={75}
+        right={swipeoutBtns}
+        sensitivity={30}
+        style={styles.swipeContainer}
+      >
+        <View style={containerStyles}>
+          <Ripple {...rippleProps} onPress={() => onPressItem(title)}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
+            <Text style={styles.date}>{date}</Text>
+          </Ripple>
+          <View style={styles.caret}>
+            <AntDesign color={darkenColor} name="caretleft" size={30} />
+          </View>
+        </View>
+      </Swipeout>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  swipeContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    borderRadius: 3,
+  },
   container: {
     width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingTop: 25,
-    paddingRight: 20,
     paddingBottom: 15,
     paddingLeft: 20,
-    borderRadius: 3,
+  },
+  ripple: {
+    width: '95%',
+    height: '100%',
+  },
+  caret: {
+    width: '5%',
+    height: '100%',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 22,

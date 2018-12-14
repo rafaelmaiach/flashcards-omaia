@@ -1,32 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import chroma from 'chroma-js';
+import Ripple from 'react-native-material-ripple';
 
 import { $white } from '../../utils/colors';
 
-const HiddenSetItem = (props) => {
-  const { backgroundColor } = props;
-
-  const color = chroma(backgroundColor).darken(0.75).hex();
-
+const HiddenSetItem = ({ backgroundColor, color }) => {
   const rowBackStyle = {
     ...styles.rowBack,
-    backgroundColor: color,
+    backgroundColor,
   };
 
   return (
     <View style={rowBackStyle}>
-      <TouchableOpacity activeOpacity={0.8} style={styles.iconContainer}>
-        <AntDesign color={$white} name="delete" size={30} />
-      </TouchableOpacity>
+      <Ripple rippleCentered rippleColor={color} style={styles.iconContainer}>
+        <AntDesign color={$white} name="delete" size={25} />
+      </Ripple>
     </View>
   );
-};
-
-HiddenSetItem.propTypes = {
-  backgroundColor: PropTypes.string.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -35,7 +27,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    borderRadius: 3,
   },
   iconContainer: {
     width: 75,
@@ -44,4 +35,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+HiddenSetItem.propTypes = {
+  backgroundColor: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+};
+
 export default HiddenSetItem;
