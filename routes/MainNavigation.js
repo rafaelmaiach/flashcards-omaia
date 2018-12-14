@@ -2,20 +2,12 @@ import React from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import BottomTabBar from '../components/CustomNavigator/BottomTabBar';
 import Home from '../screens/Home';
-import NewSet from '../screens/NewSet';
-import NewFolder from '../screens/NewFolder';
 import Trash from '../screens/Trash';
 
 const NavigationTabs = createMaterialTopTabNavigator(
   {
     Home: {
       screen: Home,
-    },
-    NewSet: {
-      screen: NewSet,
-    },
-    NewFolder: {
-      screen: NewFolder,
     },
     Trash: {
       screen: Trash,
@@ -25,7 +17,7 @@ const NavigationTabs = createMaterialTopTabNavigator(
     initialRouteName: 'Home',
     tabBarPosition: 'bottom',
     swipeEnabled: false,
-    animationEnabled: false,
+    animationEnabled: true,
     tabBarComponent: props => <BottomTabBar {...props} />,
   },
 );

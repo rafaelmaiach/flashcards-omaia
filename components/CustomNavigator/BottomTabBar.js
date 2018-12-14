@@ -42,8 +42,8 @@ class CustomBottomTabBar extends PureComponent {
     const { state: { index } } = navigation;
 
     const navigateToHome = this.changeScreen('Home');
-    const navigateToNewSet = this.changeScreen('NewSet');
-    const navigateToNewFolder = this.changeScreen('NewFolder');
+    const navigateToNewSet = this.changeScreen('NewSetScreen');
+    const navigateToNewFolder = this.changeScreen('NewFolderScreen');
     const navigateToTrash = this.changeScreen('Trash');
 
     const isAtHomeScreen = index === 0;

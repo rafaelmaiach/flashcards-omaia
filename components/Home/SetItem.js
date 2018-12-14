@@ -49,15 +49,17 @@ class SetItem extends PureComponent {
       style: styles.ripple,
     };
 
-    const swipeoutBtns = [
-      {
-        component: (
-          <HiddenSetItem
-            backgroundColor={darkenColor}
-            color={rgbColor}
-          />),
-      },
-    ];
+    const caretBorder = {
+      borderRightColor: darkenColor,
+    };
+
+    const swipeoutBtns = [{
+      component: (
+        <HiddenSetItem
+          backgroundColor={darkenColor}
+          color={rgbColor}
+        />),
+    }];
 
     return (
       <Swipeout
@@ -73,7 +75,7 @@ class SetItem extends PureComponent {
             <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
             <Text style={styles.date}>{date}</Text>
           </Ripple>
-          <View style={styles.caret}>
+          <View style={[styles.caret, caretBorder]}>
             <AntDesign color={darkenColor} name="caretleft" size={30} />
           </View>
         </View>
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'flex-end',
     justifyContent: 'center',
+    borderRightWidth: 3,
   },
   title: {
     fontSize: 22,
