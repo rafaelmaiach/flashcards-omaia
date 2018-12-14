@@ -8,8 +8,8 @@ import { $darkBlue } from '../../utils/colors';
 
 class AnimatedNewSetButton extends PureComponent {
   static propTypes = {
-    navigateToNewSet: PropTypes.func.isRequired,
     navigateToNewFolder: PropTypes.func.isRequired,
+    navigateToNewSet: PropTypes.func.isRequired,
     newEntryIconClicked: PropTypes.bool.isRequired,
     toggleNewSet: PropTypes.func.isRequired,
   }
@@ -95,25 +95,25 @@ class AnimatedNewSetButton extends PureComponent {
     const AnimatedTouchable = Animated.createAnimatedComponent(TouchableHighlight);
 
     return (
-      <AnimatedTouchable style={hiddenContainerStyles} onPress={toggleNewSet} underlayColor="transparent">
+      <AnimatedTouchable onPress={toggleNewSet} style={hiddenContainerStyles} underlayColor="transparent">
         <Animated.View style={[styles.buttonsContainer, buttonContainerAnimation]}>
           <View style={[styles.iconContainer, styles.iconContainerLeft]}>
             <TouchableOpacity
-              style={styles.iconContainerPosition}
               activeOpacity={0.8}
               onPress={navigateToNewSet}
+              style={styles.iconContainerPosition}
             >
-              <MaterialCommunityIcons name="cards" size={30} color={$darkBlue} />
+              <MaterialCommunityIcons color={$darkBlue} name="cards" size={30} />
               <Text style={styles.iconText}>New Set</Text>
             </TouchableOpacity>
           </View>
           <View style={[styles.iconContainer, styles.iconContainerRight]}>
             <TouchableOpacity
-              style={styles.iconContainerPosition}
               activeOpacity={0.8}
               onPress={navigateToNewFolder}
+              style={styles.iconContainerPosition}
             >
-              <MaterialCommunityIcons name="folder" size={30} color={$darkBlue} />
+              <MaterialCommunityIcons color={$darkBlue} name="folder" size={30} />
               <Text style={styles.iconText}>New Folder</Text>
             </TouchableOpacity>
           </View>

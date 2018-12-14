@@ -4,7 +4,7 @@ import { Constants } from 'expo';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
   <View style={styles.container(backgroundColor)}>
-    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    <StatusBar backgroundColor={backgroundColor} translucent {...props} />
   </View>
 );
 
