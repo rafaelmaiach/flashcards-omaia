@@ -6,7 +6,18 @@ const sets = (state = {}, action) => {
       };
     }
     default: {
-      return state;
+      return {
+        allIds: [1],
+        byId: {
+          1: {
+            id: 1,
+            title: 'Teste',
+            createdDate: 1544742707,
+            backgroundColor: '#ec6262',
+            cards: [1, 2, 3],
+          },
+        },
+      };
     }
   }
 };
