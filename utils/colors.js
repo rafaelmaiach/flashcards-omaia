@@ -9,7 +9,7 @@ const hexToRgb = (hex) => {
 };
 
 const $black = '#191919';
-const $lightBlack = '#404040';
+const $lightBlack = '#2f2f2f';
 const $white = '#f6f6f6';
 const $grey = '#d7d7d7';
 const $lightGrey = '#e5e5e5';
