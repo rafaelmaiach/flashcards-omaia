@@ -14,7 +14,7 @@
   ],
   "extends": [
     "airbnb",
-    "plugin:react/recommended",
+    "plugin:react/all",
     "plugin:react-native/all"
   ],
   "rules": {
@@ -22,6 +22,7 @@
     "react/display-name": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-one-expression-per-line": 0
+    "react/jsx-one-expression-per-line": 0,
+    "react/jsx-no-literals": 0
   }
 }
