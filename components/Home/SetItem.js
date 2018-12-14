@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 25,
-    paddingBottom: 15,
-    paddingLeft: 20,
   },
   ripple: {
     width: '95%',
     height: '100%',
+    paddingTop: 25,
+    paddingBottom: 15,
+    paddingLeft: 20,
   },
   caret: {
     width: '5%',
