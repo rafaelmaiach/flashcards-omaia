@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import {
-  View, FlatList, StyleSheet,
-} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import commonNavigationOptions from '../commonNavigationOptions';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
+import commonNavigationOptions from '../commonNavigationOptions';
 import SetItem from '../../components/Home/SetItem';
+import HiddenSetItem from '../../components/Home/HiddenSetItem';
 
 class HomeScreen extends PureComponent {
   static navigationOptions = {
@@ -18,9 +18,18 @@ class HomeScreen extends PureComponent {
   renderItem = ({ item }) => (
     <SetItem
       {...item}
-      onPressItem={id => console.log(id)}
+      onPressItem={title => console.log(title)}
     />
   )
+
+  renderHiddenItem = ({ item }) => <HiddenSetItem {...item} />
+
+  shouldRowUpdate = (currItem, newItem) => {
+    const titleChanged = currItem.title !== newItem.title;
+    const cardsQuantityChanged = currItem.cards.length !== newItem.cards.length;
+
+    return titleChanged || cardsQuantityChanged;
+  }
 
   render() {
     const { sets } = this.props;
@@ -29,10 +38,16 @@ class HomeScreen extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <FlatList
+        <SwipeListView
           data={allSets}
-          renderItem={this.renderItem}
+          disableRightSwipe
           keyExtractor={this.keyExtractor}
+          previewRowKey="1"
+          renderHiddenItem={this.renderHiddenItem}
+          renderItem={this.renderItem}
+          rightOpenValue={-75}
+          shouldItemUpdate={this.shouldRowUpdate}
+          useFlatList
         />
       </View>
     );
