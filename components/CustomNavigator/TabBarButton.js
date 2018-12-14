@@ -39,15 +39,15 @@ class TabBarButton extends PureComponent {
     return (
       <Ripple {...rippleProps} onPress={onPress}>
         {icon !== 'lottie'
-          ? <MaterialCommunityIcons name={icon} size={30} color={$darkBlue} />
+          ? <MaterialCommunityIcons color={$darkBlue} name={icon} size={30} />
           : (
             <Lottie
               ref={(animation) => {
                 this.animation = animation;
               }}
-              style={styles.lottie}
               progress={progress}
               source={NewEntryIcon}
+              style={styles.lottie}
             />
           )}
       </Ripple>

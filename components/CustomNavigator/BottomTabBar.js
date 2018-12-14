@@ -55,13 +55,13 @@ class CustomBottomTabBar extends PureComponent {
     return (
       <Fragment>
         <View style={styles.container}>
-          <TabBarButton onPress={navigateToHome} icon={homeIcon} />
-          <TabBarButton onPress={this.toggleNewSet} icon="lottie" newEntryIconClicked={newEntryIconClicked} />
-          <TabBarButton onPress={navigateToTrash} icon={trashIcon} />
+          <TabBarButton icon={homeIcon} onPress={navigateToHome} />
+          <TabBarButton icon="lottie" newEntryIconClicked={newEntryIconClicked} onPress={this.toggleNewSet} />
+          <TabBarButton icon={trashIcon} onPress={navigateToTrash} />
         </View>
         <AnimatedNewEntryButton
-          navigateToNewSet={navigateToNewSet}
           navigateToNewFolder={navigateToNewFolder}
+          navigateToNewSet={navigateToNewSet}
           newEntryIconClicked={newEntryIconClicked}
           toggleNewSet={this.toggleNewSet}
         />
