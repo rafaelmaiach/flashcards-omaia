@@ -14,7 +14,7 @@ class HomeScreen extends PureComponent {
     title: 'Home',
   };
 
-  keyExtractor = item => `${item.id}`;
+  keyExtractor = item => item.id;
 
   renderItem = ({ item }) => <SetItem {...item} onPressItem={title => console.log(title)} />;
 
