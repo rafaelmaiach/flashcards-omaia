@@ -7,6 +7,11 @@ export default createStore(rootReducer);
   STORE LAYOUT
 
   {
+    newSet: {
+      id,
+      title,
+      backgroundColor,
+    },
     sets: {
       allIds: [id],
       byId: {
