@@ -16,7 +16,7 @@ class TitleModalEditor extends PureComponent {
     navigation: PropTypes.object.isRequired,
     submitNewTitle: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
-    toggleModalVisible: PropTypes.func.isRequired,
+    toggleModalTitle: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
   }
 
@@ -37,7 +37,7 @@ class TitleModalEditor extends PureComponent {
 
   onCloseModal = () => {
     const { newTitle } = this.state;
-    const { toggleModalVisible, navigation, submitNewTitle } = this.props;
+    const { toggleModalTitle, navigation, submitNewTitle } = this.props;
 
     submitNewTitle(newTitle);
     navigation.setParams({ title: newTitle });
@@ -45,7 +45,7 @@ class TitleModalEditor extends PureComponent {
     const animateIcon = navigation.getParam('animateIcon');
     animateIcon('close');
 
-    toggleModalVisible();
+    toggleModalTitle();
   }
 
   render() {
