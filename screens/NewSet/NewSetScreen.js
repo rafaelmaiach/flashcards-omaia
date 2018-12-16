@@ -10,6 +10,7 @@ import { createSet } from '../../actions/newSet';
 import { $white, newSetPaletteColor } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
+import Left from '../../components/NewSet/Left';
 import RightMenu from '../../components/NewSet/RightMenu';
 import TitleModalEditor from '../../components/NewSet/TitleModalEditor';
 import SetBgColorEditor from '../../components/NewSet/SetBgColorEditor';
@@ -35,6 +36,7 @@ class NewSetScreen extends PureComponent {
       ...commonNavigationOptions,
       title: title || 'New Set',
       headerRight: <RightMenu navigation={navigation} />,
+      headerLeft: <Left navigation={navigation} />,
       headerStyle: {
         ...commonNavigationOptions.headerStyle,
         backgroundColor: bgColor || newSetPaletteColor[0],
