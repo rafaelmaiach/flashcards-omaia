@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  View, ScrollView, Text, StyleSheet, TouchableOpacity,
+  View, ScrollView, Text, StyleSheet,
 } from 'react-native';
 import uuidv4 from 'uuid/v4';
 import { createSet } from '../../actions/newSet';
@@ -10,10 +10,13 @@ import { createSet } from '../../actions/newSet';
 import { $white, newSetPaletteColor } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
-import Left from '../../components/NewSet/Left';
-import RightMenu from '../../components/NewSet/RightMenu';
-import TitleModalEditor from '../../components/NewSet/TitleModalEditor';
-import SetBgColorEditor from '../../components/NewSet/SetBgColorEditor';
+import {
+  Left,
+  RightMenu,
+  NewSetFooter,
+  TitleModalEditor,
+  ColorPalette,
+} from '../../components/NewSet';
 
 class NewSetScreen extends PureComponent {
   static defaultProps = {
@@ -94,16 +97,15 @@ class NewSetScreen extends PureComponent {
           toggleModalTitle={this.toggleModalTitle}
           visible={titleModalVisible}
         />
-        <SetBgColorEditor
+        <ColorPalette
           navigation={navigation}
           toggleModalSetBgColor={this.toggleModalSetBgColor}
           visible={setBgColorModalVisible}
         />
         <ScrollView style={styles.contentContainer}>
-          <TouchableOpacity onPress={this.submitSet}>
-            <Text>Submit</Text>
-          </TouchableOpacity>
+          <Text> TEXT </Text>
         </ScrollView>
+        <NewSetFooter navigation={navigation} submitSet={this.submitSet} />
       </View>
     );
   }
