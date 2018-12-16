@@ -8,9 +8,7 @@ import chroma from 'chroma-js';
 
 import HiddenSetItem from './HiddenSetItem';
 
-import {
-  $black, $lightBlack, $white, $darkBlue,
-} from '../../utils/colors';
+import { $white } from '../../utils/colors';
 import { timeConverter } from '../../utils/helpers';
 
 class SetItem extends PureComponent {
@@ -63,21 +61,6 @@ class SetItem extends PureComponent {
         />),
     }];
 
-    const titleStyle = {
-      ...styles.title,
-      color: backgroundColor === $darkBlue ? $white : $black,
-    };
-
-    const quantityStyle = {
-      ...styles.cardsQuantity,
-      color: backgroundColor === $darkBlue ? $white : $lightBlack,
-    };
-
-    const dateStyle = {
-      ...styles.date,
-      color: backgroundColor === $darkBlue ? $white : $lightBlack,
-    };
-
     return (
       <Swipeout
         backgroundColor={darkenColor}
@@ -88,9 +71,9 @@ class SetItem extends PureComponent {
       >
         <View style={containerStyles}>
           <Ripple {...rippleProps} onPress={() => onPressItem(title)}>
-            <Text style={titleStyle}>{title}</Text>
-            <Text style={quantityStyle}>{`${cardsQuantity} cards`}</Text>
-            <Text style={dateStyle}>{date}</Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
+            <Text style={styles.date}>{date}</Text>
           </Ripple>
           <View style={[styles.caret, caretBorder]}>
             <AntDesign color={darkenColor} name="caretleft" size={30} />
@@ -131,14 +114,17 @@ const styles = StyleSheet.create({
     fontSize: 22,
     paddingBottom: 5,
     fontWeight: '600',
+    color: $white,
   },
   cardsQuantity: {
     fontSize: 16,
     paddingBottom: 5,
     fontWeight: '500',
+    color: $white,
   },
   date: {
     fontSize: 12,
+    color: $white,
   },
 });
 

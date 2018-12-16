@@ -116,13 +116,13 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     color: $lightBlue,
     fontWeight: '800',
-    margin: 10,
+    margin: 20,
   },
   paletteContainer: {
     flexDirection: 'row',
     width: '100%',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    marginLeft: 10,
   },
   color: {
     borderWidth: 4,
