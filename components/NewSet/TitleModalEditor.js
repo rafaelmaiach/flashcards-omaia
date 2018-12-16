@@ -36,6 +36,9 @@ class TitleModalEditor extends PureComponent {
     const { toggleModalVisible, navigation } = this.props;
     navigation.setParams({ title: newTitle });
 
+    const animateIcon = navigation.getParam('animateIcon');
+    animateIcon('close');
+
     toggleModalVisible();
   }
 

@@ -35,7 +35,7 @@ class NewSetScreen extends PureComponent {
     });
   }
 
-  toggleModalVisible = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }))
+  toggleModalVisible = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }));
 
   render() {
     const { modalVisible } = this.state;
