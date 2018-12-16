@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import chroma from 'chroma-js';
-import { editBackgroundColor } from '../../actions/newSet';
+import { editBackgroundColor, resetNewSet } from '../../actions/newSet';
 
 import {
   newSetPaletteColor, $white, $black, $lightBlue,
@@ -25,6 +25,12 @@ class SetBgColorEditor extends PureComponent {
     newBackgroundColor: '',
   };
 
+  componentDidMount() {
+    const { submitNewBackgroundColor } = this.props;
+
+    submitNewBackgroundColor(newSetPaletteColor[0]);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { newBackgroundColor } = this.state;
     const { backgroundColor } = nextProps;
@@ -39,6 +45,7 @@ class SetBgColorEditor extends PureComponent {
     const { toggleModalSetBgColor, navigation, submitNewBackgroundColor } = this.props;
 
     submitNewBackgroundColor(newBackgroundColor);
+    resetNewSet();
     navigation.setParams({ backgroundColor: newBackgroundColor });
 
     toggleModalSetBgColor();
@@ -143,6 +150,7 @@ const mapStateToProps = ({ newSet }) => ({
 
 const mapDispatchToProps = dispatch => ({
   submitNewBackgroundColor: newBackgroundColor => dispatch(editBackgroundColor(newBackgroundColor)),
+  resetNewSet: () => dispatch(resetNewSet()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetBgColorEditor);
