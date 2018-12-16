@@ -21,13 +21,11 @@ class HomeScreen extends PureComponent {
   render() {
     const { sets } = this.props;
 
-    const allSets = Object.values(sets.byId);
-
     return (
       <View style={styles.container}>
         <Text style={styles.title}>SETS</Text>
         <FlatList
-          data={allSets}
+          data={sets}
           keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
         />
@@ -51,8 +49,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  sets: state.sets,
-});
+const mapStateToProps = (state) => {
+  const { sets } = state;
+  const setsById = Object.values(sets.byId);
+  const notDeletedSets = setsById.filter(set => !set.isDeleted);
+
+  return {
+    sets: notDeletedSets,
+  };
+};
 
 export default connect(mapStateToProps)(HomeScreen);

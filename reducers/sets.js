@@ -14,7 +14,16 @@ const sets = (state = {}, action) => {
             title: 'Teste',
             createdDate: 1544742707,
             backgroundColor: '#ec6262',
+            isDeleted: false,
             cards: [1, 2, 3],
+          },
+          2: {
+            id: 2,
+            title: 'Teste Trash',
+            createdDate: 1544742707,
+            backgroundColor: '#ecff62',
+            isDeleted: true,
+            cards: [4, 5, 6],
           },
         },
       };

@@ -15,6 +15,7 @@ export default createStore(rootReducer);
           title,
           createdDate,
           backgroundColor,
+          isDeleted,
           cards: [cardId],
         }
       }
