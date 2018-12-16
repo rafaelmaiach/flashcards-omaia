@@ -26,11 +26,11 @@ class RightMenu extends PureComponent {
 
   openEditor = () => {
     const { navigation } = this.props;
-    const toggleModalVisible = navigation.getParam('toggleModalVisible');
+    const toggleModalTitle = navigation.getParam('toggleModalTitle');
 
     this.animateIcon('open');
 
-    toggleModalVisible();
+    toggleModalTitle();
   }
 
   animateIcon = (type) => {

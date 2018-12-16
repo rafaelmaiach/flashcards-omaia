@@ -39,11 +39,11 @@ class NewSetScreen extends PureComponent {
     const { navigation } = this.props;
 
     navigation.setParams({
-      toggleModalVisible: this.toggleModalVisible,
+      toggleModalTitle: this.toggleModalTitle,
     });
   }
 
-  toggleModalVisible = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }));
+  toggleModalTitle = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }));
 
   render() {
     const { modalVisible } = this.state;
@@ -53,7 +53,7 @@ class NewSetScreen extends PureComponent {
       <View style={styles.container}>
         <TitleModalEditor
           navigation={navigation}
-          toggleModalVisible={this.toggleModalVisible}
+          toggleModalTitle={this.toggleModalTitle}
           visible={modalVisible}
         />
         <ScrollView style={styles.contentContainer}>
