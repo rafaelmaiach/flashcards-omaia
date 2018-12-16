@@ -24,7 +24,8 @@
     "react-redux": "5.1.1",
     "redux": "4.0.1",
     "schedule": "0.4.0",
-    "sort-by": "1.2.0"
+    "sort-by": "1.2.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
