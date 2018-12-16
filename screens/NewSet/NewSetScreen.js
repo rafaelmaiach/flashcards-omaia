@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   View, ScrollView, Text, StyleSheet,
 } from 'react-native';
@@ -9,17 +10,24 @@ import RightMenu from '../../components/NewSet/RightMenu';
 import TitleModalEditor from '../../components/NewSet/TitleModalEditor';
 
 class NewSetScreen extends PureComponent {
+  static defaultProps = {
+    backgroundColor: '',
+    title: '',
+  }
+
   static propTypes = {
+    backgroundColor: PropTypes.string,
     navigation: PropTypes.object.isRequired,
+    title: PropTypes.string,
   }
 
   static navigationOptions = ({ navigation }) => ({
     ...commonNavigationOptions,
-    title: navigation.getParam('title', 'New Set'),
+    title: navigation.getParam('title') || 'New Set',
     headerRight: <RightMenu navigation={navigation} />,
     headerStyle: {
       ...commonNavigationOptions.headerStyle,
-      backgroundColor: navigation.getParam('bgColor', $darkBlue),
+      backgroundColor: navigation.getParam('backgroundColor') || $darkBlue,
     },
   })
 
@@ -29,8 +37,8 @@ class NewSetScreen extends PureComponent {
 
   componentDidMount() {
     const { navigation } = this.props;
+
     navigation.setParams({
-      title: 'New Set',
       toggleModalVisible: this.toggleModalVisible,
     });
   }
@@ -64,4 +72,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewSetScreen;
+const mapStateToProps = ({ newSet }) => {
+  const { title, backgroundColor } = newSet;
+
+  return {
+    title,
+    backgroundColor,
+  };
+};
+
+export default connect(mapStateToProps)(NewSetScreen);

@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Text, TouchableOpacity, View, StyleSheet, TextInput,
 } from 'react-native';
 import Modal from 'react-native-modal';
+import { editTitle } from '../../actions/newSet';
+
 import {
   $white, $black, $lightBlue, $darkGreen,
 } from '../../utils/colors';
@@ -11,6 +14,8 @@ import {
 class TitleModalEditor extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    submitNewTitle: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
     toggleModalVisible: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
   }
@@ -21,8 +26,7 @@ class TitleModalEditor extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { newTitle } = this.state;
-    const { navigation } = nextProps;
-    const title = navigation.getParam('title');
+    const { title } = nextProps;
 
     if (title !== newTitle) {
       this.setState(() => ({ newTitle: title }));
@@ -33,7 +37,9 @@ class TitleModalEditor extends PureComponent {
 
   onCloseModal = () => {
     const { newTitle } = this.state;
-    const { toggleModalVisible, navigation } = this.props;
+    const { toggleModalVisible, navigation, submitNewTitle } = this.props;
+
+    submitNewTitle(newTitle);
     navigation.setParams({ title: newTitle });
 
     const animateIcon = navigation.getParam('animateIcon');
@@ -110,4 +116,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TitleModalEditor;
+const mapStateToProps = ({ newSet }) => ({
+  title: newSet.title,
+});
+
+const mapDispatchToProps = dispatch => ({
+  submitNewTitle: newTitle => dispatch(editTitle(newTitle)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TitleModalEditor);
