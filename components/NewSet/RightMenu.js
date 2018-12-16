@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, StyleSheet, Animated, TouchableWithoutFeedback,
+  View, StyleSheet, Animated, TouchableOpacity,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DangerZone } from 'expo';
+import { $white } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
 const EditIcon = require('./pencil.json');
@@ -24,13 +26,20 @@ class RightMenu extends PureComponent {
     });
   }
 
-  openEditor = () => {
+  openTitleEditor = () => {
     const { navigation } = this.props;
     const toggleModalTitle = navigation.getParam('toggleModalTitle');
 
     this.animateIcon('open');
 
     toggleModalTitle();
+  }
+
+  openBgColorEditor = () => {
+    const { navigation } = this.props;
+    const toggleModalSetBgColor = navigation.getParam('toggleModalSetBgColor');
+
+    toggleModalSetBgColor();
   }
 
   animateIcon = (type) => {
@@ -49,7 +58,18 @@ class RightMenu extends PureComponent {
     const { progress } = this.state;
     return (
       <View style={styles.rightMenu}>
-        <TouchableWithoutFeedback onPress={this.openEditor}>
+        <TouchableOpacity
+          activeOpacity={0.75}
+          onPress={this.openBgColorEditor}
+          style={styles.colorIcon}
+        >
+          <MaterialCommunityIcons color={$white} name="format-color-fill" size={33} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.75}
+          onPress={this.openTitleEditor}
+          style={styles.lottieContainer}
+        >
           <Lottie
             ref={(animation) => {
               this.editAnimationIcon = animation;
@@ -59,7 +79,7 @@ class RightMenu extends PureComponent {
             source={EditIcon}
             style={styles.lottie}
           />
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -67,9 +87,20 @@ class RightMenu extends PureComponent {
 
 const styles = StyleSheet.create({
   rightMenu: {
-    flex: 1,
-    width: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 100,
     height: '100%',
+  },
+  colorIcon: {
+    width: '50%',
+    height: '100%',
+    paddingTop: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lottieContainer: {
+    width: '50%',
   },
   lottie: {
     width: '100%',

@@ -5,7 +5,7 @@ import { Constants } from 'expo';
 import chroma from 'chroma-js';
 
 const AppStatusBar = ({ backgroundColor, bgColor, ...props }) => {
-  const color = bgColor ? chroma(bgColor).darken(0.3).hex() : backgroundColor;
+  const color = bgColor ? chroma(bgColor).darken(1.5).hex() : backgroundColor;
 
   return (
     <View style={styles.container(color)}>
