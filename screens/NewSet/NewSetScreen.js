@@ -8,6 +8,7 @@ import { $white, $darkBlue } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 import RightMenu from '../../components/NewSet/RightMenu';
 import TitleModalEditor from '../../components/NewSet/TitleModalEditor';
+import SetBgColorEditor from '../../components/NewSet/SetBgColorEditor';
 
 class NewSetScreen extends PureComponent {
   static defaultProps = {
@@ -21,18 +22,24 @@ class NewSetScreen extends PureComponent {
     title: PropTypes.string,
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    ...commonNavigationOptions,
-    title: navigation.getParam('title') || 'New Set',
-    headerRight: <RightMenu navigation={navigation} />,
-    headerStyle: {
-      ...commonNavigationOptions.headerStyle,
-      backgroundColor: navigation.getParam('backgroundColor') || $darkBlue,
-    },
-  })
+  static navigationOptions = ({ navigation }) => {
+    const title = navigation.getParam('title');
+    const bgColor = navigation.getParam('backgroundColor');
+
+    return ({
+      ...commonNavigationOptions,
+      title: title || 'New Set',
+      headerRight: <RightMenu navigation={navigation} />,
+      headerStyle: {
+        ...commonNavigationOptions.headerStyle,
+        backgroundColor: bgColor || $darkBlue,
+      },
+    });
+  }
 
   state = {
-    modalVisible: false,
+    titleModalVisible: false,
+    setBgColorModalVisible: false,
   }
 
   componentDidMount() {
@@ -40,13 +47,18 @@ class NewSetScreen extends PureComponent {
 
     navigation.setParams({
       toggleModalTitle: this.toggleModalTitle,
+      toggleModalSetBgColor: this.toggleModalSetBgColor,
     });
   }
 
-  toggleModalTitle = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }));
+  toggleModalTitle = () => this.setState(prev => ({ titleModalVisible: !prev.titleModalVisible }));
+
+  toggleModalSetBgColor = () => this.setState(prev => ({
+    setBgColorModalVisible: !prev.setBgColorModalVisible,
+  }));
 
   render() {
-    const { modalVisible } = this.state;
+    const { titleModalVisible, setBgColorModalVisible } = this.state;
     const { navigation } = this.props;
 
     return (
@@ -54,7 +66,12 @@ class NewSetScreen extends PureComponent {
         <TitleModalEditor
           navigation={navigation}
           toggleModalTitle={this.toggleModalTitle}
-          visible={modalVisible}
+          visible={titleModalVisible}
+        />
+        <SetBgColorEditor
+          navigation={navigation}
+          toggleModalSetBgColor={this.toggleModalSetBgColor}
+          visible={setBgColorModalVisible}
         />
         <ScrollView style={styles.contentContainer}>
           <Text>NEW SET</Text>

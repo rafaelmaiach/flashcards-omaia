@@ -21,8 +21,24 @@ const $darkBlue = '#0e1a40';
 const $lightBlue = '#222f5b';
 const $yellow = '#d3a625';
 
+const newSetPaletteColor = [
+  '#adb7bd',
+  '#a086d5',
+  '#c287e5',
+  '#df7696',
+  '#ff6d70',
+  '#f34a53',
+  '#f39119',
+  '#7bc043',
+  '#32994c',
+  '#1957f5',
+  '#0392cf',
+  '#985b41',
+];
+
 export {
   hexToRgb,
+  newSetPaletteColor,
   $black,
   $lightBlack,
   $white,
