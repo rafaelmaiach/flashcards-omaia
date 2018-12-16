@@ -47,7 +47,7 @@ class CustomBottomTabBar extends PureComponent {
     const navigateToTrash = this.changeScreen('Trash');
 
     const isAtHomeScreen = index === 0;
-    const isAtTrashScreen = index === 3;
+    const isAtTrashScreen = index === 1;
 
     const homeIcon = this.getIcon(isAtHomeScreen, 'home');
     const trashIcon = this.getIcon(isAtTrashScreen, 'trash-can');
