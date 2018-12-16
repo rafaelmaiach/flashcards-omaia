@@ -7,12 +7,7 @@ import { $grey } from '../../utils/colors';
 
 class CustomBottomTabBar extends PureComponent {
   static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-      state: PropTypes.shape({
-        index: PropTypes.number,
-      }),
-    }).isRequired,
+    navigation: PropTypes.object.isRequired,
   }
 
   state = {
