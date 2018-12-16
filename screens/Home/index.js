@@ -3,8 +3,18 @@ import HomeScreen from './HomeScreen';
 import NewSetScreen from '../NewSet/NewSetScreen';
 import NewFolderScreen from '../NewFolder/NewFolderScreen';
 
-export default createStackNavigator({
+const screens = {
   HomeScreen,
   NewSetScreen,
   NewFolderScreen,
-});
+};
+
+const options = {
+  navigationOptions: ({ navigation }) => ({
+    tabBarVisible: navigation.state.index === 0,
+  }),
+};
+
+const homeNavigator = createStackNavigator(screens, options);
+
+export default homeNavigator;
