@@ -15,7 +15,8 @@ const $grey = '#d7d7d7';
 const $lightGrey = '#e5e5e5';
 const $lightRed = '#ff2800';
 const $darkRed = '#330902';
-const $lightGreen = '#b4bd8e';
+const $green = '#5be55b';
+const $darkGreen = '#337f33';
 const $darkBlue = '#0e1a40';
 const $lightBlue = '#222f5b';
 const $yellow = '#d3a625';
@@ -29,7 +30,8 @@ export {
   $lightGrey,
   $lightRed,
   $darkRed,
-  $lightGreen,
+  $green,
+  $darkGreen,
   $darkBlue,
   $lightBlue,
   $yellow,
