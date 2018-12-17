@@ -16,16 +16,17 @@
     "react-native": "0.57.0",
     "react-native-color-picker": "0.4.0",
     "react-native-material-ripple": "0.8.0",
-    "react-native-modal": "^7.0.2",
+    "react-native-modal": "7.0.2",
     "react-native-popover-view": "1.0.14",
     "react-native-snap-carousel": "3.7.5",
     "react-native-swipeout": "2.3.6",
     "react-navigation": "3.0.6",
     "react-redux": "5.1.1",
     "redux": "4.0.1",
+    "redux-persist": "5.10.0",
     "schedule": "0.4.0",
     "sort-by": "1.2.0",
-    "uuid": "^3.3.2"
+    "uuid": "3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
