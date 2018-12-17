@@ -87,9 +87,9 @@ class SetItem extends PureComponent {
 const styles = StyleSheet.create({
   swipeContainer: {
     flexDirection: 'row',
+    flex: 1,
     width: '100%',
     borderRadius: 3,
-    height: 115,
     marginBottom: 15,
   },
   container: {
