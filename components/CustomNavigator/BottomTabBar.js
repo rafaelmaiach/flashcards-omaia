@@ -38,7 +38,6 @@ class CustomBottomTabBar extends PureComponent {
 
     const navigateToHome = this.changeScreen('Home');
     const navigateToNewSet = this.changeScreen('NewSetScreen');
-    const navigateToNewFolder = this.changeScreen('NewFolderScreen');
     const navigateToTrash = this.changeScreen('Trash');
 
     const isAtHomeScreen = index === 0;
@@ -55,7 +54,6 @@ class CustomBottomTabBar extends PureComponent {
           <TabBarButton icon={trashIcon} onPress={navigateToTrash} />
         </View>
         <AnimatedNewEntryButton
-          navigateToNewFolder={navigateToNewFolder}
           navigateToNewSet={navigateToNewSet}
           newEntryIconClicked={newEntryIconClicked}
           toggleNewSet={this.toggleNewSet}
