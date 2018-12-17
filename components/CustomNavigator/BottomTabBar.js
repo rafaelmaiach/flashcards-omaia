@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import TabBarButton from './TabBarButton';
 import AnimatedNewEntryButton from './AnimatedNewEntryButton';
-import { $grey } from '../../utils/colors';
+import { $grey, $fullWhite } from '../../utils/colors';
 
 class CustomBottomTabBar extends PureComponent {
   static propTypes = {
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 65,
     width: '100%',
+    backgroundColor: $fullWhite,
     borderTopColor: $grey,
     borderTopWidth: 0.25,
   },
