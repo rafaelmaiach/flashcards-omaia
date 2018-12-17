@@ -1,12 +1,10 @@
 import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './HomeScreen';
 import NewSetScreen from '../NewSet/NewSetScreen';
-import NewFolderScreen from '../NewFolder/NewFolderScreen';
 
 const screens = {
   HomeScreen,
   NewSetScreen,
-  NewFolderScreen,
 };
 
 const options = {
