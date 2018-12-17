@@ -16,6 +16,7 @@ class SetItem extends PureComponent {
     backgroundColor: PropTypes.string.isRequired,
     cards: PropTypes.arrayOf(PropTypes.number).isRequired,
     createdDate: PropTypes.number.isRequired,
+    isDeleted: PropTypes.bool.isRequired,
     onPressItem: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
   }
@@ -28,6 +29,7 @@ class SetItem extends PureComponent {
       backgroundColor,
       cards,
       onPressItem,
+      isDeleted,
     } = this.props;
 
     const date = timeConverter(createdDate);
@@ -59,6 +61,7 @@ class SetItem extends PureComponent {
           backgroundColor={darkenColor}
           color={rgbColor}
           id={id}
+          isDeleted={isDeleted}
         />),
     }];
 
