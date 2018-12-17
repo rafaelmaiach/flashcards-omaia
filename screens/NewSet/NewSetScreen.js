@@ -5,7 +5,7 @@ import {
   View, ScrollView, Text, StyleSheet,
 } from 'react-native';
 import uuidv4 from 'uuid/v4';
-import { createSet } from '../../actions/newSet';
+import { createSet } from '../../actions/sets';
 
 import { $white, newSetPaletteColor } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';

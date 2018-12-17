@@ -22,6 +22,7 @@ class SetItem extends PureComponent {
 
   render() {
     const {
+      id,
       title,
       createdDate,
       backgroundColor,
@@ -36,7 +37,6 @@ class SetItem extends PureComponent {
     const darkenColor = chromaBackground.darken(0.9).hex();
     const darkenColorRgb = `rgb(${chroma(darkenColor).rgb().toString()})`;
     const rgbColor = `rgb(${chromaBackground.rgb().toString()})`;
-
 
     const containerStyles = {
       ...styles.container,
@@ -58,6 +58,7 @@ class SetItem extends PureComponent {
         <HiddenSetItem
           backgroundColor={darkenColor}
           color={rgbColor}
+          id={id}
         />),
     }];
 

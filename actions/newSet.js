@@ -1,6 +1,5 @@
 const EDIT_TITLE = 'EDIT_TITLE';
 const EDIT_BACKGROUND_COLOR = 'EDIT_BACKGROUND_COLOR';
-const CREATE_SET = 'CREATE_SET';
 const RESET_NEW_SET = 'RESET_NEW_SET';
 
 const editTitle = title => ({
@@ -13,11 +12,6 @@ const editBackgroundColor = color => ({
   payload: color,
 });
 
-const createSet = newSet => ({
-  type: CREATE_SET,
-  payload: newSet,
-});
-
 const resetNewSet = () => ({
   type: RESET_NEW_SET,
 });
@@ -25,10 +19,8 @@ const resetNewSet = () => ({
 export {
   EDIT_TITLE,
   EDIT_BACKGROUND_COLOR,
-  CREATE_SET,
   RESET_NEW_SET,
   editTitle,
   editBackgroundColor,
-  createSet,
   resetNewSet,
 };

@@ -1,6 +1,7 @@
 import {
   CREATE_SET,
-} from '../actions/newSet';
+  MOVE_TO_TRASH,
+} from '../actions/sets';
 
 const initialState = {
   allIds: [],
@@ -21,6 +22,20 @@ const sets = (state = initialState, action) => {
         byId: {
           ...state.byId,
           [action.payload.id]: action.payload,
+        },
+      };
+    }
+    case MOVE_TO_TRASH: {
+      const id = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [id]: {
+            ...state.byId[id],
+            isDeleted: true,
+          },
         },
       };
     }

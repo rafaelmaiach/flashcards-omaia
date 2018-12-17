@@ -1,35 +1,37 @@
 import React, { PureComponent } from 'react';
-import {
-  View, ScrollView, Text, StyleSheet,
-} from 'react-native';
-import { $white } from '../../utils/colors';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import SetList from '../../components/SetList/SetList';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class TrashScreen extends PureComponent {
+  static propTypes = {
+    sets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }
+
   static navigationOptions = {
     ...commonNavigationOptions,
     title: 'Trash',
-  }
+  };
 
   render() {
+    const { sets } = this.props;
+
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.contentContainer}>
-          <Text>TRASH</Text>
-        </ScrollView>
-      </View>
+      <SetList sets={sets} />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    flex: 1,
-    backgroundColor: $white,
-  },
-});
+const mapStateToProps = (state) => {
+  const { sets } = state;
+  const setsById = Object.values(sets.byId);
+  const deletedSets = setsById.filter(set => set.isDeleted);
 
-export default TrashScreen;
+  return {
+    sets: deletedSets,
+  };
+};
+
+export default connect(mapStateToProps)(TrashScreen);

@@ -1,53 +1,28 @@
 import React, { PureComponent } from 'react';
-import {
-  View, FlatList, Text, StyleSheet,
-} from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { $darkBlue, $white } from '../../utils/colors';
 
+import SetList from '../../components/SetList/SetList';
 import commonNavigationOptions from '../commonNavigationOptions';
-import SetItem from '../../components/Home/SetItem';
 
 class HomeScreen extends PureComponent {
+  static propTypes = {
+    sets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }
+
   static navigationOptions = {
     ...commonNavigationOptions,
     title: 'Home',
   };
 
-  keyExtractor = item => item.id;
-
-  renderItem = ({ item }) => <SetItem {...item} onPressItem={title => console.log(title)} />;
-
   render() {
     const { sets } = this.props;
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>SETS</Text>
-        <FlatList
-          data={sets}
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderItem}
-        />
-      </View>
+      <SetList sets={sets} />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: $white,
-  },
-  title: {
-    color: $darkBlue,
-    fontWeight: '600',
-    fontSize: 14,
-    letterSpacing: 1.7,
-    marginBottom: 20,
-  },
-});
 
 const mapStateToProps = (state) => {
   const { sets } = state;
