@@ -89,9 +89,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     borderRadius: 3,
+    height: 115,
+    marginBottom: 15,
   },
   container: {
     width: '100%',
+    height: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
