@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { View, Text, StyleSheet } from 'react-native';
 
 import SetList from '../../components/SetList/SetList';
 import commonNavigationOptions from '../commonNavigationOptions';
+import { $white, $darkBlue } from '../../utils/colors';
 
 class HomeScreen extends PureComponent {
   static propTypes = {
@@ -19,10 +21,31 @@ class HomeScreen extends PureComponent {
     const { sets } = this.props;
 
     return (
-      <SetList sets={sets} />
+      <View style={styles.container}>
+        <Text style={styles.title}>SETS</Text>
+        <SetList sets={sets} />
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: $white,
+  },
+  title: {
+    color: $darkBlue,
+    fontWeight: '600',
+    fontSize: 14,
+    letterSpacing: 1.7,
+    marginBottom: 20,
+    paddingTop: 3,
+    paddingLeft: 3,
+  },
+});
+
 
 const mapStateToProps = (state) => {
   const { sets } = state;
