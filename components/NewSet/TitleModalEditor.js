@@ -65,6 +65,7 @@ class TitleModalEditor extends PureComponent {
         <View style={styles.modalContent}>
           <Text style={styles.editSetTitle}>EDIT TITLE</Text>
           <TextInput
+            maxLength={50}
             onChangeText={this.onChangeText}
             style={styles.modalInput}
             value={newTitle}
