@@ -4,7 +4,7 @@ import {
   TouchableHighlight, TouchableOpacity, Dimensions, Animated, StyleSheet, Text, View, Platform,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { $darkBlue } from '../../utils/colors';
+import { $darkBlue, $black, $fullWhite } from '../../utils/colors';
 
 class AnimatedNewSetButton extends PureComponent {
   static propTypes = {
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     width: '100%',
     left: 0,
     justifyContent: 'flex-end',
+    backgroundColor: `${$black}4D`,
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -139,6 +140,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: '50%',
     justifyContent: 'center',
+    backgroundColor: $fullWhite,
   },
   iconContainerLeft: {
     alignItems: 'flex-end',
