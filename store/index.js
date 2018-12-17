@@ -21,7 +21,6 @@ export { store, persistor };
 
   {
     newSet: {
-      id,
       title,
       backgroundColor,
     },
