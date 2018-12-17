@@ -1,10 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View, FlatList, Text, StyleSheet,
-} from 'react-native';
-import { $darkBlue, $white } from '../../utils/colors';
-
+import { FlatList } from 'react-native';
 import SetItem from '../SetItem/SetItem';
 
 class SetList extends PureComponent {
@@ -20,31 +16,13 @@ class SetList extends PureComponent {
     const { sets } = this.props;
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>SETS</Text>
-        <FlatList
-          data={sets}
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderItem}
-        />
-      </View>
+      <FlatList
+        data={sets}
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderItem}
+      />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: $white,
-  },
-  title: {
-    color: $darkBlue,
-    fontWeight: '600',
-    fontSize: 14,
-    letterSpacing: 1.7,
-    marginBottom: 20,
-  },
-});
 
 export default SetList;
