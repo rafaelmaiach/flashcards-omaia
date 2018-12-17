@@ -1,6 +1,7 @@
 import {
   CREATE_SET,
   MOVE_TO_TRASH,
+  RESTORE_SET,
 } from '../actions/sets';
 
 const initialState = {
@@ -35,6 +36,20 @@ const sets = (state = initialState, action) => {
           [id]: {
             ...state.byId[id],
             isDeleted: true,
+          },
+        },
+      };
+    }
+    case RESTORE_SET: {
+      const id = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [id]: {
+            ...state.byId[id],
+            isDeleted: false,
           },
         },
       };

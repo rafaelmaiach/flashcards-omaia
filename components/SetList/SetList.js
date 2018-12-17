@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import {
   View, FlatList, Text, StyleSheet,
 } from 'react-native';
@@ -7,6 +8,10 @@ import { $darkBlue, $white } from '../../utils/colors';
 import SetItem from '../SetItem/SetItem';
 
 class SetList extends PureComponent {
+  static propTypes = {
+    sets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }
+
   keyExtractor = item => item.id;
 
   renderItem = ({ item }) => <SetItem {...item} onPressItem={title => console.log(title)} />;
