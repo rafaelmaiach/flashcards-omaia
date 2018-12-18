@@ -2,6 +2,7 @@ import {
   CREATE_SET,
   MOVE_TO_TRASH,
   RESTORE_SET,
+  DELETE_TRASH_SETS,
 } from '../actions/sets';
 
 const initialState = {
@@ -52,6 +53,25 @@ const sets = (state = initialState, action) => {
             isDeleted: false,
           },
         },
+      };
+    }
+    case DELETE_TRASH_SETS: {
+      const idsToDelete = action.payload;
+      const allIds = [...state.allIds];
+      const setsById = { ...state.byId };
+
+      const newAllIds = allIds.filter(id => !idsToDelete.includes(id));
+
+      Object.keys(setsById).forEach((id) => {
+        if (idsToDelete.includes(id)) {
+          delete setsById[id];
+        }
+      });
+
+      return {
+        ...state,
+        allIds: newAllIds,
+        byId: { ...setsById },
       };
     }
     default: {
