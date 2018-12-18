@@ -8,7 +8,7 @@ import { DangerZone } from 'expo';
 import { $white } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
-const EditIcon = require('./pencil.json');
+const EditIcon = require('../../assets/lottieAnimations/editIcon.json');
 
 class RightMenu extends PureComponent {
   static propTypes = {
