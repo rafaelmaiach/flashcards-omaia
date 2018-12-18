@@ -19,10 +19,8 @@ class AnimatedNewSetButton extends PureComponent {
     const { height } = Dimensions.get('window');
     this.windowHeight = Platform.OS === 'ios' ? height * 0.88 : height * 0.87;
 
-    this.state = {
-      hiddenIconsContainerSize: new Animated.Value(0),
-      buttonContainerOpacity: new Animated.Value(0),
-    };
+    this.hiddenIconsContainerSize = new Animated.Value(0);
+    this.buttonContainerOpacity = new Animated.Value(0);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,18 +35,16 @@ class AnimatedNewSetButton extends PureComponent {
   }
 
   openNewSetAnimation = () => {
-    const { hiddenIconsContainerSize, buttonContainerOpacity } = this.state;
-
     Animated.sequence([
       Animated.timing(
-        hiddenIconsContainerSize,
+        this.hiddenIconsContainerSize,
         {
           toValue: this.windowHeight,
           duration: 100,
         },
       ),
       Animated.timing(
-        buttonContainerOpacity,
+        this.buttonContainerOpacity,
         {
           toValue: 1,
           duration: 350,
@@ -58,18 +54,16 @@ class AnimatedNewSetButton extends PureComponent {
   }
 
   closeNewSetAnimation = () => {
-    const { hiddenIconsContainerSize, buttonContainerOpacity } = this.state;
-
     Animated.sequence([
       Animated.timing(
-        buttonContainerOpacity,
+        this.buttonContainerOpacity,
         {
           toValue: 0,
           duration: 350,
         },
       ),
       Animated.timing(
-        hiddenIconsContainerSize,
+        this.hiddenIconsContainerSize,
         {
           toValue: 0,
           duration: 100,
@@ -79,16 +73,15 @@ class AnimatedNewSetButton extends PureComponent {
   }
 
   render() {
-    const { hiddenIconsContainerSize, buttonContainerOpacity } = this.state;
     const { toggleNewSet, navigateToNewSet } = this.props;
 
     const hiddenContainerStyles = {
       ...styles.hiddenIconsContainer,
-      height: hiddenIconsContainerSize,
+      height: this.hiddenIconsContainerSize,
     };
 
     const buttonContainerAnimation = {
-      opacity: buttonContainerOpacity,
+      opacity: this.buttonContainerOpacity,
     };
 
     const AnimatedTouchable = Animated.createAnimatedComponent(TouchableHighlight);

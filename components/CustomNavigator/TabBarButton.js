@@ -9,21 +9,24 @@ const { Lottie } = DangerZone;
 const NewEntryIcon = require('./newEntry.json');
 
 class TabBarButton extends PureComponent {
-  state = {
-    progress: new Animated.Value(0),
+  constructor(props) {
+    super(props);
+
+    this.progress = new Animated.Value(0);
   }
 
   animateNewEntry = () => {
-    const { progress } = this.state;
     const { newEntryIconClicked } = this.props;
-    Animated.timing(progress, {
-      toValue: newEntryIconClicked ? 1 : 0,
-      duration: 800,
-    }).start();
+    Animated.timing(
+      this.progress,
+      {
+        toValue: newEntryIconClicked ? 1 : 0,
+        duration: 800,
+      },
+    ).start();
   }
 
   render() {
-    const { progress } = this.state;
     const { onPress, icon } = this.props;
 
     const yellow = hexToRgb($yellow);
@@ -45,7 +48,7 @@ class TabBarButton extends PureComponent {
               ref={(animation) => {
                 this.animation = animation;
               }}
-              progress={progress}
+              progress={this.progress}
               source={NewEntryIcon}
               style={styles.lottie}
             />
