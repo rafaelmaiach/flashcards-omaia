@@ -6,7 +6,7 @@ import { DangerZone } from 'expo';
 import { hexToRgb, $yellow, $darkBlue } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
-const NewEntryIcon = require('./newEntry.json');
+const NewEntryIcon = require('../../assets/lottieAnimations/newEntryIcon.json');
 
 class TabBarButton extends PureComponent {
   constructor(props) {

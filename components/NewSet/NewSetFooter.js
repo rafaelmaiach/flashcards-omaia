@@ -9,7 +9,7 @@ import { resetNewSet } from '../../actions/newSet';
 import { $grey, $darkBlue } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
-const SubmitIcon = require('./submit.json');
+const SubmitIcon = require('../../assets/lottieAnimations/submitIcon.json');
 
 class NewSetFooter extends PureComponent {
   static propTypes = {
