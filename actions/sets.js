@@ -2,6 +2,7 @@ const CREATE_SET = 'CREATE_SET';
 const DELETE_SET = 'DELETE_SET';
 const MOVE_TO_TRASH = 'MOVE_TO_TRASH';
 const RESTORE_SET = 'RESTORE_SET';
+const DELETE_TRASH_SETS = 'DELETE_TRASH_SETS';
 
 const createSet = newSet => ({
   type: CREATE_SET,
@@ -18,12 +19,19 @@ const restoreSet = id => ({
   payload: id,
 });
 
+const deleteTrashSets = ids => ({
+  type: DELETE_TRASH_SETS,
+  payload: ids,
+});
+
 export {
   CREATE_SET,
   DELETE_SET,
   MOVE_TO_TRASH,
   RESTORE_SET,
+  DELETE_TRASH_SETS,
   createSet,
   deleteSet,
   restoreSet,
+  deleteTrashSets,
 };
