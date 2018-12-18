@@ -15,8 +15,10 @@ class RightMenu extends PureComponent {
     navigation: PropTypes.object.isRequired,
   }
 
-  state = {
-    progress: new Animated.Value(0),
+  constructor(props) {
+    super(props);
+
+    this.progress = new Animated.Value(0);
   }
 
   componentDidMount() {
@@ -43,10 +45,8 @@ class RightMenu extends PureComponent {
   }
 
   animateIcon = (type) => {
-    const { progress } = this.state;
-
     Animated.timing(
-      progress,
+      this.progress,
       {
         toValue: type === 'open' ? 1 : 0,
         duration: 800,
@@ -55,7 +55,6 @@ class RightMenu extends PureComponent {
   }
 
   render() {
-    const { progress } = this.state;
     return (
       <View style={styles.rightMenu}>
         <TouchableOpacity
@@ -75,7 +74,7 @@ class RightMenu extends PureComponent {
               this.editAnimationIcon = animation;
             }}
             loop={false}
-            progress={progress}
+            progress={this.progress}
             source={EditIcon}
             style={styles.lottie}
           />

@@ -18,8 +18,10 @@ class NewSetFooter extends PureComponent {
     submitSet: PropTypes.func.isRequired,
   }
 
-  state = {
-    progress: new Animated.Value(0),
+  constructor(props) {
+    super(props);
+
+    this.progress = new Animated.Value(0);
   }
 
   resetNavigation = () => {
@@ -29,13 +31,12 @@ class NewSetFooter extends PureComponent {
   }
 
   onPress = () => {
-    const { progress } = this.state;
     const { submitSet } = this.props;
 
     submitSet();
 
     Animated.timing(
-      progress,
+      this.progress,
       {
         toValue: 1,
         duration: 1800,
@@ -44,8 +45,6 @@ class NewSetFooter extends PureComponent {
   }
 
   render() {
-    const { progress } = this.state;
-
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -58,7 +57,7 @@ class NewSetFooter extends PureComponent {
               this.submitAnimatedIcon = animation;
             }}
             loop={false}
-            progress={progress}
+            progress={this.progress}
             source={SubmitIcon}
             style={styles.lottie}
           />
