@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: $fullWhite,
     borderTopColor: $grey,
     borderTopWidth: 0.25,
+    paddingBottom: 5,
   },
 });
 
