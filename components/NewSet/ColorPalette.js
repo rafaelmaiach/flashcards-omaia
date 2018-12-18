@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     flexWrap: 'wrap',
-    marginLeft: 10,
+    marginLeft: 15,
   },
   color: {
     borderWidth: 4,
