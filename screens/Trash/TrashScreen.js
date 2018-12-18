@@ -26,9 +26,14 @@ class TrashScreen extends PureComponent {
   showAlert = () => {
     const { clearTrash, deletedIds } = this.props;
 
+    if (deletedIds.length === 0) {
+      Alert.alert('Trash is empty');
+      return;
+    }
+
     Alert.alert(
       'Clear Trash?',
-      'This will permanently delete all sets from trash.',
+      'This will permanently delete all sets.',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'OK', onPress: () => clearTrash(deletedIds) },
