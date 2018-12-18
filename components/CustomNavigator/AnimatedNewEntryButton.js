@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     width: '100%',
     left: 0,
     justifyContent: 'flex-end',
-    backgroundColor: `${$black}4D`,
+    backgroundColor: `${$black}33`,
   },
   buttonsContainer: {
     flexDirection: 'row',
