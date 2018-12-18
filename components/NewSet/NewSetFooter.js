@@ -22,23 +22,25 @@ class NewSetFooter extends PureComponent {
     progress: new Animated.Value(0),
   }
 
-  submit = () => {
-    const { submitSet, navigation, resetNewSetInfo } = this.props;
-    submitSet();
+  resetNavigation = () => {
+    const { navigation, resetNewSetInfo } = this.props;
     resetNewSetInfo();
     navigation.goBack();
   }
 
   onPress = () => {
     const { progress } = this.state;
+    const { submitSet } = this.props;
+
+    submitSet();
 
     Animated.timing(
       progress,
       {
         toValue: 1,
-        duration: 2000,
+        duration: 1800,
       },
-    ).start(this.submit);
+    ).start(this.resetNavigation);
   }
 
   render() {
@@ -46,7 +48,11 @@ class NewSetFooter extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={1} onPress={this.onPress} style={styles.buttonContainer}>
+        <TouchableOpacity
+          activeOpacity={0.75}
+          onPress={this.onPress}
+          style={styles.buttonContainer}
+        >
           <Lottie
             ref={(animation) => {
               this.submitAnimatedIcon = animation;
