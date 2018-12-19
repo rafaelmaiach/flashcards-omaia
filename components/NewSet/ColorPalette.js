@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   Text, TouchableOpacity, View, StyleSheet,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import chroma from 'chroma-js';
 import { editBackgroundColor, resetNewSet } from '../../actions/newSet';
@@ -153,4 +154,5 @@ const mapDispatchToProps = dispatch => ({
   resetNewSet: () => dispatch(resetNewSet()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetBgColorEditor);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(withNavigation(SetBgColorEditor));

@@ -14,7 +14,7 @@ import { timeConverter } from '../../utils/helpers';
 class SetItem extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
-    cards: PropTypes.arrayOf(PropTypes.number).isRequired,
+    cards: PropTypes.arrayOf(PropTypes.string).isRequired,
     createdDate: PropTypes.number.isRequired,
     isDeleted: PropTypes.bool.isRequired,
     onPressItem: PropTypes.func.isRequired,

@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import {
   View, Text, StyleSheet, TouchableOpacity, Animated,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { DangerZone } from 'expo';
+import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
 import { $grey, $darkBlue } from '../../utils/colors';
 
@@ -13,9 +15,13 @@ const SubmitIcon = require('../../assets/lottieAnimations/submitIcon.json');
 
 class NewSetFooter extends PureComponent {
   static propTypes = {
+    backgroundColor: PropTypes.string.isRequired,
+    cards: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     navigation: PropTypes.object.isRequired,
     resetNewSetInfo: PropTypes.func.isRequired,
-    submitSet: PropTypes.func.isRequired,
+    submitNewSet: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -30,10 +36,26 @@ class NewSetFooter extends PureComponent {
     navigation.goBack();
   }
 
-  onPress = () => {
-    const { submitSet } = this.props;
+  submitSet = () => {
+    const {
+      id, title, backgroundColor, cards, navigation, submitNewSet,
+    } = this.props;
+    const bgColor = backgroundColor || navigation.getParam('backgroundColor');
 
-    submitSet();
+    const newSet = {
+      id,
+      title,
+      createdDate: Date.now(),
+      backgroundColor: bgColor,
+      isDeleted: false,
+      cards,
+    };
+
+    submitNewSet(newSet);
+  }
+
+  onPress = () => {
+    this.submitSet();
 
     Animated.timing(
       this.progress,
@@ -95,8 +117,23 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = ({ newSet }) => {
+  const {
+    id, title, backgroundColor, cards,
+  } = newSet;
+
+  return {
+    id,
+    title,
+    backgroundColor,
+    cards,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
+  submitNewSet: newSet => dispatch(createSet(newSet)),
   resetNewSetInfo: () => dispatch(resetNewSet()),
 });
 
-export default connect(null, mapDispatchToProps)(NewSetFooter);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(withNavigation(NewSetFooter));

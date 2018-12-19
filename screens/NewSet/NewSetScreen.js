@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
-import { createSet } from '../../actions/sets';
 import { addCardNewSet } from '../../actions/newSet';
 
 import {
@@ -20,18 +19,9 @@ import { $white, newSetPaletteColor } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class NewSetScreen extends PureComponent {
-  static defaultProps = {
-    backgroundColor: '',
-    title: '',
-  }
-
   static propTypes = {
-    backgroundColor: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.object).isRequired,
     createTempSetCards: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired,
-    submitNewSet: PropTypes.func.isRequired,
-    title: PropTypes.string,
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -71,48 +61,26 @@ class NewSetScreen extends PureComponent {
     setBgColorModalVisible: !prev.setBgColorModalVisible,
   }));
 
-  submitSet = () => {
-    const {
-      id, title, backgroundColor, cards, navigation, submitNewSet,
-    } = this.props;
-    const bgColor = backgroundColor || navigation.getParam('backgroundColor');
-
-    const newSet = {
-      id,
-      title,
-      createdDate: Date.now(),
-      backgroundColor: bgColor,
-      isDeleted: false,
-      cards: [],
-    };
-
-    submitNewSet(newSet);
-  }
-
   render() {
     const { titleModalVisible, setBgColorModalVisible } = this.state;
-    const {
-      id, cards, navigation, createTempSetCards,
-    } = this.props;
+    const { createTempSetCards } = this.props;
 
     return (
       <Fragment>
         <TitleModalEditor
-          navigation={navigation}
           toggleModalTitle={this.toggleModalTitle}
           visible={titleModalVisible}
         />
         <ColorPalette
-          navigation={navigation}
           toggleModalSetBgColor={this.toggleModalSetBgColor}
           visible={setBgColorModalVisible}
         />
         <View style={styles.container}>
-          <CardsList cards={cards} />
+          <CardsList />
           <TouchableOpacity onPress={createTempSetCards}>
             <Text>Add Card</Text>
           </TouchableOpacity>
-          <NewSetFooter navigation={navigation} submitSet={this.submitSet} />
+          <NewSetFooter />
         </View>
       </Fragment>
     );
@@ -127,22 +95,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ newSet }) => {
-  const {
-    id, title, backgroundColor, cards,
-  } = newSet;
-
-  return {
-    id,
-    title,
-    backgroundColor,
-    cards: Object.values(cards),
-  };
-};
-
 const mapDispatchToProps = dispatch => ({
-  submitNewSet: newSet => dispatch(createSet(newSet)),
   createTempSetCards: () => dispatch(addCardNewSet()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewSetScreen);
+export default connect(null, mapDispatchToProps)(NewSetScreen);
