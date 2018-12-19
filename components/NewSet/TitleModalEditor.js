@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   Text, TouchableOpacity, View, StyleSheet, TextInput,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import { editTitle } from '../../actions/newSet';
 
@@ -125,4 +126,5 @@ const mapDispatchToProps = dispatch => ({
   submitNewTitle: newTitle => dispatch(editTitle(newTitle)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TitleModalEditor);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(withNavigation(TitleModalEditor));

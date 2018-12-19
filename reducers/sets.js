@@ -12,18 +12,19 @@ const initialState = {
 
 const sets = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_ALL_SETS': {
-      return {
-        ...state.sets.byId,
-      };
-    }
     case CREATE_SET: {
+      const set = action.payload;
+      const cardsIds = Object.keys(set.cards);
+
       return {
         ...state,
-        allIds: state.allIds.concat(action.payload.id),
+        allIds: state.allIds.concat(set.id),
         byId: {
           ...state.byId,
-          [action.payload.id]: action.payload,
+          [set.id]: {
+            ...set,
+            cards: cardsIds,
+          },
         },
       };
     }
