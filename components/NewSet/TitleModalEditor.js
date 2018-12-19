@@ -8,9 +8,7 @@ import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import { editTitle } from '../../actions/newSet';
 
-import {
-  $white, $black, $lightBlue, $darkGreen,
-} from '../../utils/colors';
+import { $white, $black, $lightBlue } from '../../utils/colors';
 
 class TitleModalEditor extends PureComponent {
   static propTypes = {
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
   closeText: {
     fontSize: 14,
     fontWeight: '600',
-    color: $darkGreen,
+    color: $lightBlue,
   },
 });
 
