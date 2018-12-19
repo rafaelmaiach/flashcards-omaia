@@ -1,12 +1,24 @@
+import uuidv4 from 'uuid/v4';
 import {
   EDIT_TITLE,
   EDIT_BACKGROUND_COLOR,
   RESET_NEW_SET,
+  ADD_CARD_NEW_SET,
 } from '../actions/newSet';
+import { $lightGrey, $black } from '../utils/colors';
 
 const initialState = {
+  id: uuidv4(),
   title: 'New Set',
   backgroundColor: '',
+  cards: {},
+};
+
+const cardTemplate = {
+  frontText: 'Front text',
+  backText: 'Back text',
+  backgroundColor: $lightGrey,
+  foregroundColor: $black,
 };
 
 const sets = (state = initialState, action) => {
@@ -26,6 +38,20 @@ const sets = (state = initialState, action) => {
     case RESET_NEW_SET: {
       return {
         ...initialState,
+      };
+    }
+    case ADD_CARD_NEW_SET: {
+      const card = {
+        ...cardTemplate,
+        id: uuidv4(),
+      };
+
+      return {
+        ...state,
+        cards: {
+          ...state.cards,
+          [card.id]: card,
+        },
       };
     }
     default: {
