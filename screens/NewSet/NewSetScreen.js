@@ -1,14 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  View, ScrollView, Text, StyleSheet,
+  View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
-import uuidv4 from 'uuid/v4';
 import { createSet } from '../../actions/sets';
-
-import { $white, newSetPaletteColor } from '../../utils/colors';
-import commonNavigationOptions from '../commonNavigationOptions';
+import { addCardNewSet } from '../../actions/newSet';
 
 import {
   Left,
@@ -16,7 +13,11 @@ import {
   NewSetFooter,
   TitleModalEditor,
   ColorPalette,
+  CardsList,
 } from '../../components/NewSet';
+
+import { $white, newSetPaletteColor } from '../../utils/colors';
+import commonNavigationOptions from '../commonNavigationOptions';
 
 class NewSetScreen extends PureComponent {
   static defaultProps = {
@@ -26,6 +27,8 @@ class NewSetScreen extends PureComponent {
 
   static propTypes = {
     backgroundColor: PropTypes.string,
+    cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+    createTempSetCards: PropTypes.func.isRequired,
     navigation: PropTypes.object.isRequired,
     submitNewSet: PropTypes.func.isRequired,
     title: PropTypes.string,
@@ -70,12 +73,12 @@ class NewSetScreen extends PureComponent {
 
   submitSet = () => {
     const {
-      title, backgroundColor, navigation, submitNewSet,
+      id, title, backgroundColor, cards, navigation, submitNewSet,
     } = this.props;
     const bgColor = backgroundColor || navigation.getParam('backgroundColor');
 
     const newSet = {
-      id: uuidv4(),
+      id,
       title,
       createdDate: Date.now(),
       backgroundColor: bgColor,
@@ -88,10 +91,12 @@ class NewSetScreen extends PureComponent {
 
   render() {
     const { titleModalVisible, setBgColorModalVisible } = this.state;
-    const { navigation } = this.props;
+    const {
+      id, cards, navigation, createTempSetCards,
+    } = this.props;
 
     return (
-      <View style={styles.container}>
+      <Fragment>
         <TitleModalEditor
           navigation={navigation}
           toggleModalTitle={this.toggleModalTitle}
@@ -102,11 +107,14 @@ class NewSetScreen extends PureComponent {
           toggleModalSetBgColor={this.toggleModalSetBgColor}
           visible={setBgColorModalVisible}
         />
-        <ScrollView style={styles.contentContainer}>
-          <Text> TEXT </Text>
-        </ScrollView>
-        <NewSetFooter navigation={navigation} submitSet={this.submitSet} />
-      </View>
+        <View style={styles.container}>
+          <CardsList cards={cards} />
+          <TouchableOpacity onPress={createTempSetCards}>
+            <Text>Add Card</Text>
+          </TouchableOpacity>
+          <NewSetFooter navigation={navigation} submitSet={this.submitSet} />
+        </View>
+      </Fragment>
     );
   }
 }
@@ -117,22 +125,24 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     backgroundColor: $white,
   },
-  contentContainer: {
-    padding: 20,
-  },
 });
 
 const mapStateToProps = ({ newSet }) => {
-  const { title, backgroundColor } = newSet;
+  const {
+    id, title, backgroundColor, cards,
+  } = newSet;
 
   return {
+    id,
     title,
     backgroundColor,
+    cards: Object.values(cards),
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   submitNewSet: newSet => dispatch(createSet(newSet)),
+  createTempSetCards: () => dispatch(addCardNewSet()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewSetScreen);
