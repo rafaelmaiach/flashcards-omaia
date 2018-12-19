@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+import { $lightBlue } from '../../utils/colors';
 
 class CardItem extends PureComponent {
   static propTypes = {
@@ -10,9 +12,22 @@ class CardItem extends PureComponent {
   render() {
     const { id } = this.props;
     return (
-      <Text>{id}</Text>
+      <View style={styles.container}>
+        <Text>{id}</Text>
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: $lightBlue,
+    width: '100%',
+    height: '70%',
+    marginTop: '30%',
+    borderRadius: 3,
+    padding: 10,
+  },
+});
 
 export default CardItem;
