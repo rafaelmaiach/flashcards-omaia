@@ -15,7 +15,7 @@ import {
   CardsList,
 } from '../../components/NewSet';
 
-import { $white, newSetPaletteColor } from '../../utils/colors';
+import { $white, newSetPaletteColor, $lightBlue } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class NewSetScreen extends PureComponent {
@@ -77,9 +77,11 @@ class NewSetScreen extends PureComponent {
         />
         <View style={styles.container}>
           <CardsList />
-          <TouchableOpacity onPress={createTempSetCards}>
-            <Text>Add Card</Text>
-          </TouchableOpacity>
+          <View style={styles.addCardContainer}>
+            <TouchableOpacity onPress={createTempSetCards} style={styles.addCardButton}>
+              <Text style={styles.addCardText}>Add Card</Text>
+            </TouchableOpacity>
+          </View>
           <NewSetFooter />
         </View>
       </Fragment>
@@ -92,6 +94,28 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 5,
     backgroundColor: $white,
+  },
+  addCardContainer: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: $white,
+  },
+  addCardButton: {
+    backgroundColor: $lightBlue,
+    width: '30%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
+  },
+  addCardText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: $white,
   },
 });
 
