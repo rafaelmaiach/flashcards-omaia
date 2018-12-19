@@ -12,8 +12,9 @@ import {
   NewSetFooter,
   TitleModalEditor,
   ColorPalette,
-  CardsList,
 } from '../../components/NewSet';
+
+import CardsList from '../../components/Cards/CardsList';
 
 import { $white, newSetPaletteColor, $lightBlue } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
