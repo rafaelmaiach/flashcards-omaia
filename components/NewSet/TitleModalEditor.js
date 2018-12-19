@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   modalInput: {
     height: 40,
     fontSize: 16,
-    color: $lightBlue,
+    color: $black,
     borderBottomColor: $lightBlue,
     borderBottomWidth: 2,
   },

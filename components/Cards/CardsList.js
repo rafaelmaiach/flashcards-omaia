@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
-import CardItem from '../CardItem/CardItem';
+import { connect } from 'react-redux';
+import { FlatList, StyleSheet } from 'react-native';
+import CardItem from './CardItem';
 
 class CardsList extends PureComponent {
   static propTypes = {
@@ -18,6 +18,7 @@ class CardsList extends PureComponent {
 
     return (
       <FlatList
+        contentContainerStyle={styles.container}
         data={cards}
         keyExtractor={this.keyExtractor}
         renderItem={this.renderItem}
@@ -25,6 +26,13 @@ class CardsList extends PureComponent {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    margin: 20,
+  },
+});
 
 const mapStateToProps = ({ newSet }) => {
   const { cards } = newSet;
