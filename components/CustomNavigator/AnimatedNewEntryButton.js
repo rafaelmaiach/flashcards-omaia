@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
   hiddenIconsContainer: {
     position: 'absolute',
     width: '100%',
+    height: '90%',
     left: 0,
     justifyContent: 'flex-end',
     backgroundColor: `${$black}1A`,

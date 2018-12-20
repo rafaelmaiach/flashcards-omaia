@@ -67,12 +67,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 65,
+    height: '10%',
     width: '100%',
     backgroundColor: $fullWhite,
     borderTopColor: $grey,
     borderTopWidth: 0.25,
-    paddingBottom: 5,
   },
 });
 
