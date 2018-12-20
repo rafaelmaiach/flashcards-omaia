@@ -5,7 +5,7 @@ import {
   RESET_NEW_SET,
   ADD_CARD_NEW_SET,
 } from '../actions/newSet';
-import { $lightGrey, $black } from '../utils/colors';
+import { $white } from '../utils/colors';
 
 const initialState = {
   id: uuidv4(),
@@ -15,10 +15,10 @@ const initialState = {
 };
 
 const cardTemplate = {
-  frontText: 'Front text',
-  backText: 'Back text',
-  backgroundColor: $lightGrey,
-  foregroundColor: $black,
+  frontText: 'Write a question',
+  backText: 'Write an answer',
+  backgroundColor: '',
+  foregroundColor: $white,
 };
 
 const sets = (state = initialState, action) => {
