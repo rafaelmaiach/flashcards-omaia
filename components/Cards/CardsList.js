@@ -38,8 +38,17 @@ class CardsList extends PureComponent {
     }
   }
 
+  scrollToEnd = () => {
+    if (this.carousel) {
+      const { cards } = this.props;
+      this.carousel.snapToItem(cards.length - 1);
+    }
+  }
+
   render() {
-    const { cards } = this.props;
+    const { cards, bgColor } = this.props;
+
+    const addCardButtonBgColor = { backgroundColor: bgColor };
 
     return (
       <View style={styles.container}>
@@ -50,13 +59,15 @@ class CardsList extends PureComponent {
           inactiveSlideOpacity={0.5}
           inactiveSlideScale={0.9}
           itemWidth={this.sliderItemWidth}
+          onContentSizeChange={this.scrollToEnd}
+          onLayout={this.scrollToEnd}
           renderItem={this.renderItem}
           sliderWidth={this.sliderWidth}
         />
         <View style={styles.addCardContainer}>
           <TouchableOpacity
             onPress={this.createCard}
-            style={styles.addCardButton}
+            style={[styles.addCardButton, addCardButtonBgColor]}
           >
             <Text style={styles.addCardText}>Add Card</Text>
           </TouchableOpacity>
@@ -84,8 +95,8 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderTopLeftRadius: 3,
-    borderTopRightRadius: 3,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
   },
   addCardText: {
     fontSize: 16,
@@ -95,10 +106,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ newSet }) => {
-  const { cards } = newSet;
+  const { cards, backgroundColor } = newSet;
 
   return {
-    cards: Object.values(cards).reverse(),
+    bgColor: backgroundColor,
+    cards: Object.values(cards),
   };
 };
 
@@ -106,4 +118,5 @@ const mapDispatchToProps = dispatch => ({
   createTempSetCards: () => dispatch(addCardNewSet()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CardsList);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(CardsList);
