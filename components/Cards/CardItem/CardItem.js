@@ -1,11 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  View, Animated, Text, StyleSheet,
+  Animated, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
-
-import { cardShowAnimation, cardFlipToFront, cardFlipToBack } from './animations';
+import CardFlip from 'react-native-card-flip';
+import chroma from 'chroma-js';
+import cardShowAnimation from './animations';
 
 import CardItemFooter from './CardItemFooter';
 
@@ -29,23 +30,6 @@ class CardItem extends PureComponent {
 
     this.scale = new Animated.Value(0.5);
     this.opacity = new Animated.Value(0);
-
-    this.flipValue = new Animated.Value(0);
-    this.flipPositionValue = 0;
-
-    this.flipValue.addListener(({ value }) => {
-      this.flipPositionValue = value;
-    });
-
-    this.frontInterpolate = this.flipValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['0deg', '180deg'],
-    });
-
-    this.backInterpolate = this.flipValue.interpolate({
-      inputRange: [0, 180],
-      outputRange: ['180deg', '360deg'],
-    });
   }
 
   componentDidMount() {
@@ -61,13 +45,18 @@ class CardItem extends PureComponent {
   }
 
   flipCard = () => {
-    if (this.flipPositionValue >= 90) {
-      this.setState(() => ({ side: 'front' }));
-      cardFlipToFront(this.flipValue).start();
-    } else {
-      this.setState(() => ({ side: 'back' }));
-      cardFlipToBack(this.flipValue).start();
+    if (this.card) {
+      this.card.flip();
     }
+  }
+
+  onFlipStart = (nextSide) => {
+    if (nextSide) {
+      this.setState(() => ({ side: 'back' }));
+      return;
+    }
+
+    this.setState(() => ({ side: 'front' }));
   }
 
   render() {
@@ -90,44 +79,47 @@ class CardItem extends PureComponent {
       fontSize: cardFontSize,
     };
 
-    const commonStyle = {
-      opacity: this.opacity,
+    const frontSideColor = {
       backgroundColor: bgColor,
     };
 
-    const frontCardStyles = {
-      ...styles.flipCard,
-      ...commonStyle,
-      transform: [
-        { rotateY: this.frontInterpolate },
-        { scale: this.scale },
-      ],
+    const backSideColor = {
+      backgroundColor: chroma(bgColor).darken(1).hex(),
+
     };
 
-    const backCardStyles = {
-      ...styles.flipCard,
-      ...styles.flipCardBack,
-      ...commonStyle,
+    const containerStyles = {
+      ...styles.container,
+      backgroundColor: bgColor,
       transform: [
-        { rotateY: this.backInterpolate },
         { scale: this.scale },
       ],
+      opacity: this.opacity,
     };
 
     return (
-      <View style={styles.container}>
-        <View>
-          <Animated.View onLayout={this.getDimensions} style={frontCardStyles}>
-            <Text style={flipTextStyles}>
-              {frontText}
-            </Text>
-          </Animated.View>
-          <Animated.View onLayout={this.getDimensions} style={backCardStyles}>
-            <Text style={flipTextStyles}>
-              {backText}
-            </Text>
-          </Animated.View>
-        </View>
+      <Fragment>
+        <Animated.View
+          onLayout={this.getDimensions}
+          style={containerStyles}
+        >
+          <CardFlip
+            ref={(card) => { this.card = card; }}
+            duration={500}
+            flipDirection="x"
+            flipZoom={0}
+            onFlipStart={this.onFlipStart}
+            perspective={1200}
+            style={styles.flipCardContainer}
+          >
+            <TouchableOpacity activeOpacity={0.75} style={[styles.flipCard, frontSideColor]}>
+              <Text style={flipTextStyles}>{frontText}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.75} style={[styles.flipCard, backSideColor]}>
+              <Text style={flipTextStyles}>{backText}</Text>
+            </TouchableOpacity>
+          </CardFlip>
+        </Animated.View>
         <CardItemFooter
           bgColor={bgColor}
           flipCard={this.flipCard}
@@ -135,7 +127,7 @@ class CardItem extends PureComponent {
           side={side}
           textColor={textColor}
         />
-      </View>
+      </Fragment>
     );
   }
 }
@@ -145,18 +137,17 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '85%',
   },
+  flipCardContainer: {
+    width: '100%',
+    height: '100%',
+  },
   flipCard: {
     width: '100%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backfaceVisibility: 'hidden',
     borderTopLeftRadius: 3,
     borderTopRightRadius: 3,
-  },
-  flipCardBack: {
-    position: 'absolute',
-    top: 0,
   },
   flipText: {
     padding: 10,

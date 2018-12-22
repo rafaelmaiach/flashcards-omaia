@@ -14,6 +14,7 @@
     "prop-types": "15.6.2",
     "react": "16.4.1",
     "react-native": "0.57.0",
+    "react-native-card-flip": "1.0.4",
     "react-native-color-picker": "0.4.0",
     "react-native-material-ripple": "0.8.0",
     "react-native-modal": "7.0.2",

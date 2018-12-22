@@ -1,11 +1,9 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import chroma from 'chroma-js';
 import { $white } from '../../../utils/colors';
-
-import { cardShowAnimation } from './animations';
 
 import CardItemColors from './CardItemColors';
 
@@ -25,13 +23,6 @@ class CardItemFooter extends PureComponent {
       modalColorsVisible: false,
       isBackgroundModal: true, // true for background action and false for foreground color
     };
-
-    this.scale = new Animated.Value(0.5);
-    this.opacity = new Animated.Value(0);
-  }
-
-  componentDidMount() {
-    cardShowAnimation(this.scale, this.opacity).start();
   }
 
   toggleModalColors = () => this.setState(prev => ({
@@ -51,14 +42,8 @@ class CardItemFooter extends PureComponent {
       id, side, bgColor, textColor, flipCard,
     } = this.props;
 
-    const cardAppearAnimation = {
-      transform: [{ scale: this.scale }],
-      opacity: this.opacity,
-    };
-
     const footerStyles = {
       ...styles.footerContainer,
-      ...cardAppearAnimation,
       backgroundColor: chroma(bgColor).darken(1).hex(),
     };
 
@@ -79,7 +64,7 @@ class CardItemFooter extends PureComponent {
           visible
         />
         )}
-        <Animated.View style={footerStyles}>
+        <View style={footerStyles}>
           <TouchableOpacity activeOpacity={0.75} onPress={openForegroundModal}>
             <MaterialIcons color={$white} name="format-color-text" size={30} />
           </TouchableOpacity>
@@ -89,7 +74,7 @@ class CardItemFooter extends PureComponent {
           <TouchableOpacity onPress={flipCard}>
             <MaterialIcons activeOpacity={0.75} color={$white} name={flipIcon} size={30} />
           </TouchableOpacity>
-        </Animated.View>
+        </View>
       </Fragment>
     );
   }
