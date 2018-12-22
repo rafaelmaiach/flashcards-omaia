@@ -89,6 +89,7 @@ class CardItemColors extends PureComponent {
               color={currColor}
               oldColor={oldColor}
               onColorChange={this.onColorChange}
+              onOldColorSelected={this.onColorChange}
               style={styles.colorPicker}
             />
           </View>
