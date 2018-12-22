@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import chroma from 'chroma-js';
-import cardShowAnimation from './animation';
 import { $white } from '../../../utils/colors';
+
+import { cardShowAnimation } from './animations';
+
 import CardItemColors from './CardItemColors';
 
 class CardItemFooter extends PureComponent {

@@ -5,7 +5,7 @@ import {
   View, Animated, Text, StyleSheet,
 } from 'react-native';
 
-import cardShowAnimation from './animation';
+import { cardShowAnimation, cardFlipToFront, cardFlipToBack } from './animations';
 
 import CardItemFooter from './CardItemFooter';
 
@@ -30,31 +30,21 @@ class CardItem extends PureComponent {
     this.scale = new Animated.Value(0.5);
     this.opacity = new Animated.Value(0);
 
-    this.animatedValue = new Animated.Value(0);
-    this.value = 0;
+    this.flipValue = new Animated.Value(0);
+    this.flipPositionValue = 0;
 
-    this.animatedValue.addListener(({ value }) => {
-      this.value = value;
+    this.flipValue.addListener(({ value }) => {
+      this.flipPositionValue = value;
     });
 
-    this.frontInterpolate = this.animatedValue.interpolate({
+    this.frontInterpolate = this.flipValue.interpolate({
       inputRange: [0, 180],
       outputRange: ['0deg', '180deg'],
     });
 
-    this.backInterpolate = this.animatedValue.interpolate({
+    this.backInterpolate = this.flipValue.interpolate({
       inputRange: [0, 180],
       outputRange: ['180deg', '360deg'],
-    });
-
-    this.frontOpacity = this.animatedValue.interpolate({
-      inputRange: [89, 90],
-      outputRange: [1, 0],
-    });
-
-    this.backOpacity = this.animatedValue.interpolate({
-      inputRange: [89, 90],
-      outputRange: [0, 1],
     });
   }
 
@@ -71,20 +61,12 @@ class CardItem extends PureComponent {
   }
 
   flipCard = () => {
-    if (this.value >= 90) {
+    if (this.flipPositionValue >= 90) {
       this.setState(() => ({ side: 'front' }));
-      Animated.spring(this.animatedValue, {
-        toValue: 0,
-        friction: 8,
-        tension: 10,
-      }).start();
+      cardFlipToFront(this.flipValue).start();
     } else {
       this.setState(() => ({ side: 'back' }));
-      Animated.spring(this.animatedValue, {
-        toValue: 180,
-        friction: 8,
-        tension: 10,
-      }).start();
+      cardFlipToBack(this.flipValue).start();
     }
   }
 
@@ -98,23 +80,14 @@ class CardItem extends PureComponent {
       backText,
     } = this.props;
 
-    const frontFontSize = Math.sqrt(cardWidth * cardHeight / (frontText.length));
-    const cardFrontFontSize = frontFontSize > 35 ? 35 : frontFontSize;
-
-    const backFontSize = Math.sqrt(cardWidth * cardHeight / (frontText.length));
-    const cardBackFontSize = backFontSize > 35 ? 35 : backFontSize;
+    const textLength = side === 'front' ? frontText.length : backText.length;
+    const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
+    const cardFontSize = fontSize > 35 ? 35 : fontSize;
 
     const flipTextStyles = {
       ...styles.flipText,
       color: textColor,
-    };
-
-    const frontTextSize = {
-      fontSize: cardFrontFontSize,
-    };
-
-    const backTextSize = {
-      fontSize: cardBackFontSize,
+      fontSize: cardFontSize,
     };
 
     const commonStyle = {
@@ -145,12 +118,12 @@ class CardItem extends PureComponent {
       <View style={styles.container}>
         <View>
           <Animated.View onLayout={this.getDimensions} style={frontCardStyles}>
-            <Text style={[flipTextStyles, frontTextSize]}>
+            <Text style={flipTextStyles}>
               {frontText}
             </Text>
           </Animated.View>
           <Animated.View onLayout={this.getDimensions} style={backCardStyles}>
-            <Text style={[flipTextStyles, backTextSize]}>
+            <Text style={flipTextStyles}>
               {backText}
             </Text>
           </Animated.View>
