@@ -23,16 +23,16 @@ const $lightBlue = '#0073CA';
 const $yellow = '#d3a625';
 
 const newSetPaletteColor = [
-  '#a086d5',
-  '#c287e5',
+  '#0392cf',
+  '#1957f5',
   '#df7696',
   '#ff6d70',
   '#f34a53',
   '#f39119',
   '#7bc043',
   '#32994c',
-  '#1957f5',
-  '#0392cf',
+  '#a086d5',
+  '#c287e5',
   '#985b41',
 ];
 
