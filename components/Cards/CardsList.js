@@ -5,10 +5,12 @@ import {
   View, Text, TouchableOpacity, StyleSheet, Dimensions,
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import chroma from 'chroma-js';
 import { addCardNewSet } from '../../actions/newSet';
+
 import { $white, $lightBlue } from '../../utils/colors';
 
-import CardItem from './CardItem';
+import CardItem from './CardItem/CardItem';
 
 class CardsList extends PureComponent {
   static propTypes = {
@@ -48,22 +50,27 @@ class CardsList extends PureComponent {
   render() {
     const { cards, bgColor } = this.props;
 
-    const addCardButtonBgColor = { backgroundColor: bgColor };
+    const darkBgColor = bgColor ? chroma(bgColor).darken(1).hex() : bgColor;
+    const addCardButtonBgColor = {
+      backgroundColor: darkBgColor,
+    };
 
     return (
       <View style={styles.container}>
-        <Carousel
-          ref={(c) => { this.carousel = c; }}
-          data={cards}
-          horizontal
-          inactiveSlideOpacity={0.5}
-          inactiveSlideScale={0.9}
-          itemWidth={this.sliderItemWidth}
-          onContentSizeChange={this.scrollToEnd}
-          onLayout={this.scrollToEnd}
-          renderItem={this.renderItem}
-          sliderWidth={this.sliderWidth}
-        />
+        <View style={styles.carouselContainer}>
+          <Carousel
+            ref={(c) => { this.carousel = c; }}
+            data={cards}
+            horizontal
+            inactiveSlideOpacity={0.5}
+            inactiveSlideScale={0.9}
+            itemWidth={this.sliderItemWidth}
+            onContentSizeChange={this.scrollToEnd}
+            onLayout={this.scrollToEnd}
+            renderItem={this.renderItem}
+            sliderWidth={this.sliderWidth}
+          />
+        </View>
         <View style={styles.addCardContainer}>
           <TouchableOpacity
             onPress={this.createCard}
@@ -80,6 +87,13 @@ class CardsList extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'space-between',
+  },
+  carouselContainer: {
+    height: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: '10%',
   },
   addCardContainer: {
     width: '100%',
