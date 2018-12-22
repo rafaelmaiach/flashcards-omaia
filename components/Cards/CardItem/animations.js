@@ -6,43 +6,17 @@ const cardShowAnimation = (scale, opacity) => (
       scale,
       {
         toValue: 1,
-        duration: 400,
+        duration: 300,
       },
     ),
     Animated.timing(
       opacity,
       {
         toValue: 1,
-        duration: 400,
+        duration: 300,
       },
     ),
   ])
 );
 
-const cardFlipToFront = flipValue => (
-  Animated.spring(
-    flipValue,
-    {
-      toValue: 0,
-      friction: 8,
-      tension: 10,
-    },
-  )
-);
-
-const cardFlipToBack = flipValue => (
-  Animated.spring(
-    flipValue,
-    {
-      toValue: 180,
-      friction: 8,
-      tension: 10,
-    },
-  )
-);
-
-export {
-  cardShowAnimation,
-  cardFlipToFront,
-  cardFlipToBack,
-};
+export default cardShowAnimation;
