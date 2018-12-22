@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 import { DangerZone } from 'expo';
 import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
-import { $grey, $darkBlue } from '../../utils/colors';
+import { $darkBlue } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
 const SubmitIcon = require('../../assets/lottieAnimations/submitIcon.json');
@@ -97,8 +97,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 65,
     width: '100%',
-    borderTopColor: $grey,
-    borderTopWidth: 0.25,
   },
   buttonContainer: {
     width: '33.33%',
@@ -108,7 +106,7 @@ const styles = StyleSheet.create({
   },
   lottie: {
     width: '100%',
-    height: '75%',
+    height: '73%',
   },
   submitText: {
     fontSize: 12,
