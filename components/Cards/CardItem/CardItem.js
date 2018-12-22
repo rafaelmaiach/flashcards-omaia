@@ -72,12 +72,14 @@ class CardItem extends PureComponent {
 
   flipCard = () => {
     if (this.value >= 90) {
+      this.setState(() => ({ side: 'front' }));
       Animated.spring(this.animatedValue, {
         toValue: 0,
         friction: 8,
         tension: 10,
       }).start();
     } else {
+      this.setState(() => ({ side: 'back' }));
       Animated.spring(this.animatedValue, {
         toValue: 180,
         friction: 8,

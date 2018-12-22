@@ -6,10 +6,7 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
-import {
-  editCardBackgroundColor,
-  editCardForegroundColor,
-} from '../../../actions/newSet';
+import { editCardColor } from '../../../actions/newSet';
 
 import {
   $white, $black, $lightBlue, $lightRed, $darkGreen,
@@ -19,8 +16,7 @@ class CardItemColors extends PureComponent {
   static propTypes = {
     bgColor: PropTypes.string.isRequired,
     cardId: PropTypes.string.isRequired,
-    changeBackgroundColor: PropTypes.func.isRequired,
-    changeForegroundColor: PropTypes.func.isRequired,
+    changeCardColor: PropTypes.func.isRequired,
     isBackgroundModal: PropTypes.bool.isRequired,
     textColor: PropTypes.string.isRequired,
     toggleModalColors: PropTypes.func.isRequired,
@@ -40,16 +36,16 @@ class CardItemColors extends PureComponent {
   onCloseModal = () => {
     const { color } = this.state;
     const {
-      cardId, isBackgroundModal, toggleModalColors, changeBackgroundColor, changeForegroundColor,
+      cardId,
+      toggleModalColors,
+      changeCardColor,
+      isBackgroundModal,
     } = this.props;
 
     const colorHex = fromHsv(color);
 
-    if (isBackgroundModal) {
-      changeBackgroundColor(cardId, colorHex);
-    } else {
-      changeForegroundColor(cardId, colorHex);
-    }
+    const colorType = isBackgroundModal ? 'backgroundColor' : 'foregroundColor';
+    changeCardColor(cardId, colorHex, colorType);
 
     toggleModalColors();
   }
@@ -162,8 +158,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeBackgroundColor: (id, color) => dispatch(editCardBackgroundColor(id, color)),
-  changeForegroundColor: (id, color) => dispatch(editCardForegroundColor(id, color)),
+  changeCardColor: (id, color, colorType) => dispatch(editCardColor(id, color, colorType)),
 });
 
 const connector = connect(null, mapDispatchToProps);
