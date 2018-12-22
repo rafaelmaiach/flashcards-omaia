@@ -8,7 +8,7 @@ import Carousel from 'react-native-snap-carousel';
 import chroma from 'chroma-js';
 import { addCardNewSet } from '../../actions/newSet';
 
-import { $white, $lightBlue } from '../../utils/colors';
+import { $white, $lightBlue, $grey } from '../../utils/colors';
 
 import CardItem from './CardItem/CardItem';
 
@@ -73,6 +73,7 @@ class CardsList extends PureComponent {
         </View>
         <View style={styles.addCardContainer}>
           <TouchableOpacity
+            activeOpacity={0.75}
             onPress={this.createCard}
             style={[styles.addCardButton, addCardButtonBgColor]}
           >
@@ -102,6 +103,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: $white,
+    borderBottomWidth: 0.25,
+    borderColor: $grey,
   },
   addCardButton: {
     backgroundColor: $lightBlue,
