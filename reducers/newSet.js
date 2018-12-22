@@ -4,8 +4,7 @@ import {
   EDIT_BACKGROUND_COLOR,
   RESET_NEW_SET,
   ADD_CARD_NEW_SET,
-  EDIT_CARD_BACKGROUND_COLOR,
-  EDIT_CARD_FOREGROUND_COLOR,
+  EDIT_CARD_COLOR,
   EDIT_CARD_BACK_TEXT,
   EDIT_CARD_FRONT_TEXT,
 } from '../actions/newSet';
@@ -58,28 +57,16 @@ const sets = (state = initialState, action) => {
         },
       };
     }
-    case EDIT_CARD_BACKGROUND_COLOR: {
-      const { id, color } = action.payload;
+    case EDIT_CARD_COLOR: {
+      const { id, color, colorType } = action.payload;
+
       return {
         ...state,
         cards: {
           ...state.cards,
           [id]: {
             ...state.cards[id],
-            backgroundColor: color,
-          },
-        },
-      };
-    }
-    case EDIT_CARD_FOREGROUND_COLOR: {
-      const { id, color } = action.payload;
-      return {
-        ...state,
-        cards: {
-          ...state.cards,
-          [id]: {
-            ...state.cards[id],
-            foregroundColor: color,
+            [colorType]: color,
           },
         },
       };
