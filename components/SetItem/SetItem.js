@@ -21,15 +21,58 @@ class SetItem extends PureComponent {
     title: PropTypes.string.isRequired,
   }
 
-  render() {
+  state = {
+    active: false,
+  }
+
+  createSwipeoutButtons = (darkenColor, rgbColor) => {
     const {
       id,
+      title,
+      backgroundColor,
+      isDeleted,
+    } = this.props;
+
+    const swipeoutBtnsDefault = [{
+      component: (
+        <HiddenSetItem
+          backgroundColor={darkenColor}
+          closeSwipeout={this.closeSwipeout}
+          color={rgbColor}
+          id={id}
+          isDeleted={isDeleted}
+        />),
+    }];
+
+    const swipeoutBtns = isDeleted
+      ? [...swipeoutBtnsDefault]
+      : [{
+        component: (
+          <HiddenSetItem
+            backgroundColor={darkenColor}
+            closeSwipeout={this.closeSwipeout}
+            color={rgbColor}
+            id={id}
+            isEdit
+            setInfo={{ id, title, backgroundColor }}
+          />),
+      }, ...swipeoutBtnsDefault];
+
+    return swipeoutBtns;
+  }
+
+  setupSwipeout = () => this.setState(() => ({ active: true }));
+
+  closeSwipeout = () => this.setState(() => ({ active: false }));
+
+  render() {
+    const { active } = this.state;
+    const {
       title,
       createdDate,
       backgroundColor,
       cards,
       onPressItem,
-      isDeleted,
     } = this.props;
 
     const date = timeConverter(createdDate);
@@ -55,20 +98,15 @@ class SetItem extends PureComponent {
       borderRightColor: darkenColor,
     };
 
-    const swipeoutBtns = [{
-      component: (
-        <HiddenSetItem
-          backgroundColor={darkenColor}
-          color={rgbColor}
-          id={id}
-          isDeleted={isDeleted}
-        />),
-    }];
+    const swipeoutBtns = this.createSwipeoutButtons(darkenColor, rgbColor);
 
     return (
       <Swipeout
+        autoClose
         backgroundColor={darkenColor}
         buttonWidth={75}
+        close={!active}
+        onOpen={this.setupSwipeout}
         right={swipeoutBtns}
         sensitivity={30}
         style={styles.swipeContainer}

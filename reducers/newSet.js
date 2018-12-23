@@ -7,11 +7,11 @@ import {
   EDIT_CARD_COLOR,
   EDIT_CARD_BACK_TEXT,
   EDIT_CARD_FRONT_TEXT,
+  SET_EDITION,
 } from '../actions/newSet';
 import { $white } from '../utils/colors';
 
 const initialState = {
-  id: uuidv4(),
   title: 'New Set',
   backgroundColor: '',
   cards: {},
@@ -95,6 +95,12 @@ const sets = (state = initialState, action) => {
             frontText: text,
           },
         },
+      };
+    }
+    case SET_EDITION: {
+      return {
+        ...state,
+        ...action.payload,
       };
     }
     default: {

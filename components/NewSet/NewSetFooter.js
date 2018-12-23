@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { DangerZone } from 'expo';
+import uuidv4 from 'uuid/v4';
 import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
 import { $darkBlue } from '../../utils/colors';
@@ -14,10 +15,14 @@ const { Lottie } = DangerZone;
 const SubmitIcon = require('../../assets/lottieAnimations/submitIcon.json');
 
 class NewSetFooter extends PureComponent {
+  static defaultProps = {
+    id: '',
+  }
+
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     cards: PropTypes.object.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     navigation: PropTypes.object.isRequired,
     resetNewSetInfo: PropTypes.func.isRequired,
     submitNewSet: PropTypes.func.isRequired,
@@ -40,10 +45,11 @@ class NewSetFooter extends PureComponent {
     const {
       id, title, backgroundColor, cards, navigation, submitNewSet,
     } = this.props;
+
     const bgColor = backgroundColor || navigation.getParam('backgroundColor');
 
     const newSet = {
-      id,
+      id: id || uuidv4(),
       title,
       createdDate: Date.now(),
       backgroundColor: bgColor,

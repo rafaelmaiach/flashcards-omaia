@@ -5,6 +5,7 @@ const ADD_CARD_NEW_SET = 'ADD_CARD_NEW_SET';
 const EDIT_CARD_COLOR = 'EDIT_CARD_COLOR';
 const EDIT_CARD_BACK_TEXT = 'EDIT_CARD_BACK_TEXT';
 const EDIT_CARD_FRONT_TEXT = 'EDIT_CARD_FRONT_TEXT';
+const SET_EDITION = 'SET_EDITION';
 
 const editTitle = title => ({
   type: EDIT_TITLE,
@@ -49,6 +50,11 @@ const editCardFrontText = (id, text) => ({
   },
 });
 
+const setEditionInfo = info => ({
+  type: SET_EDITION,
+  payload: info,
+});
+
 export {
   EDIT_TITLE,
   EDIT_BACKGROUND_COLOR,
@@ -57,6 +63,7 @@ export {
   EDIT_CARD_COLOR,
   EDIT_CARD_BACK_TEXT,
   EDIT_CARD_FRONT_TEXT,
+  SET_EDITION,
   editTitle,
   editBackgroundColor,
   resetNewSet,
@@ -64,4 +71,5 @@ export {
   editCardColor,
   editCardBackText,
   editCardFrontText,
+  setEditionInfo,
 };
