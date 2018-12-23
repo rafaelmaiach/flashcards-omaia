@@ -1,5 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 
 import {
@@ -10,6 +11,7 @@ import {
   ColorPalette,
 } from '../../components/NewSet';
 
+import { setEditionInfo } from '../../actions/newSet';
 import CardsList from '../../components/Cards/CardsList';
 
 import { $white, newSetPaletteColor } from '../../utils/colors';
@@ -18,20 +20,28 @@ import commonNavigationOptions from '../commonNavigationOptions';
 class NewSetScreen extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    setupEdition: PropTypes.func.isRequired,
   }
 
   static navigationOptions = ({ navigation }) => {
-    const title = navigation.getParam('title');
-    const bgColor = navigation.getParam('backgroundColor');
+    const defaultSetInfo = {
+      title: 'New Set',
+      backgroundColor: newSetPaletteColor[0],
+    };
+
+    const setInfo = navigation.getParam('setInfo') || defaultSetInfo;
+
+    const title = navigation.getParam('title') || setInfo.title;
+    const bgColor = navigation.getParam('backgroundColor') || setInfo.backgroundColor;
 
     return ({
       ...commonNavigationOptions,
-      title: title || 'New Set',
+      title,
       headerRight: <RightMenu navigation={navigation} />,
       headerLeft: <Left navigation={navigation} />,
       headerStyle: {
         ...commonNavigationOptions.headerStyle,
-        backgroundColor: bgColor || newSetPaletteColor[0],
+        backgroundColor: bgColor,
       },
     });
   }
@@ -42,10 +52,15 @@ class NewSetScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const { navigation } = this.props;
+    const { navigation, setupEdition } = this.props;
+
+    const setInfo = navigation.getParam('setInfo');
+
+    if (setInfo) {
+      setupEdition(setInfo);
+    }
 
     navigation.setParams({
-      backgroundColor: newSetPaletteColor[0],
       toggleModalTitle: this.toggleModalTitle,
       toggleModalSetBgColor: this.toggleModalSetBgColor,
     });
@@ -59,6 +74,7 @@ class NewSetScreen extends PureComponent {
 
   render() {
     const { titleModalVisible, setBgColorModalVisible } = this.state;
+    const { navigation } = this.props;
 
     return (
       <Fragment>
@@ -67,6 +83,7 @@ class NewSetScreen extends PureComponent {
           visible={titleModalVisible}
         />
         <ColorPalette
+          navigation={navigation}
           toggleModalSetBgColor={this.toggleModalSetBgColor}
           visible={setBgColorModalVisible}
         />
@@ -87,4 +104,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewSetScreen;
+const mapDispatchToProps = dispatch => ({
+  setupEdition: info => dispatch(setEditionInfo(info)),
+});
+
+export default connect(null, mapDispatchToProps)(NewSetScreen);

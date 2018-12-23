@@ -13,7 +13,7 @@ import {
   newSetPaletteColor, $white, $black, $lightBlue, $lightRed, $darkGreen,
 } from '../../utils/colors';
 
-class SetBgColorEditor extends PureComponent {
+class ColorPalette extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     navigation: PropTypes.object.isRequired,
@@ -27,9 +27,15 @@ class SetBgColorEditor extends PureComponent {
   };
 
   componentDidMount() {
-    const { submitNewBackgroundColor } = this.props;
+    const { submitNewBackgroundColor, navigation } = this.props;
 
-    submitNewBackgroundColor(newSetPaletteColor[0]);
+    const setInfo = navigation.getParam('setInfo');
+
+    const setBgColor = setInfo ? setInfo.backgroundColor : navigation.getParam('backgroundColor');
+
+    const bgColor = setBgColor || newSetPaletteColor[0];
+
+    submitNewBackgroundColor(bgColor);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -172,4 +178,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(withNavigation(SetBgColorEditor));
+export default connector(withNavigation(ColorPalette));
