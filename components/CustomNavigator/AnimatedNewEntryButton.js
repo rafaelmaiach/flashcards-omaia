@@ -4,6 +4,7 @@ import {
   TouchableHighlight, TouchableOpacity, Dimensions, Animated, StyleSheet, Text, Platform,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { openNewSetAnimation, closeNewSetAnimation } from './animations';
 import { $darkBlue, $black, $fullWhite } from '../../utils/colors';
 
 class AnimatedNewSetButton extends PureComponent {
@@ -26,50 +27,22 @@ class AnimatedNewSetButton extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { newEntryIconClicked } = nextProps;
 
+    const params = {
+      hiddenIconsContainerSize: this.hiddenIconsContainerSize,
+      buttonContainerOpacity: this.buttonContainerOpacity,
+    };
+
     if (newEntryIconClicked) {
-      this.openNewSetAnimation();
+      const openParams = {
+        ...params,
+        windowHeight: this.windowHeight,
+      };
+
+      openNewSetAnimation(openParams).start();
       return;
     }
 
-    this.closeNewSetAnimation();
-  }
-
-  openNewSetAnimation = () => {
-    Animated.sequence([
-      Animated.timing(
-        this.hiddenIconsContainerSize,
-        {
-          toValue: this.windowHeight,
-          duration: 100,
-        },
-      ),
-      Animated.timing(
-        this.buttonContainerOpacity,
-        {
-          toValue: 1,
-          duration: 350,
-        },
-      ),
-    ]).start();
-  }
-
-  closeNewSetAnimation = () => {
-    Animated.sequence([
-      Animated.timing(
-        this.buttonContainerOpacity,
-        {
-          toValue: 0,
-          duration: 350,
-        },
-      ),
-      Animated.timing(
-        this.hiddenIconsContainerSize,
-        {
-          toValue: 0,
-          duration: 100,
-        },
-      ),
-    ]).start();
+    closeNewSetAnimation(params).start();
   }
 
   render() {
