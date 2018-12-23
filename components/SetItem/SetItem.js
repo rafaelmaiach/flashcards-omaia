@@ -9,13 +9,11 @@ import chroma from 'chroma-js';
 import HiddenSetItem from './HiddenSetItem';
 
 import { $white } from '../../utils/colors';
-import { timeConverter } from '../../utils/helpers';
 
 class SetItem extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     cards: PropTypes.arrayOf(PropTypes.string).isRequired,
-    createdDate: PropTypes.number.isRequired,
     isDeleted: PropTypes.bool.isRequired,
     onPressItem: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
@@ -69,13 +67,11 @@ class SetItem extends PureComponent {
     const { active } = this.state;
     const {
       title,
-      createdDate,
       backgroundColor,
       cards,
       onPressItem,
     } = this.props;
 
-    const date = timeConverter(createdDate);
     const cardsQuantity = cards.length;
 
     const chromaBackground = chroma(backgroundColor);
@@ -115,7 +111,6 @@ class SetItem extends PureComponent {
           <Ripple {...rippleProps} onPress={() => onPressItem(title)}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
-            <Text style={styles.date}>{date}</Text>
           </Ripple>
           <View style={[styles.caret, caretBorder]}>
             <AntDesign color={darkenColor} name="caretleft" size={30} />
@@ -165,10 +160,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingBottom: 5,
     fontWeight: '500',
-    color: $white,
-  },
-  date: {
-    fontSize: 12,
     color: $white,
   },
 });
