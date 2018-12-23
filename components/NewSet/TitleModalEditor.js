@@ -8,7 +8,9 @@ import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import { editTitle } from '../../actions/newSet';
 
-import { $white, $black, $lightBlue } from '../../utils/colors';
+import {
+  $white, $black, $lightBlue, $lightRed, $darkGreen,
+} from '../../utils/colors';
 
 class TitleModalEditor extends PureComponent {
   static propTypes = {
@@ -47,6 +49,11 @@ class TitleModalEditor extends PureComponent {
     toggleModalTitle();
   }
 
+  onCancelModal = () => {
+    const { toggleModalTitle } = this.props;
+    toggleModalTitle();
+  }
+
   render() {
     const { newTitle } = this.state;
     const { visible } = this.props;
@@ -58,8 +65,8 @@ class TitleModalEditor extends PureComponent {
         backdropColor={$black}
         backdropOpacity={0.5}
         isVisible={visible}
-        onBackButtonPress={this.onCloseModal}
-        onBackdropPress={this.onCloseModal}
+        onBackButtonPress={this.onCancelModal}
+        onBackdropPress={this.onCancelModal}
       >
         <View style={styles.modalContent}>
           <Text style={styles.editSetTitle}>EDIT TITLE</Text>
@@ -72,9 +79,15 @@ class TitleModalEditor extends PureComponent {
           <View style={styles.closeTextContainer}>
             <TouchableOpacity
               activeOpacity={0.75}
+              onPress={this.onCancelModal}
+            >
+              <Text style={[styles.closeText, styles.cancelText]}>CANCEL</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.75}
               onPress={this.onCloseModal}
             >
-              <Text style={styles.closeText}>SAVE</Text>
+              <Text style={[styles.closeText, styles.saveText]}>SAVE</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -106,13 +119,20 @@ const styles = StyleSheet.create({
   },
   closeTextContainer: {
     width: '100%',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     marginTop: 20,
   },
   closeText: {
     fontSize: 14,
     fontWeight: '600',
-    color: $lightBlue,
+  },
+  cancelText: {
+    color: $lightRed,
+    paddingRight: 20,
+  },
+  saveText: {
+    color: $darkGreen,
   },
 });
 

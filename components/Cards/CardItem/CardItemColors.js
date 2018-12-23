@@ -106,7 +106,7 @@ class CardItemColors extends PureComponent {
               activeOpacity={0.75}
               onPress={this.onCloseModal}
             >
-              <Text style={styles.closeText}>
+              <Text style={[styles.closeText, styles.closeTextSave]}>
                 SAVE
               </Text>
             </TouchableOpacity>
@@ -150,11 +150,13 @@ const styles = StyleSheet.create({
   closeText: {
     fontSize: 14,
     fontWeight: '600',
-    color: $darkGreen,
     paddingRight: 20,
   },
   closeTextCancel: {
     color: $lightRed,
+  },
+  closeTextSave: {
+    color: $darkGreen,
   },
 });
 

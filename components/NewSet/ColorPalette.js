@@ -10,7 +10,7 @@ import chroma from 'chroma-js';
 import { editBackgroundColor, resetNewSet } from '../../actions/newSet';
 
 import {
-  newSetPaletteColor, $white, $black, $lightBlue,
+  newSetPaletteColor, $white, $black, $lightBlue, $lightRed, $darkGreen,
 } from '../../utils/colors';
 
 class SetBgColorEditor extends PureComponent {
@@ -52,6 +52,11 @@ class SetBgColorEditor extends PureComponent {
     toggleModalSetBgColor();
   }
 
+  onCancelModal = () => {
+    const { toggleModalSetBgColor } = this.props;
+    toggleModalSetBgColor();
+  }
+
   onChangeColor = color => this.setState({ newBackgroundColor: color })
 
   createPaletteColor = newBackgroundColor => newSetPaletteColor.map((color) => {
@@ -83,8 +88,8 @@ class SetBgColorEditor extends PureComponent {
         backdropColor={$black}
         backdropOpacity={0.5}
         isVisible={visible}
-        onBackButtonPress={this.onCloseModal}
-        onBackdropPress={this.onCloseModal}
+        onBackButtonPress={this.onCancelModal}
+        onBackdropPress={this.onCancelModal}
       >
         <View style={styles.modalContent}>
           <Text style={styles.editText}>EDIT BACKGROUND COLOR</Text>
@@ -94,9 +99,15 @@ class SetBgColorEditor extends PureComponent {
           <View style={styles.closeTextContainer}>
             <TouchableOpacity
               activeOpacity={0.75}
+              onPress={this.onCancelModal}
+            >
+              <Text style={[styles.closeText, styles.cancelText]}>CANCEL</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.75}
               onPress={this.onCloseModal}
             >
-              <Text style={styles.closeText}>SAVE</Text>
+              <Text style={[styles.closeText, styles.saveText]}>SAVE</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -134,14 +145,20 @@ const styles = StyleSheet.create({
   },
   closeTextContainer: {
     width: '100%',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     marginTop: 25,
   },
   closeText: {
     fontSize: 14,
     fontWeight: '600',
-    color: $lightBlue,
     paddingRight: 20,
+  },
+  cancelText: {
+    color: $lightRed,
+  },
+  saveText: {
+    color: $darkGreen,
   },
 });
 
