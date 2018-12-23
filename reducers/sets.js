@@ -6,7 +6,6 @@ import {
 } from '../actions/sets';
 
 const initialState = {
-  allIds: [],
   byId: {},
 };
 
@@ -18,7 +17,6 @@ const sets = (state = initialState, action) => {
 
       return {
         ...state,
-        allIds: state.allIds.concat(set.id),
         byId: {
           ...state.byId,
           [set.id]: {
@@ -58,10 +56,7 @@ const sets = (state = initialState, action) => {
     }
     case DELETE_TRASH_SETS: {
       const idsToDelete = action.payload;
-      const allIds = [...state.allIds];
       const setsById = { ...state.byId };
-
-      const newAllIds = allIds.filter(id => !idsToDelete.includes(id));
 
       Object.keys(setsById).forEach((id) => {
         if (idsToDelete.includes(id)) {
@@ -71,7 +66,6 @@ const sets = (state = initialState, action) => {
 
       return {
         ...state,
-        allIds: newAllIds,
         byId: { ...setsById },
       };
     }
