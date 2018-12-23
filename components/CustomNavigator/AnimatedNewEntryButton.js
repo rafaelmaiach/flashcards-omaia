@@ -17,7 +17,7 @@ class AnimatedNewSetButton extends PureComponent {
     super(props);
 
     const { height } = Dimensions.get('window');
-    this.windowHeight = Platform.OS === 'ios' ? height * 0.88 : height * 0.87;
+    this.windowHeight = Platform.OS === 'ios' ? height * 0.876 : height * 0.867;
 
     this.hiddenIconsContainerSize = new Animated.Value(0);
     this.buttonContainerOpacity = new Animated.Value(0);
