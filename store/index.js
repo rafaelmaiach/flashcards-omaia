@@ -25,7 +25,6 @@ export { store, persistor };
       backgroundColor,
     },
     sets: {
-      allIds: [id],
       byId: {
         id: {
           id,
@@ -37,7 +36,6 @@ export { store, persistor };
       }
     },
     cards: {
-      allIds: [id],
       byId: {
         id: {
           id,
