@@ -51,7 +51,6 @@ class NewSetFooter extends PureComponent {
     const newSet = {
       id: id || uuidv4(),
       title,
-      createdDate: Date.now(),
       backgroundColor: bgColor,
       isDeleted: false,
       cards,

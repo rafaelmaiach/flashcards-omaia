@@ -30,7 +30,6 @@ export { store, persistor };
         id: {
           id,
           title,
-          createdDate,
           backgroundColor,
           isDeleted,
           cards: [cardId],
