@@ -14,8 +14,6 @@ const sets = (state = initialState, action) => {
     case CREATE_SET: {
       const set = action.payload;
 
-      console.log(action.payload);
-
       return {
         ...state,
         byId: {
