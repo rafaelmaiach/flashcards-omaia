@@ -49,11 +49,18 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const { sets } = state;
-  const setsById = Object.values(sets.byId);
-  const notDeletedSets = setsById.filter(set => !set.isDeleted);
+
+  const setsById = sets.allIds.map((id) => {
+    const set = sets.byId[id];
+
+    if (!set.isDeleted) {
+      return set;
+    }
+    return null;
+  }).filter(set => set);
 
   return {
-    sets: notDeletedSets,
+    sets: setsById,
   };
 };
 

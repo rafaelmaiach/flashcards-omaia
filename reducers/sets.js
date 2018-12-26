@@ -6,6 +6,7 @@ import {
 } from '../actions/sets';
 
 const initialState = {
+  allIds: [],
   byId: {},
 };
 
@@ -14,8 +15,11 @@ const sets = (state = initialState, action) => {
     case CREATE_SET: {
       const set = action.payload;
 
+      const newAllIds = [...new Set(state.allIds.concat(set.id))];
+
       return {
         ...state,
+        allIds: newAllIds,
         byId: {
           ...state.byId,
           [set.id]: {
@@ -63,8 +67,11 @@ const sets = (state = initialState, action) => {
         }
       });
 
+      const newAllIds = state.allIds.filter(id => !idsToDelete.includes(id));
+
       return {
         ...state,
+        allIds: newAllIds,
         byId: { ...setsById },
       };
     }
