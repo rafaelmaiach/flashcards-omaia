@@ -1,22 +1,13 @@
 import { Animated } from 'react-native';
 
-const cardShowAnimation = (scale, opacity) => (
-  Animated.parallel([
-    Animated.timing(
-      scale,
-      {
-        toValue: 1,
-        duration: 300,
-      },
-    ),
-    Animated.timing(
-      opacity,
-      {
-        toValue: 1,
-        duration: 300,
-      },
-    ),
-  ])
+const cardShowAnimation = opacity => (
+  Animated.timing(
+    opacity,
+    {
+      toValue: 1,
+      duration: 600,
+    },
+  )
 );
 
 export default cardShowAnimation;

@@ -28,12 +28,11 @@ class CardItem extends PureComponent {
       cardHeight: 0,
     };
 
-    this.scale = new Animated.Value(0.5);
     this.opacity = new Animated.Value(0);
   }
 
   componentDidMount() {
-    cardShowAnimation(this.scale, this.opacity).start();
+    cardShowAnimation(this.opacity).start();
   }
 
   getDimensions = (event) => {
@@ -91,9 +90,6 @@ class CardItem extends PureComponent {
     const containerStyles = {
       ...styles.container,
       backgroundColor: bgColor,
-      transform: [
-        { scale: this.scale },
-      ],
       opacity: this.opacity,
     };
 
@@ -105,11 +101,10 @@ class CardItem extends PureComponent {
         >
           <CardFlip
             ref={(card) => { this.card = card; }}
-            duration={500}
+            duration={600}
             flipDirection="x"
             flipZoom={0}
             onFlipStart={this.onFlipStart}
-            perspective={1200}
             style={styles.flipCardContainer}
           >
             <TouchableOpacity activeOpacity={0.75} style={[styles.flipCard, frontSideColor]}>
