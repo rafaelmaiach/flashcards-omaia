@@ -13,7 +13,8 @@ const sets = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_SET: {
       const set = action.payload;
-      const cardsIds = Object.keys(set.cards);
+
+      console.log(action.payload);
 
       return {
         ...state,
@@ -21,7 +22,7 @@ const sets = (state = initialState, action) => {
           ...state.byId,
           [set.id]: {
             ...set,
-            cards: cardsIds,
+            cards: set.cards,
           },
         },
       };

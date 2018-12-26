@@ -9,6 +9,7 @@ import { DangerZone } from 'expo';
 import uuidv4 from 'uuid/v4';
 import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
+import { createCards } from '../../actions/cards';
 import { $darkBlue } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
@@ -134,7 +135,15 @@ const mapStateToProps = ({ newSet }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  submitNewSet: newSet => dispatch(createSet(newSet)),
+  submitNewSet: (newSet) => {
+    const newSetInfo = {
+      ...newSet,
+      cards: Object.keys(newSet.cards),
+    };
+
+    dispatch(createSet(newSetInfo));
+    dispatch(createCards(newSet.cards));
+  },
   resetNewSetInfo: () => dispatch(resetNewSet()),
 });
 

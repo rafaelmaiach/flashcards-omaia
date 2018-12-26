@@ -18,8 +18,13 @@ import { $white, newSetPaletteColor } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class NewSetScreen extends PureComponent {
+  static defaultProps = {
+    setInfo: null,
+  }
+
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    setInfo: PropTypes.object,
     setupEdition: PropTypes.func.isRequired,
   }
 
@@ -52,9 +57,7 @@ class NewSetScreen extends PureComponent {
   }
 
   componentDidMount() {
-    const { navigation, setupEdition } = this.props;
-
-    const setInfo = navigation.getParam('setInfo');
+    const { navigation, setInfo, setupEdition } = this.props;
 
     if (setInfo) {
       setupEdition(setInfo);
@@ -104,8 +107,38 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = ({ cards }, props) => {
+  const { navigation } = props;
+  const setInfo = navigation.getParam('setInfo');
+
+  if (!setInfo) {
+    return {
+      setInfo,
+    };
+  }
+
+  const setCards = {};
+
+  setInfo.cards.forEach((id) => {
+    setCards[id] = {
+      ...cards[id],
+    };
+  });
+
+  const newSetInfo = {
+    ...setInfo,
+    cards: {
+      ...setCards,
+    },
+  };
+
+  return {
+    setInfo: newSetInfo,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   setupEdition: info => dispatch(setEditionInfo(info)),
 });
 
-export default connect(null, mapDispatchToProps)(NewSetScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewSetScreen);

@@ -29,7 +29,15 @@ class SetItem extends PureComponent {
       title,
       backgroundColor,
       isDeleted,
+      cards,
     } = this.props;
+
+    const setInfo = {
+      id,
+      title,
+      backgroundColor,
+      cards,
+    };
 
     const swipeoutBtnsDefault = [{
       component: (
@@ -52,7 +60,7 @@ class SetItem extends PureComponent {
             color={rgbColor}
             id={id}
             isEdit
-            setInfo={{ id, title, backgroundColor }}
+            setInfo={setInfo}
           />),
       }, ...swipeoutBtnsDefault];
 
