@@ -8,6 +8,7 @@ import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 import cardShowAnimation from './animations';
 
+import CardItemText from './CardItemText';
 import CardItemFooter from './CardItemFooter';
 
 class CardItem extends PureComponent {
@@ -26,6 +27,7 @@ class CardItem extends PureComponent {
       side: 'front', // front or back
       cardWidth: 0,
       cardHeight: 0,
+      modalTextVisible: false,
     };
 
     this.opacity = new Animated.Value(0);
@@ -43,6 +45,8 @@ class CardItem extends PureComponent {
     }));
   }
 
+  toggleModalText = () => this.setState(prev => ({ modalTextVisible: !prev.modalTextVisible }))
+
   flipCard = () => {
     if (this.card) {
       this.card.flip();
@@ -59,7 +63,9 @@ class CardItem extends PureComponent {
   }
 
   render() {
-    const { side, cardWidth, cardHeight } = this.state;
+    const {
+      side, cardWidth, cardHeight, modalTextVisible,
+    } = this.state;
     const {
       cardId,
       bgColor,
@@ -70,7 +76,7 @@ class CardItem extends PureComponent {
 
     const textLength = side === 'front' ? frontText.length : backText.length;
     const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
-    const cardFontSize = fontSize > 35 ? 35 : fontSize;
+    const cardFontSize = fontSize > 30 ? 30 : fontSize;
 
     const flipTextStyles = {
       ...styles.flipText,
@@ -95,6 +101,15 @@ class CardItem extends PureComponent {
 
     return (
       <Fragment>
+        {modalTextVisible && (
+          <CardItemText
+            backText={backText}
+            cardId={cardId}
+            cardSide={side}
+            frontText={frontText}
+            toggleModalText={this.toggleModalText}
+          />
+        )}
         <Animated.View
           onLayout={this.getDimensions}
           style={containerStyles}
@@ -107,10 +122,18 @@ class CardItem extends PureComponent {
             onFlipStart={this.onFlipStart}
             style={styles.flipCardContainer}
           >
-            <TouchableOpacity activeOpacity={0.75} style={[styles.flipCard, frontSideColor]}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              onPress={this.toggleModalText}
+              style={[styles.flipCard, frontSideColor]}
+            >
               <Text style={flipTextStyles}>{frontText}</Text>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.75} style={[styles.flipCard, backSideColor]}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              onPress={this.toggleModalText}
+              style={[styles.flipCard, backSideColor]}
+            >
               <Text style={flipTextStyles}>{backText}</Text>
             </TouchableOpacity>
           </CardFlip>
@@ -145,9 +168,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 3,
   },
   flipText: {
-    padding: 10,
+    padding: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
   },
 });
 

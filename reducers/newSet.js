@@ -5,8 +5,7 @@ import {
   RESET_NEW_SET,
   ADD_CARD_NEW_SET,
   EDIT_CARD_COLOR,
-  EDIT_CARD_BACK_TEXT,
-  EDIT_CARD_FRONT_TEXT,
+  EDIT_CARD_TEXT,
   SET_EDITION,
 } from '../actions/newSet';
 import { $white } from '../utils/colors';
@@ -24,7 +23,7 @@ const cardTemplate = {
   foregroundColor: $white,
 };
 
-const sets = (state = initialState, action) => {
+const newSet = (state = initialState, action) => {
   switch (action.type) {
     case EDIT_TITLE: {
       return {
@@ -60,42 +59,36 @@ const sets = (state = initialState, action) => {
     case EDIT_CARD_COLOR: {
       const { id, color, colorType } = action.payload;
 
-      return {
+      const stateCopy = {
         ...state,
         cards: {
           ...state.cards,
-          [id]: {
-            ...state.cards[id],
-            [colorType]: color,
-          },
         },
       };
+
+      stateCopy.cards[id] = {
+        ...stateCopy.cards[id],
+        [colorType]: color,
+      };
+
+      return stateCopy;
     }
-    case EDIT_CARD_BACK_TEXT: {
-      const { id, text } = action.payload;
-      return {
+    case EDIT_CARD_TEXT: {
+      const { id, text, type } = action.payload;
+
+      const stateCopy = {
         ...state,
         cards: {
           ...state.cards,
-          [id]: {
-            ...state.cards[id],
-            backText: text,
-          },
         },
       };
-    }
-    case EDIT_CARD_FRONT_TEXT: {
-      const { id, text } = action.payload;
-      return {
-        ...state,
-        cards: {
-          ...state.cards,
-          [id]: {
-            ...state.cards[id],
-            frontText: text,
-          },
-        },
+
+      stateCopy.cards[id] = {
+        ...stateCopy.cards[id],
+        [type]: text,
       };
+
+      return stateCopy;
     }
     case SET_EDITION: {
       return {
@@ -109,4 +102,4 @@ const sets = (state = initialState, action) => {
   }
 };
 
-export default sets;
+export default newSet;

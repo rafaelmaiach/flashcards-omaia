@@ -3,8 +3,7 @@ const EDIT_BACKGROUND_COLOR = 'EDIT_BACKGROUND_COLOR';
 const RESET_NEW_SET = 'RESET_NEW_SET';
 const ADD_CARD_NEW_SET = 'ADD_CARD_NEW_SET';
 const EDIT_CARD_COLOR = 'EDIT_CARD_COLOR';
-const EDIT_CARD_BACK_TEXT = 'EDIT_CARD_BACK_TEXT';
-const EDIT_CARD_FRONT_TEXT = 'EDIT_CARD_FRONT_TEXT';
+const EDIT_CARD_TEXT = 'EDIT_CARD_TEXT';
 const SET_EDITION = 'SET_EDITION';
 
 const editTitle = title => ({
@@ -34,19 +33,12 @@ const editCardColor = (id, color, colorType) => ({
   },
 });
 
-const editCardBackText = (id, text) => ({
-  type: EDIT_CARD_BACK_TEXT,
+const editCardText = (id, text, type) => ({
+  type: EDIT_CARD_TEXT,
   payload: {
     id,
     text,
-  },
-});
-
-const editCardFrontText = (id, text) => ({
-  type: EDIT_CARD_FRONT_TEXT,
-  payload: {
-    id,
-    text,
+    type,
   },
 });
 
@@ -61,15 +53,13 @@ export {
   RESET_NEW_SET,
   ADD_CARD_NEW_SET,
   EDIT_CARD_COLOR,
-  EDIT_CARD_BACK_TEXT,
-  EDIT_CARD_FRONT_TEXT,
+  EDIT_CARD_TEXT,
   SET_EDITION,
   editTitle,
   editBackgroundColor,
   resetNewSet,
   addCardNewSet,
   editCardColor,
-  editCardBackText,
-  editCardFrontText,
+  editCardText,
   setEditionInfo,
 };
