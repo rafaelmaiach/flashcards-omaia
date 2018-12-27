@@ -10,6 +10,8 @@ import uuidv4 from 'uuid/v4';
 import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
 import { createCards } from '../../actions/cards';
+import { resetStatusBarColor } from '../../actions/statusBar';
+
 import { $darkBlue } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
@@ -26,6 +28,7 @@ class NewSetFooter extends PureComponent {
     id: PropTypes.string,
     navigation: PropTypes.object.isRequired,
     resetNewSetInfo: PropTypes.func.isRequired,
+    resetStatusBar: PropTypes.func.isRequired,
     submitNewSet: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
   }
@@ -37,8 +40,9 @@ class NewSetFooter extends PureComponent {
   }
 
   resetNavigation = () => {
-    const { navigation, resetNewSetInfo } = this.props;
+    const { navigation, resetNewSetInfo, resetStatusBar } = this.props;
     resetNewSetInfo();
+    resetStatusBar();
     navigation.goBack();
   }
 
@@ -145,6 +149,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(createCards(newSet.cards));
   },
   resetNewSetInfo: () => dispatch(resetNewSet()),
+  resetStatusBar: () => dispatch(resetStatusBarColor()),
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

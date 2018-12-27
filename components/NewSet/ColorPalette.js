@@ -8,6 +8,7 @@ import { withNavigation } from 'react-navigation';
 import Modal from 'react-native-modal';
 import chroma from 'chroma-js';
 import { editBackgroundColor, resetNewSet } from '../../actions/newSet';
+import { setStatusBarColor } from '../../actions/statusBar';
 
 import {
   newSetPaletteColor, $white, $black, $lightBlue, $lightRed, $darkGreen,
@@ -173,7 +174,10 @@ const mapStateToProps = ({ newSet }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submitNewBackgroundColor: newBackgroundColor => dispatch(editBackgroundColor(newBackgroundColor)),
+  submitNewBackgroundColor: (newBackgroundColor) => {
+    dispatch(editBackgroundColor(newBackgroundColor));
+    dispatch(setStatusBarColor(newBackgroundColor));
+  },
   resetNewSet: () => dispatch(resetNewSet()),
 });
 

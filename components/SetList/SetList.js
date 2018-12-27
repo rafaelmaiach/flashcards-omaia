@@ -10,7 +10,7 @@ class SetList extends PureComponent {
 
   keyExtractor = item => item.id;
 
-  renderItem = ({ item }) => <SetItem {...item} onPressItem={title => console.log(title)} />;
+  renderItem = ({ item }) => <SetItem {...item} />;
 
   render() {
     const { sets } = this.props;

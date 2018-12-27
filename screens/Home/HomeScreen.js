@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 
+import { resetStatusBarColor } from '../../actions/statusBar';
+
 import SetList from '../../components/SetList/SetList';
 import commonNavigationOptions from '../commonNavigationOptions';
 import { $white, $darkBlue } from '../../utils/colors';
 
 class HomeScreen extends PureComponent {
   static propTypes = {
+    resetStatusBar: PropTypes.func.isRequired,
     sets: PropTypes.arrayOf(PropTypes.object).isRequired,
   }
 
@@ -16,6 +19,11 @@ class HomeScreen extends PureComponent {
     ...commonNavigationOptions,
     title: 'Home',
   };
+
+  componentDidMount() {
+    const { resetStatusBar } = this.props;
+    resetStatusBar();
+  }
 
   render() {
     const { sets } = this.props;
@@ -64,4 +72,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(HomeScreen);
+const mapDispatchToProps = dispatch => ({
+  resetStatusBar: () => dispatch(resetStatusBarColor()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

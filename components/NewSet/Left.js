@@ -7,13 +7,19 @@ import { connect } from 'react-redux';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 import { resetNewSet } from '../../actions/newSet';
+import { resetStatusBarColor } from '../../actions/statusBar';
 import { $white } from '../../utils/colors';
 
 const Left = (props) => {
-  const { navigation, resetNewSetInfo } = props;
+  const {
+    navigation, resetNewSetInfo, resetStatusBar, isCardView,
+  } = props;
 
   const onPress = () => {
-    resetNewSetInfo();
+    if (!isCardView) {
+      resetNewSetInfo();
+    }
+    resetStatusBar();
     navigation.goBack();
   };
 
@@ -33,9 +39,15 @@ const Left = (props) => {
   );
 };
 
+Left.defaultProps = {
+  isCardView: false,
+};
+
 Left.propTypes = {
+  isCardView: PropTypes.bool,
   navigation: PropTypes.object.isRequired,
   resetNewSetInfo: PropTypes.func.isRequired,
+  resetStatusBar: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -58,6 +70,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
   resetNewSetInfo: () => dispatch(resetNewSet()),
+  resetStatusBar: () => dispatch(resetStatusBarColor()),
 });
 
 export default connect(null, mapDispatchToProps)(Left);

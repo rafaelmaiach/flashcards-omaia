@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { AntDesign } from '@expo/vector-icons';
 import Ripple from 'react-native-material-ripple';
 import Swipeout from 'react-native-swipeout';
@@ -14,8 +15,9 @@ class SetItem extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     cards: PropTypes.arrayOf(PropTypes.string).isRequired,
+    id: PropTypes.string.isRequired,
     isDeleted: PropTypes.bool.isRequired,
-    onPressItem: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
   }
 
@@ -71,13 +73,24 @@ class SetItem extends PureComponent {
 
   closeSwipeout = () => this.setState(() => ({ active: false }));
 
+  onPressItem = () => {
+    const {
+      id, title, backgroundColor, navigation,
+    } = this.props;
+
+    navigation.navigate('CardView', {
+      id,
+      title,
+      backgroundColor,
+    });
+  }
+
   render() {
     const { active } = this.state;
     const {
       title,
       backgroundColor,
       cards,
-      onPressItem,
     } = this.props;
 
     const cardsQuantity = cards.length;
@@ -116,7 +129,7 @@ class SetItem extends PureComponent {
         style={styles.swipeContainer}
       >
         <View style={containerStyles}>
-          <Ripple {...rippleProps} onPress={() => onPressItem(title)}>
+          <Ripple {...rippleProps} onPress={this.onPressItem}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
           </Ripple>
@@ -172,4 +185,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SetItem;
+export default withNavigation(SetItem);

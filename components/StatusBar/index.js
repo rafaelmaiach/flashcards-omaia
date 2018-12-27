@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   }),
 });
 
-const mapStateToProps = ({ newSet }) => ({
-  bgColor: newSet.backgroundColor,
+const mapStateToProps = ({ statusBar }) => ({
+  bgColor: statusBar.backgroundColor,
 });
 
 export default connect(mapStateToProps)(AppStatusBar);

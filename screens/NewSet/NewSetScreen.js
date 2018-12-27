@@ -12,6 +12,8 @@ import {
 } from '../../components/NewSet';
 
 import { setEditionInfo } from '../../actions/newSet';
+import { setStatusBarColor } from '../../actions/statusBar';
+
 import CardsList from '../../components/Cards/CardsList';
 
 import { $white, newSetPaletteColor } from '../../utils/colors';
@@ -138,7 +140,11 @@ const mapStateToProps = ({ cards }, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setupEdition: info => dispatch(setEditionInfo(info)),
+  setupEdition: (info) => {
+    const { backgroundColor } = info;
+    dispatch(setEditionInfo(info));
+    dispatch(setStatusBarColor(backgroundColor));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewSetScreen);

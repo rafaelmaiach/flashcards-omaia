@@ -20,6 +20,7 @@ const $green = '#5be55b';
 const $darkGreen = '#337f33';
 const $darkBlue = '#0e1a40';
 const $lightBlue = '#0073CA';
+const $ligtherBlue = '#515582';
 const $yellow = '#d3a625';
 
 const newSetPaletteColor = [
@@ -51,5 +52,6 @@ export {
   $darkGreen,
   $darkBlue,
   $lightBlue,
+  $ligtherBlue,
   $yellow,
 };

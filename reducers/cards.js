@@ -2,7 +2,7 @@ import {
   CREATE_CARDS,
 } from '../actions/cards';
 
-const sets = (state = {}, action) => {
+const cards = (state = {}, action) => {
   switch (action.type) {
     case CREATE_CARDS: {
       return {
@@ -16,4 +16,4 @@ const sets = (state = {}, action) => {
   }
 };
 
-export default sets;
+export default cards;
