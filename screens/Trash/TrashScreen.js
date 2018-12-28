@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { deleteTrashSets } from '../../actions/sets';
+import { deleteCards } from '../../actions/cards';
 import { $white, $darkBlue } from '../../utils/colors';
 
 import SetList from '../../components/SetList/SetList';
@@ -13,6 +14,7 @@ import commonNavigationOptions from '../commonNavigationOptions';
 
 class TrashScreen extends PureComponent {
   static propTypes = {
+    clearCards: PropTypes.func.isRequired,
     clearTrash: PropTypes.func.isRequired,
     deletedIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     sets: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -24,7 +26,7 @@ class TrashScreen extends PureComponent {
   };
 
   showAlert = () => {
-    const { clearTrash, deletedIds } = this.props;
+    const { deletedIds } = this.props;
 
     if (deletedIds.length === 0) {
       Alert.alert('Trash is empty');
@@ -36,10 +38,18 @@ class TrashScreen extends PureComponent {
       'This will permanently delete all sets.',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => clearTrash(deletedIds) },
+        { text: 'OK', onPress: this.emptyTrash(deletedIds) },
       ],
       { cancelable: false },
     );
+  }
+
+  emptyTrash = (deletedIds) => {
+    const { clearTrash, clearCards, sets } = this.props;
+
+    const setCardsIds = sets.flatMap(set => set.cards);
+    clearCards(setCardsIds);
+    clearTrash(deletedIds);
   }
 
   render() {
@@ -103,6 +113,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   clearTrash: ids => dispatch(deleteTrashSets(ids)),
+  clearCards: ids => dispatch(deleteCards(ids)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashScreen);
