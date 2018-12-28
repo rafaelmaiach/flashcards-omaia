@@ -50,7 +50,10 @@ class TitleModalEditor extends PureComponent {
   }
 
   onCancelModal = () => {
-    const { toggleModalTitle } = this.props;
+    const { toggleModalTitle, navigation } = this.props;
+    const animateIcon = navigation.getParam('animateIcon');
+
+    animateIcon('close');
     toggleModalTitle();
   }
 
