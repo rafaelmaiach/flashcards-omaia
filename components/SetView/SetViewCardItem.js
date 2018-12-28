@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
+import { Speech } from 'expo';
 
 import { AntDesign } from '@expo/vector-icons';
 
@@ -14,19 +15,65 @@ class SetViewCardItem extends PureComponent {
     frontText: PropTypes.string.isRequired,
   }
 
+  state = {
+    speakingText: '', // front or back
+  }
+
+  resetSpeak = () => this.setState(() => ({ speakingText: '' }));
+
+  startFrontSound = () => {
+    const { frontText } = this.props;
+
+    Speech.speak(frontText, {
+      onStart: this.setFrontTextHighlight,
+      onDone: this.startBackSound,
+    });
+  }
+
+  startBackSound = () => {
+    const { backText } = this.props;
+
+    this.resetSpeak();
+
+    Speech.speak(backText, {
+      onStart: this.setBackTextHighlight,
+      onDone: this.resetSpeak,
+    });
+  }
+
+  setFrontTextHighlight = () => this.setState(() => ({ speakingText: 'front' }));
+
+  setBackTextHighlight = () => this.setState(() => ({ speakingText: 'back' }));
+
   render() {
+    const { speakingText } = this.state;
     const { frontText, backText } = this.props;
+
+    const highlightStyle = {
+      color: $lightBlue,
+      fontWeight: 'bold',
+    };
+
+    const highlightFront = speakingText === 'front';
+    const highlightBack = speakingText === 'back';
+
+    const frontTextStyle = highlightFront ? highlightStyle : {};
+    const backTextStyle = highlightBack ? highlightStyle : {};
 
     return (
       <View style={styles.cardContainer}>
         <View style={styles.frontTextContainer}>
-          <Text style={styles.frontText}>{frontText}</Text>
+          <Text style={frontTextStyle}>{frontText}</Text>
         </View>
         <View style={styles.backTextContainer}>
-          <Text style={styles.backText}>{backText}</Text>
+          <Text style={backTextStyle}>{backText}</Text>
         </View>
         <View style={styles.soundIconContainer}>
-          <TouchableOpacity activeOpacity={0.85} style={styles.soundIconButton}>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={this.startFrontSound}
+            style={styles.soundIconButton}
+          >
             <AntDesign color={$white} name="sound" size={20} />
             <Text style={styles.soundText}>Play</Text>
           </TouchableOpacity>
@@ -48,6 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: $white,
+    marginBottom: 15,
   },
   frontTextContainer: {
     padding: 10,
