@@ -12,11 +12,11 @@ import { $white } from '../../utils/colors';
 
 const Left = (props) => {
   const {
-    navigation, resetNewSetInfo, resetStatusBar, isCardView,
+    navigation, resetNewSetInfo, resetStatusBar, isSetView,
   } = props;
 
   const onPress = () => {
-    if (!isCardView) {
+    if (!isSetView) {
       resetNewSetInfo();
     }
     resetStatusBar();
@@ -40,11 +40,11 @@ const Left = (props) => {
 };
 
 Left.defaultProps = {
-  isCardView: false,
+  isSetView: false,
 };
 
 Left.propTypes = {
-  isCardView: PropTypes.bool,
+  isSetView: PropTypes.bool,
   navigation: PropTypes.object.isRequired,
   resetNewSetInfo: PropTypes.func.isRequired,
   resetStatusBar: PropTypes.func.isRequired,

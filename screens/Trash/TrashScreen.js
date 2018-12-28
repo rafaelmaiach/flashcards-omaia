@@ -38,7 +38,7 @@ class TrashScreen extends PureComponent {
       'This will permanently delete all sets.',
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: this.emptyTrash(deletedIds) },
+        { text: 'OK', onPress: () => this.emptyTrash(deletedIds) },
       ],
       { cancelable: false },
     );

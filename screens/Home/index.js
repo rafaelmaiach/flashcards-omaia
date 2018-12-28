@@ -1,11 +1,11 @@
 import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './HomeScreen';
-import CardView from '../CardView/CardView';
+import SetView from '../SetView/SetView';
 import NewSetScreen from '../NewSet/NewSetScreen';
 
 const screens = {
   HomeScreen,
-  CardView,
+  SetView,
   NewSetScreen,
 };
 

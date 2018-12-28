@@ -8,6 +8,8 @@ import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 import cardShowAnimation from './animations';
 
+import { editCardColor } from '../../../actions/newSet';
+
 import CardItemText from './CardItemText';
 import CardItemFooter from './CardItemFooter';
 
@@ -16,6 +18,7 @@ class CardItem extends PureComponent {
     backText: PropTypes.string.isRequired,
     bgColor: PropTypes.string.isRequired,
     cardId: PropTypes.string.isRequired,
+    changeCardColor: PropTypes.func.isRequired,
     frontText: PropTypes.string.isRequired,
     textColor: PropTypes.string.isRequired,
   }
@@ -35,6 +38,10 @@ class CardItem extends PureComponent {
 
   componentDidMount() {
     cardShowAnimation(this.opacity).start();
+
+    const { cardId, bgColor, changeCardColor } = this.props;
+
+    changeCardColor(cardId, bgColor, 'backgroundColor');
   }
 
   getDimensions = (event) => {
@@ -195,4 +202,8 @@ const mapStateToProps = ({ newSet }, props) => {
   };
 };
 
-export default connect(mapStateToProps)(CardItem);
+const mapDispatchToProps = dispatch => ({
+  changeCardColor: (id, color, colorType) => dispatch(editCardColor(id, color, colorType)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardItem);

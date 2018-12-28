@@ -69,6 +69,7 @@ class CardItemText extends PureComponent {
         <View style={styles.modalContent}>
           <Text style={styles.editText}>EDIT TEXT</Text>
           <TextInput
+            maxLength={75}
             onChangeText={this.onChangeText}
             style={styles.modalInput}
             value={cardText}

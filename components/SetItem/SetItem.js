@@ -78,7 +78,7 @@ class SetItem extends PureComponent {
       id, title, backgroundColor, navigation,
     } = this.props;
 
-    navigation.navigate('CardView', {
+    navigation.navigate('SetView', {
       id,
       title,
       backgroundColor,
