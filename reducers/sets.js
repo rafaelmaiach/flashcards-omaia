@@ -3,6 +3,7 @@ import {
   MOVE_TO_TRASH,
   RESTORE_SET,
   DELETE_TRASH_SETS,
+  ADD_NEW_CARD_TO_SET,
 } from '../actions/sets';
 
 const initialState = {
@@ -73,6 +74,20 @@ const sets = (state = initialState, action) => {
         ...state,
         allIds: newAllIds,
         byId: { ...setsById },
+      };
+    }
+    case ADD_NEW_CARD_TO_SET: {
+      const { setId, cardId } = action.payload;
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [setId]: {
+            ...state.byId[setId],
+            cards: state.byId[setId].cards.concat(cardId),
+          },
+        },
       };
     }
     default: {

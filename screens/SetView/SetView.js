@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -10,6 +10,8 @@ import { setStatusBarColor } from '../../actions/statusBar';
 
 import Left from '../../components/NewSet/Left';
 import CardsViewList from '../../components/SetView/SetViewCardList';
+import ModalNewCard from '../../components/SetView/SetViewModalNewCard';
+
 import commonNavigationOptions from '../commonNavigationOptions';
 
 import { $darkBlue } from '../../utils/colors';
@@ -35,58 +37,75 @@ class SetView extends PureComponent {
     });
   }
 
+  state = {
+    modalVisible: false,
+  }
+
   componentDidMount() {
     const { set, changeStatusBarColor } = this.props;
     changeStatusBarColor(set.backgroundColor);
   }
 
+  toggleModalNewCard = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }));
+
   render() {
-    const { set: { cards, backgroundColor } } = this.props;
+    const { modalVisible } = this.state;
+    const { set: { id, cards, backgroundColor } } = this.props;
 
     const colorTheme = { color: backgroundColor };
     const bgColorTheme = { backgroundColor: `${backgroundColor}0D` };
     const borderColorTheme = { borderColor: backgroundColor };
 
     return (
-      <View style={styles.container}>
-        <View style={styles.studyContainer}>
-          <TouchableOpacity
-            activeOpacity={0.65}
-            style={[styles.studyBox, bgColorTheme, borderColorTheme]}
-          >
-            <AntDesign color={backgroundColor} name="windowso" size={30} />
-            <Text style={[styles.studyBoxText, colorTheme]}>
-              MATCH
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.65}
-            style={[styles.studyBox, bgColorTheme, borderColorTheme]}
-          >
-            <MaterialCommunityIcons color={backgroundColor} name="brain" size={30} />
-            <Text style={[styles.studyBoxText, colorTheme]}>
-              QUIZ
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.cardsContainer}>
-          <View style={styles.cardsTitleContainer}>
-            <Text style={styles.cardsTitleText}>
-              {`CARDS: ${cards.length}`}
-            </Text>
-          </View>
-          <View style={styles.cardsBoxContainer}>
+      <Fragment>
+        {modalVisible && (
+          <ModalNewCard
+            setBackgroundColor={backgroundColor}
+            setId={id}
+            toggleModalNewCard={this.toggleModalNewCard}
+          />
+        )}
+        <View style={styles.container}>
+          <View style={styles.studyContainer}>
             <TouchableOpacity
               activeOpacity={0.65}
-              style={[styles.cardBoxNewCardButton, bgColorTheme, borderColorTheme]}
+              style={[styles.studyBox, bgColorTheme, borderColorTheme]}
             >
-              <Text style={[styles.cardBoxNewCardText, colorTheme]}>Add Card</Text>
+              <AntDesign color={backgroundColor} name="windowso" size={30} />
+              <Text style={[styles.studyBoxText, colorTheme]}>
+                MATCH
+              </Text>
             </TouchableOpacity>
-            <CardsViewList cards={cards} themeColor={backgroundColor} />
+            <TouchableOpacity
+              activeOpacity={0.65}
+              style={[styles.studyBox, bgColorTheme, borderColorTheme]}
+            >
+              <MaterialCommunityIcons color={backgroundColor} name="brain" size={30} />
+              <Text style={[styles.studyBoxText, colorTheme]}>
+                QUIZ
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.cardsContainer}>
+            <View style={styles.cardsTitleContainer}>
+              <Text style={styles.cardsTitleText}>
+                {`CARDS: ${cards.length}`}
+              </Text>
+            </View>
+            <View style={styles.cardsBoxContainer}>
+              <TouchableOpacity
+                activeOpacity={0.65}
+                onPress={this.toggleModalNewCard}
+                style={[styles.cardBoxNewCardButton, bgColorTheme, borderColorTheme]}
+              >
+                <Text style={[styles.cardBoxNewCardText, colorTheme]}>Add Card</Text>
+              </TouchableOpacity>
+              <CardsViewList cards={cards} themeColor={backgroundColor} />
+            </View>
           </View>
         </View>
-      </View>
+      </Fragment>
     );
   }
 }
@@ -151,10 +170,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ cards, selectedSet }) => {
+const mapStateToProps = ({ sets, cards, selectedSet }) => {
+  const currentSet = sets.byId[selectedSet.id];
+
   const set = {
-    ...selectedSet,
-    cards: selectedSet.cards.map(cardId => cards[cardId]),
+    ...currentSet,
+    cards: currentSet.cards.map(cardId => cards[cardId]),
   };
 
   return {
