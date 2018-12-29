@@ -55,6 +55,9 @@ class CardItemText extends PureComponent {
 
   render() {
     const { cardText } = this.state;
+    const { cardSide } = this.props;
+
+    const titleText = cardSide === 'front' ? 'EDIT FRONT CARD TEXT' : 'EDIT BACK CARD TEXT';
 
     return (
       <Modal
@@ -67,7 +70,7 @@ class CardItemText extends PureComponent {
         onBackdropPress={this.onCancelModal}
       >
         <View style={styles.modalContent}>
-          <Text style={styles.editText}>EDIT TEXT</Text>
+          <Text style={styles.editSetTitle}>{titleText}</Text>
           <TextInput
             maxLength={75}
             onChangeText={this.onChangeText}
@@ -79,7 +82,7 @@ class CardItemText extends PureComponent {
               activeOpacity={0.85}
               onPress={this.onCancelModal}
             >
-              <Text style={[styles.closeText, styles.closeTextCancel]}>
+              <Text style={[styles.closeText, styles.cancelText]}>
                 CANCEL
               </Text>
             </TouchableOpacity>
@@ -87,7 +90,7 @@ class CardItemText extends PureComponent {
               activeOpacity={0.85}
               onPress={this.onCloseModal}
             >
-              <Text style={[styles.closeText, styles.closeTextSave]}>
+              <Text style={[styles.closeText, styles.saveText]}>
                 SAVE
               </Text>
             </TouchableOpacity>
@@ -105,28 +108,35 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     padding: 20,
   },
-  editText: {
+  editSetTitle: {
     fontSize: 12,
     letterSpacing: 2,
     color: $lightBlue,
     fontWeight: '800',
-    margin: 20,
+    marginBottom: 20,
+  },
+  modalInput: {
+    height: 40,
+    fontSize: 16,
+    color: $black,
+    borderBottomColor: $lightBlue,
+    borderBottomWidth: 2,
   },
   closeTextContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 25,
+    marginTop: 20,
   },
   closeText: {
     fontSize: 14,
     fontWeight: '600',
+  },
+  cancelText: {
+    color: $lightRed,
     paddingRight: 20,
   },
-  closeTextCancel: {
-    color: $lightRed,
-  },
-  closeTextSave: {
+  saveText: {
     color: $darkGreen,
   },
 });
