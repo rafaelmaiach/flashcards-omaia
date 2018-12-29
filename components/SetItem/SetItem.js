@@ -2,10 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import Ripple from 'react-native-material-ripple';
 import Swipeout from 'react-native-swipeout';
 import chroma from 'chroma-js';
+
+import { setSelectedSet } from '../../actions/selectedSet';
 
 import HiddenSetItem from './HiddenSetItem';
 
@@ -75,13 +78,20 @@ class SetItem extends PureComponent {
 
   onPressItem = () => {
     const {
-      id, title, backgroundColor, navigation,
+      navigation,
+      selectSet,
+      ...set
     } = this.props;
 
+    if (set.isDeleted) {
+      return;
+    }
+
+    selectSet(set);
+
     navigation.navigate('SetView', {
-      id,
-      title,
-      backgroundColor,
+      title: set.title,
+      backgroundColor: set.backgroundColor,
     });
   }
 
@@ -185,4 +195,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(SetItem);
+const mapDispatchToProps = dispatch => ({
+  selectSet: set => dispatch(setSelectedSet(set)),
+});
+
+export default connect(null, mapDispatchToProps)(withNavigation(SetItem));

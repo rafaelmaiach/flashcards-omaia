@@ -10,6 +10,7 @@ import uuidv4 from 'uuid/v4';
 import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
 import { createCards } from '../../actions/cards';
+import { setSelectedSet } from '../../actions/selectedSet';
 import { resetStatusBarColor } from '../../actions/statusBar';
 
 import { $darkBlue } from '../../utils/colors';
@@ -39,11 +40,14 @@ class NewSetFooter extends PureComponent {
     this.progress = new Animated.Value(0);
   }
 
-  resetNavigation = () => {
+  navigateToSetView = (set) => {
     const { navigation, resetNewSetInfo, resetStatusBar } = this.props;
     resetNewSetInfo();
     resetStatusBar();
-    navigation.goBack();
+    navigation.navigate('SetView', {
+      title: set.title,
+      backgroundColor: set.backgroundColor,
+    });
   }
 
   submitSet = () => {
@@ -62,10 +66,6 @@ class NewSetFooter extends PureComponent {
     };
 
     submitNewSet(newSet);
-  }
-
-  onPress = () => {
-    this.submitSet();
 
     Animated.timing(
       this.progress,
@@ -73,7 +73,7 @@ class NewSetFooter extends PureComponent {
         toValue: 1,
         duration: 1800,
       },
-    ).start(this.resetNavigation);
+    ).start(() => this.navigateToSetView(newSet));
   }
 
   render() {
@@ -81,7 +81,7 @@ class NewSetFooter extends PureComponent {
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.75}
-          onPress={this.onPress}
+          onPress={this.submitSet}
           style={styles.buttonContainer}
         >
           <Lottie
@@ -146,6 +146,7 @@ const mapDispatchToProps = dispatch => ({
     };
 
     dispatch(createSet(newSetInfo));
+    dispatch(setSelectedSet(newSetInfo));
     dispatch(createCards(newSet.cards));
   },
   resetNewSetInfo: () => dispatch(resetNewSet()),

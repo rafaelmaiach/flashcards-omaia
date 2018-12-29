@@ -41,8 +41,7 @@ class SetView extends PureComponent {
   }
 
   render() {
-    const { set } = this.props;
-    const { cards } = set;
+    const { set: { cards } } = this.props;
 
     return (
       <View style={styles.container}>
@@ -125,12 +124,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ sets, cards }, props) => {
-  const id = props.navigation.getParam('id');
-
+const mapStateToProps = ({ cards, selectedSet }) => {
   const set = {
-    ...sets.byId[id],
-    cards: Object.values(sets.byId[id].cards).map(cardId => cards[cardId]),
+    ...selectedSet,
+    cards: selectedSet.cards.map(cardId => cards[cardId]),
   };
 
   return {

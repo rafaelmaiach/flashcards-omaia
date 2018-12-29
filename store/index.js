@@ -6,7 +6,7 @@ import rootReducer from '../reducers';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['newSet'],
+  blacklist: ['newSet', 'statusBar', 'selectedSet'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

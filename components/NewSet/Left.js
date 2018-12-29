@@ -18,9 +18,11 @@ const Left = (props) => {
   const onPress = () => {
     if (!isSetView) {
       resetNewSetInfo();
+      navigation.goBack();
     }
+
     resetStatusBar();
-    navigation.goBack();
+    navigation.navigate('HomeScreen');
   };
 
   return (
