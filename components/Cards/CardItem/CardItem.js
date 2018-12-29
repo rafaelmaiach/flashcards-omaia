@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
-import cardShowAnimation from './animations';
 
 import { editCardColor } from '../../../actions/newSet';
 
@@ -32,13 +31,9 @@ class CardItem extends PureComponent {
       cardHeight: 0,
       modalTextVisible: false,
     };
-
-    this.opacity = new Animated.Value(0);
   }
 
   componentDidMount() {
-    cardShowAnimation(this.opacity).start();
-
     const { cardId, bgColor, changeCardColor } = this.props;
 
     changeCardColor(cardId, bgColor, 'backgroundColor');

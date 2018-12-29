@@ -26,6 +26,21 @@ class CardsList extends PureComponent {
     this.sliderItemWidth = width * 0.8;
   }
 
+  componentDidUpdate(prevProps) {
+    const { cards } = this.props;
+
+    if (cards.length < prevProps.cards.length) {
+      return true;
+    }
+
+    if (cards.length > prevProps.cards.length) {
+      this.scrollToEnd();
+      return true;
+    }
+
+    return false;
+  }
+
   keyExtractor = item => item.id;
 
   renderItem = ({ item }) => <CardItem {...item} />;
@@ -65,8 +80,6 @@ class CardsList extends PureComponent {
             inactiveSlideOpacity={0.5}
             inactiveSlideScale={0.9}
             itemWidth={this.sliderItemWidth}
-            onContentSizeChange={this.scrollToEnd}
-            onLayout={this.scrollToEnd}
             renderItem={this.renderItem}
             sliderWidth={this.sliderWidth}
           />

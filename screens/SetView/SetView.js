@@ -12,7 +12,7 @@ import Left from '../../components/NewSet/Left';
 import CardsViewList from '../../components/SetView/SetViewCardList';
 import commonNavigationOptions from '../commonNavigationOptions';
 
-import { $lightBlue, $darkBlue } from '../../utils/colors';
+import { $darkBlue } from '../../utils/colors';
 
 class SetView extends PureComponent {
   static propTypes = {
@@ -41,20 +41,30 @@ class SetView extends PureComponent {
   }
 
   render() {
-    const { set: { cards } } = this.props;
+    const { set: { cards, backgroundColor } } = this.props;
+
+    const colorTheme = { color: backgroundColor };
+    const bgColorTheme = { backgroundColor: `${backgroundColor}0D` };
+    const borderColorTheme = { borderColor: backgroundColor };
 
     return (
       <View style={styles.container}>
         <View style={styles.studyContainer}>
-          <TouchableOpacity activeOpacity={0.65} style={styles.studyBox}>
-            <AntDesign color={$lightBlue} name="windowso" size={30} />
-            <Text style={styles.studyBoxText}>
+          <TouchableOpacity
+            activeOpacity={0.65}
+            style={[styles.studyBox, bgColorTheme, borderColorTheme]}
+          >
+            <AntDesign color={backgroundColor} name="windowso" size={30} />
+            <Text style={[styles.studyBoxText, colorTheme]}>
               MATCH
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.65} style={styles.studyBox}>
-            <MaterialCommunityIcons color={$lightBlue} name="brain" size={30} />
-            <Text style={styles.studyBoxText}>
+          <TouchableOpacity
+            activeOpacity={0.65}
+            style={[styles.studyBox, bgColorTheme, borderColorTheme]}
+          >
+            <MaterialCommunityIcons color={backgroundColor} name="brain" size={30} />
+            <Text style={[styles.studyBoxText, colorTheme]}>
               QUIZ
             </Text>
           </TouchableOpacity>
@@ -67,7 +77,13 @@ class SetView extends PureComponent {
             </Text>
           </View>
           <View style={styles.cardsBoxContainer}>
-            <CardsViewList cards={cards} />
+            <TouchableOpacity
+              activeOpacity={0.65}
+              style={[styles.cardBoxNewCardButton, bgColorTheme, borderColorTheme]}
+            >
+              <Text style={[styles.cardBoxNewCardText, colorTheme]}>Add Card</Text>
+            </TouchableOpacity>
+            <CardsViewList cards={cards} themeColor={backgroundColor} />
           </View>
         </View>
       </View>
@@ -92,26 +108,23 @@ const styles = StyleSheet.create({
   studyBox: {
     width: '45%',
     height: '65%',
-    backgroundColor: `${$lightBlue}0D`,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,
     borderWidth: 3,
-    borderColor: $lightBlue,
   },
   studyBoxText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: $lightBlue,
   },
   cardsContainer: {
-    paddingLeft: 25,
+    paddingLeft: 30,
     paddingRight: 25,
     height: '70%',
   },
   cardsTitleContainer: {
     width: '100%',
-    height: '10%',
+    height: '8%',
   },
   cardsTitleText: {
     fontSize: 16,
@@ -120,7 +133,21 @@ const styles = StyleSheet.create({
   },
   cardsBoxContainer: {
     width: '100%',
-    height: '90%',
+    height: '92%',
+    alignItems: 'center',
+  },
+  cardBoxNewCardButton: {
+    width: '50%',
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
+    borderRadius: 3,
+    borderWidth: 3,
+  },
+  cardBoxNewCardText: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });
 

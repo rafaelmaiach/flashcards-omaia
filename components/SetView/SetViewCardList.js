@@ -11,10 +11,14 @@ class SetViewCardList extends PureComponent {
 
   keyExtractor = item => item.id;
 
-  renderItem = ({ item }) => <SetViewCardItem {...item} />;
+  renderItem = ({ item }) => {
+    const { themeColor } = this.props;
+    return <SetViewCardItem {...item} themeColor={themeColor} />;
+  };
 
   render() {
     const { cards } = this.props;
+
     return (
       <FlatList
         data={cards}
