@@ -20,6 +20,7 @@ class CardItemFooter extends PureComponent {
     removeCard: PropTypes.func.isRequired,
     side: PropTypes.string.isRequired,
     textColor: PropTypes.string.isRequired,
+    themeColor: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -59,7 +60,7 @@ class CardItemFooter extends PureComponent {
   render() {
     const { modalColorsVisible, isBackgroundModal } = this.state;
     const {
-      id, side, bgColor, textColor, flipCard,
+      id, side, bgColor, textColor, flipCard, themeColor,
     } = this.props;
 
     const footerStyles = {
@@ -80,6 +81,7 @@ class CardItemFooter extends PureComponent {
           cardId={id}
           isBackgroundModal={isBackgroundModal}
           textColor={textColor}
+          themeColor={themeColor}
           toggleModalColors={this.toggleModalColors}
           visible
         />

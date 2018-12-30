@@ -9,7 +9,7 @@ import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 import { editCardColor } from '../../../actions/newSet';
 
 import {
-  $white, $black, $lightBlue, $lightRed, $darkGreen,
+  $white, $black, $lightRed, $darkGreen,
 } from '../../../utils/colors';
 
 class CardItemColors extends PureComponent {
@@ -19,6 +19,7 @@ class CardItemColors extends PureComponent {
     changeCardColor: PropTypes.func.isRequired,
     isBackgroundModal: PropTypes.bool.isRequired,
     textColor: PropTypes.string.isRequired,
+    themeColor: PropTypes.string.isRequired,
     toggleModalColors: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
   }
@@ -64,6 +65,7 @@ class CardItemColors extends PureComponent {
       isBackgroundModal,
       textColor,
       visible,
+      themeColor,
     } = this.props;
 
     const modalTitle = isBackgroundModal ? 'EDIT CARD BACKGROUND COLOR' : 'EDIT CARD TEXT COLOR';
@@ -71,6 +73,11 @@ class CardItemColors extends PureComponent {
     const colorType = isBackgroundModal ? bgColor : textColor;
     const oldColor = colorType;
     const currColor = color || colorType;
+
+    const editTextTitleStyle = {
+      ...styles.editText,
+      color: themeColor,
+    };
 
     return (
       <Modal
@@ -83,7 +90,7 @@ class CardItemColors extends PureComponent {
         onBackdropPress={this.onCancelModal}
       >
         <View style={styles.modalContent}>
-          <Text style={styles.editText}>{modalTitle}</Text>
+          <Text style={editTextTitleStyle}>{modalTitle}</Text>
           <View style={styles.paletteContainer}>
             <TriangleColorPicker
               color={currColor}
@@ -120,6 +127,7 @@ class CardItemColors extends PureComponent {
 const styles = StyleSheet.create({
   modalContent: {
     width: '100%',
+    height: '65%',
     backgroundColor: $white,
     borderRadius: 3,
     padding: 20,
@@ -127,7 +135,6 @@ const styles = StyleSheet.create({
   editText: {
     fontSize: 12,
     letterSpacing: 2,
-    color: $lightBlue,
     fontWeight: '800',
     margin: 20,
   },
@@ -145,7 +152,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 25,
+    marginTop: 15,
   },
   closeText: {
     fontSize: 14,

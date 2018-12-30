@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import chroma from 'chroma-js';
-import { addCardNewSet } from '../../actions/newSet';
+import { addCardNewSet } from '../../../actions/newSet';
 
-import { $white, $lightBlue, $grey } from '../../utils/colors';
+import { $white, $lightBlue, $grey } from '../../../utils/colors';
 
-import CardItem from './CardItem/CardItem';
+import CardItem from './CardItem';
 
 class CardsList extends PureComponent {
   static propTypes = {

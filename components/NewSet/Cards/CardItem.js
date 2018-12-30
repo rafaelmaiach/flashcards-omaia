@@ -20,6 +20,7 @@ class CardItem extends PureComponent {
     changeCardColor: PropTypes.func.isRequired,
     frontText: PropTypes.string.isRequired,
     textColor: PropTypes.string.isRequired,
+    themeColor: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -74,6 +75,7 @@ class CardItem extends PureComponent {
       textColor,
       frontText,
       backText,
+      themeColor,
     } = this.props;
 
     const textLength = side === 'front' ? frontText.length : backText.length;
@@ -146,6 +148,7 @@ class CardItem extends PureComponent {
           id={cardId}
           side={side}
           textColor={textColor}
+          themeColor={themeColor}
         />
       </Fragment>
     );
@@ -194,6 +197,7 @@ const mapStateToProps = ({ newSet }, props) => {
     textColor,
     frontText,
     backText,
+    themeColor: backgroundColor,
   };
 };
 

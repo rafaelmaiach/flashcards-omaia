@@ -14,7 +14,7 @@ import {
 import { setEditionInfo } from '../../actions/newSet';
 import { setStatusBarColor } from '../../actions/statusBar';
 
-import CardsList from '../../components/Cards/CardsList';
+import CardsList from '../../components/NewSet/Cards/CardsList';
 
 import { $white, newSetPaletteColor } from '../../utils/colors';
 import commonNavigationOptions from '../commonNavigationOptions';
