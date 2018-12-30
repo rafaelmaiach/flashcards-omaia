@@ -69,6 +69,7 @@ class CardItem extends PureComponent {
     const {
       side, cardWidth, cardHeight, modalTextVisible,
     } = this.state;
+
     const {
       cardId,
       bgColor,

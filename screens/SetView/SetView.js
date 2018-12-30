@@ -2,7 +2,7 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  View, Text, TouchableOpacity, StyleSheet,
+  View, Text, TouchableOpacity, StyleSheet, Alert,
 } from 'react-native';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -52,9 +52,15 @@ class SetView extends PureComponent {
   navigateToQuiz = () => {
     const { navigation, set } = this.props;
 
-    navigation.navigate('QuizView', {
-      set,
-    });
+    if (set.cards.length) {
+      navigation.navigate('QuizView', {
+        set,
+      });
+
+      return;
+    }
+
+    Alert.alert('No cards found.');
   }
 
   render() {

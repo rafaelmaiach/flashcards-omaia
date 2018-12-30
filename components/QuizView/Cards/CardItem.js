@@ -55,12 +55,14 @@ class CardItem extends PureComponent {
     const {
       side, cardWidth, cardHeight,
     } = this.state;
+
     const {
       id,
       backgroundColor,
       foregroundColor,
       frontText,
       backText,
+      ...rest
     } = this.props;
 
     const textLength = side === 'front' ? frontText.length : backText.length;
@@ -79,7 +81,6 @@ class CardItem extends PureComponent {
 
     const backSideColor = {
       backgroundColor: chroma(backgroundColor).darken(1).hex(),
-
     };
 
     const containerStyles = {
@@ -114,6 +115,7 @@ class CardItem extends PureComponent {
           flipCard={this.flipCard}
           id={id}
           side={side}
+          {...rest}
         />
       </Fragment>
     );

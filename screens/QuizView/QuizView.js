@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
+import { createQuizCards } from '../../actions/quiz';
+
 import CardsList from '../../components/QuizView/Cards/CardsList';
+import QuizResult from '../../components/QuizView/QuizResult';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class QuizView extends PureComponent {
   static propTypes = {
+    createQuiz: PropTypes.func.isRequired,
     set: PropTypes.object.isRequired,
   }
 
@@ -24,14 +28,30 @@ class QuizView extends PureComponent {
     });
   }
 
+  state = {
+    quizFinished: false,
+  }
+
+  componentDidMount() {
+    const { set, createQuiz } = this.props;
+
+    createQuiz(set.cards);
+  }
+
+  setQuizFinished = () => this.setState(() => ({ quizFinished: true }));
+
   render() {
-    const { set: { cards } } = this.props;
+    const { quizFinished } = this.state;
 
     return (
       <View style={styles.container}>
-        <View style={styles.carouselContainer}>
-          <CardsList cards={cards} />
-        </View>
+        {quizFinished
+          ? <QuizResult />
+          : (
+            <View style={styles.carouselContainer}>
+              <CardsList setQuizFinished={this.setQuizFinished} />
+            </View>
+          )}
       </View>
     );
   }
@@ -50,7 +70,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ sets, cards, selectedSet }) => {
+const mapStateToProps = (state) => {
+  const {
+    sets, cards, selectedSet, quiz,
+  } = state;
+
   const currentSet = sets.byId[selectedSet.id];
 
   const set = {
@@ -60,7 +84,12 @@ const mapStateToProps = ({ sets, cards, selectedSet }) => {
 
   return {
     set,
+    quiz,
   };
 };
 
-export default connect(mapStateToProps)(QuizView);
+const mapDispatchToProps = dispatch => ({
+  createQuiz: cards => dispatch(createQuizCards(cards)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizView);
