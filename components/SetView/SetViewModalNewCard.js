@@ -11,14 +11,14 @@ import { createCards } from '../../actions/cards';
 import { addNewCardToSet } from '../../actions/sets';
 
 import {
-  $white, $black, $lightBlue, $lightRed, $darkGreen,
+  $white, $black, $lightRed, $darkGreen,
 } from '../../utils/colors';
 
 class CardItemText extends PureComponent {
   static propTypes = {
     addCardToSet: PropTypes.func.isRequired,
-    setBackgroundColor: PropTypes.string.isRequired,
     setId: PropTypes.string.isRequired,
+    themeColor: PropTypes.string.isRequired,
     toggleModalNewCard: PropTypes.func.isRequired,
   }
 
@@ -30,7 +30,7 @@ class CardItemText extends PureComponent {
   onCloseModal = () => {
     const { frontCardText, backCardText } = this.state;
     const {
-      setId, setBackgroundColor, toggleModalNewCard, addCardToSet,
+      setId, themeColor, toggleModalNewCard, addCardToSet,
     } = this.props;
 
     const cardId = uuidv4();
@@ -39,7 +39,7 @@ class CardItemText extends PureComponent {
       id: cardId,
       frontText: frontCardText || 'Write a question',
       backText: backCardText || 'Write an answer',
-      backgroundColor: setBackgroundColor,
+      backgroundColor: themeColor,
       foregroundColor: $white,
     };
 
@@ -58,6 +58,18 @@ class CardItemText extends PureComponent {
 
   render() {
     const { frontCardText, backCardText } = this.state;
+    const { themeColor } = this.props;
+
+    const modalTitleStyles = {
+      ...styles.modalInputTitle,
+      color: themeColor,
+    };
+
+    const modalInputStyles = {
+      ...styles.modalInput,
+      borderColor: themeColor,
+    };
+
 
     return (
       <Modal
@@ -70,19 +82,19 @@ class CardItemText extends PureComponent {
         onBackdropPress={this.onCancelModal}
       >
         <View style={styles.modalContent}>
-          <Text style={styles.editSetTitle}>FRONT CARD TEXT</Text>
+          <Text style={modalTitleStyles}>FRONT CARD TEXT</Text>
           <TextInput
             maxLength={75}
             onChangeText={this.onChangeFrontText}
-            style={styles.modalInput}
+            style={modalInputStyles}
             value={frontCardText}
           />
 
-          <Text style={styles.editSetTitle}>BACK CARD TEXT</Text>
+          <Text style={modalTitleStyles}>BACK CARD TEXT</Text>
           <TextInput
             maxLength={75}
             onChangeText={this.onChangeBackText}
-            style={styles.modalInput}
+            style={modalInputStyles}
             value={backCardText}
           />
 
@@ -117,10 +129,9 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     padding: 20,
   },
-  editSetTitle: {
+  modalInputTitle: {
     fontSize: 12,
     letterSpacing: 2,
-    color: $lightBlue,
     fontWeight: '800',
     marginBottom: 10,
     marginTop: 20,
@@ -129,7 +140,6 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
     color: $black,
-    borderBottomColor: $lightBlue,
     borderBottomWidth: 2,
   },
   closeTextContainer: {

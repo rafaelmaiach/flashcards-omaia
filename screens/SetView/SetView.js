@@ -60,8 +60,8 @@ class SetView extends PureComponent {
       <Fragment>
         {modalVisible && (
           <ModalNewCard
-            setBackgroundColor={backgroundColor}
             setId={id}
+            themeColor={backgroundColor}
             toggleModalNewCard={this.toggleModalNewCard}
           />
         )}
