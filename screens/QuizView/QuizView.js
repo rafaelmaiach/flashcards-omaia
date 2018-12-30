@@ -7,6 +7,10 @@ import CardsList from '../../components/QuizView/Cards/CardsList';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class QuizView extends PureComponent {
+  static propTypes = {
+    set: PropTypes.object.isRequired,
+  }
+
   static navigationOptions = ({ navigation }) => {
     const set = navigation.getParam('set');
 
