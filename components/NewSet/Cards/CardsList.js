@@ -77,8 +77,7 @@ class CardsList extends PureComponent {
             ref={(c) => { this.carousel = c; }}
             data={cards}
             horizontal
-            inactiveSlideOpacity={0.5}
-            inactiveSlideScale={0.9}
+            inactiveSlideOpacity={0}
             itemWidth={this.sliderItemWidth}
             renderItem={this.renderItem}
             sliderWidth={this.sliderWidth}

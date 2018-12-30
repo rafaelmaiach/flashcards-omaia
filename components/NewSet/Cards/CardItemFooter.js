@@ -96,8 +96,8 @@ class CardItemFooter extends PureComponent {
           <TouchableOpacity activeOpacity={0.75} onPress={openBackgroundModal}>
             <MaterialIcons color={$white} name="format-color-fill" size={30} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={flipCard}>
-            <MaterialIcons activeOpacity={0.75} color={$white} name={flipIcon} size={30} />
+          <TouchableOpacity activeOpacity={0.75} onPress={flipCard}>
+            <MaterialIcons color={$white} name={flipIcon} size={30} />
           </TouchableOpacity>
         </View>
       </Fragment>

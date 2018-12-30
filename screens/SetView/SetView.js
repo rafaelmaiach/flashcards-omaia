@@ -19,6 +19,7 @@ import { $darkBlue } from '../../utils/colors';
 class SetView extends PureComponent {
   static propTypes = {
     changeStatusBarColor: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
     set: PropTypes.object.isRequired,
   }
 
@@ -47,6 +48,14 @@ class SetView extends PureComponent {
   }
 
   toggleModalNewCard = () => this.setState(prev => ({ modalVisible: !prev.modalVisible }));
+
+  navigateToQuiz = () => {
+    const { navigation, set } = this.props;
+
+    navigation.navigate('QuizView', {
+      set,
+    });
+  }
 
   render() {
     const { modalVisible } = this.state;
@@ -78,6 +87,7 @@ class SetView extends PureComponent {
             </TouchableOpacity>
             <TouchableOpacity
               activeOpacity={0.65}
+              onPress={this.navigateToQuiz}
               style={[styles.studyBox, bgColorTheme, borderColorTheme]}
             >
               <MaterialCommunityIcons color={backgroundColor} name="brain" size={30} />

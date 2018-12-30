@@ -1,26 +1,20 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import {
-  Animated, Text, StyleSheet, TouchableOpacity,
+  Animated, View, Text, StyleSheet,
 } from 'react-native';
 import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 
-import { editCardColor } from '../../../actions/newSet';
-
-import CardItemText from './CardItemText';
 import CardItemFooter from './CardItemFooter';
 
 class CardItem extends PureComponent {
   static propTypes = {
+    backgroundColor: PropTypes.string.isRequired,
     backText: PropTypes.string.isRequired,
-    bgColor: PropTypes.string.isRequired,
-    cardId: PropTypes.string.isRequired,
-    changeCardColor: PropTypes.func.isRequired,
+    foregroundColor: PropTypes.string.isRequired,
     frontText: PropTypes.string.isRequired,
-    textColor: PropTypes.string.isRequired,
-    themeColor: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -30,25 +24,17 @@ class CardItem extends PureComponent {
       side: 'front', // front or back
       cardWidth: 0,
       cardHeight: 0,
-      modalTextVisible: false,
     };
-  }
-
-  componentDidMount() {
-    const { cardId, bgColor, changeCardColor } = this.props;
-
-    changeCardColor(cardId, bgColor, 'backgroundColor');
   }
 
   getDimensions = (event) => {
     const { width, height } = event.nativeEvent.layout;
+
     this.setState(() => ({
       cardWidth: width,
       cardHeight: height,
     }));
   }
-
-  toggleModalText = () => this.setState(prev => ({ modalTextVisible: !prev.modalTextVisible }))
 
   flipCard = () => {
     if (this.card) {
@@ -67,15 +53,14 @@ class CardItem extends PureComponent {
 
   render() {
     const {
-      side, cardWidth, cardHeight, modalTextVisible,
+      side, cardWidth, cardHeight,
     } = this.state;
     const {
-      cardId,
-      bgColor,
-      textColor,
+      id,
+      backgroundColor,
+      foregroundColor,
       frontText,
       backText,
-      themeColor,
     } = this.props;
 
     const textLength = side === 'front' ? frontText.length : backText.length;
@@ -84,35 +69,26 @@ class CardItem extends PureComponent {
 
     const flipTextStyles = {
       ...styles.flipText,
-      color: textColor,
+      color: foregroundColor,
       fontSize: cardFontSize,
     };
 
     const frontSideColor = {
-      backgroundColor: bgColor,
+      backgroundColor,
     };
 
     const backSideColor = {
-      backgroundColor: chroma(bgColor).darken(1).hex(),
+      backgroundColor: chroma(backgroundColor).darken(1).hex(),
 
     };
 
     const containerStyles = {
       ...styles.container,
-      backgroundColor: bgColor,
+      backgroundColor,
     };
 
     return (
       <Fragment>
-        {modalTextVisible && (
-          <CardItemText
-            backText={backText}
-            cardId={cardId}
-            cardSide={side}
-            frontText={frontText}
-            toggleModalText={this.toggleModalText}
-          />
-        )}
         <Animated.View
           onLayout={this.getDimensions}
           style={containerStyles}
@@ -125,29 +101,19 @@ class CardItem extends PureComponent {
             onFlipStart={this.onFlipStart}
             style={styles.flipCardContainer}
           >
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={this.toggleModalText}
-              style={[styles.flipCard, frontSideColor]}
-            >
+            <View style={[styles.flipCard, frontSideColor]}>
               <Text style={flipTextStyles}>{frontText}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={this.toggleModalText}
-              style={[styles.flipCard, backSideColor]}
-            >
+            </View>
+            <View style={[styles.flipCard, backSideColor]}>
               <Text style={flipTextStyles}>{backText}</Text>
-            </TouchableOpacity>
+            </View>
           </CardFlip>
         </Animated.View>
         <CardItemFooter
-          bgColor={bgColor}
+          bgColor={backgroundColor}
           flipCard={this.flipCard}
-          id={cardId}
+          id={id}
           side={side}
-          textColor={textColor}
-          themeColor={themeColor}
         />
       </Fragment>
     );
@@ -179,29 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ newSet }, props) => {
-  const { id } = props;
-  const { cards, backgroundColor } = newSet;
-
-  const card = cards[id];
-
-  const cardId = card.id;
-  const bgColor = card.backgroundColor || backgroundColor;
-  const textColor = card.foregroundColor;
-  const { frontText, backText } = card;
-
-  return {
-    cardId,
-    bgColor,
-    textColor,
-    frontText,
-    backText,
-    themeColor: backgroundColor,
-  };
-};
-
-const mapDispatchToProps = dispatch => ({
-  changeCardColor: (id, color, colorType) => dispatch(editCardColor(id, color, colorType)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardItem);
+export default CardItem;
