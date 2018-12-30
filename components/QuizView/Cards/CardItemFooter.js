@@ -36,9 +36,9 @@ class CardItemFooter extends PureComponent {
   saveAnswer = (id, answer) => {
     const { updateAnswer } = this.props;
 
-    updateAnswer(id, answer);
-
     this.goToNextItem();
+
+    updateAnswer(id, answer);
   }
 
   goToNextItem = () => {

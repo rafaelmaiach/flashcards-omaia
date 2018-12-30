@@ -42,6 +42,7 @@ class QuizView extends PureComponent {
 
   render() {
     const { quizFinished } = this.state;
+    const { set: { cards } } = this.props;
 
     return (
       <View style={styles.container}>
@@ -49,7 +50,7 @@ class QuizView extends PureComponent {
           ? <QuizResult />
           : (
             <View style={styles.carouselContainer}>
-              <CardsList setQuizFinished={this.setQuizFinished} />
+              <CardsList cards={cards} setQuizFinished={this.setQuizFinished} />
             </View>
           )}
       </View>

@@ -15,21 +15,21 @@ const quiz = (state = {}, action) => {
         return acc;
       }, {});
 
-      return {
-        ...state,
-        ...cardsById,
-      };
+      return { ...cardsById };
     }
     case UPDATE_CARD_ANSWER: {
       const { cardId, answer } = action.payload;
 
-      return {
+      const stateCopy = {
         ...state,
         [cardId]: {
           ...state[cardId],
-          isCorrect: answer,
         },
       };
+
+      stateCopy[cardId].isCorrect = answer;
+
+      return stateCopy;
     }
     default: {
       return state;

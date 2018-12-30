@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   View, Text, TouchableOpacity, StyleSheet, Alert,
 } from 'react-native';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { setStatusBarColor } from '../../actions/statusBar';
 
@@ -84,15 +84,6 @@ class SetView extends PureComponent {
           <View style={styles.studyContainer}>
             <TouchableOpacity
               activeOpacity={0.65}
-              style={[styles.studyBox, bgColorTheme, borderColorTheme]}
-            >
-              <AntDesign color={backgroundColor} name="windowso" size={30} />
-              <Text style={[styles.studyBoxText, colorTheme]}>
-                MATCH
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.65}
               onPress={this.navigateToQuiz}
               style={[styles.studyBox, bgColorTheme, borderColorTheme]}
             >
@@ -141,7 +132,7 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   studyBox: {
-    width: '45%',
+    width: '50%',
     height: '65%',
     justifyContent: 'center',
     alignItems: 'center',

@@ -67,8 +67,8 @@ class CardsList extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ quiz }) => ({
-  cards: Object.values(quiz),
-});
+// const mapStateToProps = ({ quiz }) => ({
+//   cards: Object.values(quiz),
+// });
 
-export default connect(mapStateToProps)(CardsList);
+export default CardsList;
