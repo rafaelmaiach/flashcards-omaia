@@ -4,6 +4,7 @@ import {
   EDIT_BACKGROUND_COLOR,
   RESET_NEW_SET,
   ADD_CARD_NEW_SET,
+  REMOVE_CARD_NEW_SET,
   EDIT_CARD_COLOR,
   EDIT_CARD_TEXT,
   SET_EDITION,
@@ -55,6 +56,22 @@ const newSet = (state = initialState, action) => {
           [card.id]: card,
         },
       };
+    }
+    case REMOVE_CARD_NEW_SET: {
+      const cardId = action.payload;
+
+      const stateCopy = {
+        ...state,
+        cards: {
+          ...state.cards,
+        },
+      };
+
+      if (stateCopy.cards[cardId]) {
+        delete stateCopy.cards[cardId];
+      }
+
+      return stateCopy;
     }
     case EDIT_CARD_COLOR: {
       const { id, color, colorType } = action.payload;

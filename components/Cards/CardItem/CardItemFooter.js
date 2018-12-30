@@ -1,8 +1,13 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import {
+  View, StyleSheet, TouchableOpacity, Alert,
+} from 'react-native';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import chroma from 'chroma-js';
+
+import { removeCardNewSet } from '../../../actions/newSet';
 import { $white } from '../../../utils/colors';
 
 import CardItemColors from './CardItemColors';
@@ -12,6 +17,7 @@ class CardItemFooter extends PureComponent {
     bgColor: PropTypes.string.isRequired,
     flipCard: PropTypes.func.isRequired,
     id: PropTypes.string.isRequired,
+    removeCard: PropTypes.func.isRequired,
     side: PropTypes.string.isRequired,
     textColor: PropTypes.string.isRequired,
   }
@@ -34,6 +40,20 @@ class CardItemFooter extends PureComponent {
       isBackgroundModal,
       modalColorsVisible: !prev.modalColorsVisible,
     }));
+  }
+
+  showDeleteCard = () => {
+    const { id, removeCard } = this.props;
+
+    Alert.alert(
+      'Delete Card?',
+      'This will permanently delete this card.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'OK', onPress: () => removeCard(id) },
+      ],
+      { cancelable: false },
+    );
   }
 
   render() {
@@ -65,6 +85,9 @@ class CardItemFooter extends PureComponent {
         />
         )}
         <View style={footerStyles}>
+          <TouchableOpacity activeOpacity={0.75} onPress={this.showDeleteCard}>
+            <FontAwesome color={$white} name="trash" size={30} />
+          </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.75} onPress={openForegroundModal}>
             <MaterialIcons color={$white} name="format-color-text" size={30} />
           </TouchableOpacity>
@@ -92,4 +115,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardItemFooter;
+const mapDispatchToProps = dispatch => ({
+  removeCard: id => dispatch(removeCardNewSet(id)),
+});
+
+export default connect(null, mapDispatchToProps)(CardItemFooter);
