@@ -7,6 +7,7 @@ import SetViewCardItem from './SetViewCardItem';
 class SetViewCardList extends PureComponent {
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+    themeColor: PropTypes.string.isRequired,
   }
 
   keyExtractor = item => item.id;

@@ -5,6 +5,8 @@ import {
   View, Text, StyleSheet,
 } from 'react-native';
 
+import QuizResultCardList from './QuizResultCardList';
+
 import {
   $darkBlue, $green, $lightRed,
 } from '../../utils/colors';
@@ -23,7 +25,7 @@ class QuizResult extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <View style={styles.cardsTitleContainer}>
+        <View style={styles.resultCardsBox}>
           <View style={[styles.resultBox, styles.titleTotal]}>
             <Text style={[styles.resultText, styles.titleTotalText]}>
               STUDIED
@@ -49,6 +51,7 @@ class QuizResult extends PureComponent {
             </Text>
           </View>
         </View>
+        <QuizResultCardList quizResult={quizResult} />
       </View>
     );
   }
@@ -60,11 +63,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  cardsTitleContainer: {
+  resultCardsBox: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
-    marginTop: 25,
+    padding: 30,
   },
   resultBox: {
     borderWidth: 3,
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   resultText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   titleTotal: {
