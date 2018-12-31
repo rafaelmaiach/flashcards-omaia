@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  View, StyleSheet, TouchableOpacity, Text, TextInput,
-} from 'react-native';
+import { StyleSheet, Text, TextInput } from 'react-native';
 import ModalWrapper from '../../Common/ModalWrapper';
+
 import { editCardText } from '../../../actions/newSet';
 
-import {
-  $white, $black, $lightBlue, $lightRed, $darkGreen,
-} from '../../../utils/colors';
+import { $black, $lightBlue } from '../../../utils/colors';
 
 class CardItemText extends PureComponent {
   static propTypes = {
@@ -60,46 +57,20 @@ class CardItemText extends PureComponent {
     const titleText = cardSide === 'front' ? 'EDIT FRONT CARD TEXT' : 'EDIT BACK CARD TEXT';
 
     return (
-      <ModalWrapper onCancel={this.onCancelModal} visible>
-        <View style={styles.modalContent}>
-          <Text style={styles.editSetTitle}>{titleText}</Text>
-          <TextInput
-            maxLength={75}
-            onChangeText={this.onChangeText}
-            style={styles.modalInput}
-            value={cardText}
-          />
-          <View style={styles.closeTextContainer}>
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={this.onCancelModal}
-            >
-              <Text style={[styles.closeText, styles.cancelText]}>
-                CANCEL
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={this.onCloseModal}
-            >
-              <Text style={[styles.closeText, styles.saveText]}>
-                SAVE
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+      <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible>
+        <Text style={styles.editSetTitle}>{titleText}</Text>
+        <TextInput
+          maxLength={75}
+          onChangeText={this.onChangeText}
+          style={styles.modalInput}
+          value={cardText}
+        />
       </ModalWrapper>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  modalContent: {
-    width: '100%',
-    backgroundColor: $white,
-    borderRadius: 3,
-    padding: 20,
-  },
   editSetTitle: {
     fontSize: 12,
     letterSpacing: 2,
@@ -113,23 +84,6 @@ const styles = StyleSheet.create({
     color: $black,
     borderBottomColor: $lightBlue,
     borderBottomWidth: 2,
-  },
-  closeTextContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 20,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  cancelText: {
-    color: $lightRed,
-    paddingRight: 20,
-  },
-  saveText: {
-    color: $darkGreen,
   },
 });
 

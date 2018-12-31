@@ -12,9 +12,7 @@ import ModalWrapper from '../Common/ModalWrapper';
 import { editBackgroundColor, resetNewSet } from '../../actions/newSet';
 import { setStatusBarColor } from '../../actions/statusBar';
 
-import {
-  newSetPaletteColor, $white, $lightBlue, $lightRed, $darkGreen,
-} from '../../utils/colors';
+import { newSetPaletteColor, $lightBlue } from '../../utils/colors';
 
 class SetColorPalette extends PureComponent {
   static propTypes = {
@@ -91,26 +89,10 @@ class SetColorPalette extends PureComponent {
 
     const paletteColor = this.createPaletteColor(newBackgroundColor);
     return (
-      <ModalWrapper onCancel={this.onCancelModal} visible={visible}>
-        <View style={styles.modalContent}>
-          <Text style={styles.editText}>EDIT BACKGROUND COLOR</Text>
-          <View style={styles.paletteContainer}>
-            {paletteColor}
-          </View>
-          <View style={styles.closeTextContainer}>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={this.onCancelModal}
-            >
-              <Text style={[styles.closeText, styles.cancelText]}>CANCEL</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={this.onCloseModal}
-            >
-              <Text style={[styles.closeText, styles.saveText]}>SAVE</Text>
-            </TouchableOpacity>
-          </View>
+      <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible={visible}>
+        <Text style={styles.editText}>EDIT BACKGROUND COLOR</Text>
+        <View style={styles.paletteContainer}>
+          {paletteColor}
         </View>
       </ModalWrapper>
     );
@@ -118,12 +100,6 @@ class SetColorPalette extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  modalContent: {
-    width: '100%',
-    backgroundColor: $white,
-    borderRadius: 3,
-    padding: 20,
-  },
   editText: {
     fontSize: 12,
     letterSpacing: 2,
@@ -143,23 +119,6 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     margin: 10,
-  },
-  closeTextContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 25,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: '600',
-    paddingRight: 20,
-  },
-  cancelText: {
-    color: $lightRed,
-  },
-  saveText: {
-    color: $darkGreen,
   },
 });
 

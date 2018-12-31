@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  View, StyleSheet, TouchableOpacity, Text,
-} from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
-import ModalWrapper from '../../Common/ModalWrapper';
-import { editCardColor } from '../../../actions/newSet';
 
-import { $white, $lightRed, $darkGreen } from '../../../utils/colors';
+import ModalWrapper from '../../Common/ModalWrapper';
+
+import { editCardColor } from '../../../actions/newSet';
 
 class CardItemColors extends PureComponent {
   static propTypes = {
@@ -78,36 +76,16 @@ class CardItemColors extends PureComponent {
     };
 
     return (
-      <ModalWrapper onCancel={this.onCancelModal} visible={visible}>
-        <View style={styles.modalContent}>
-          <Text style={editTextTitleStyle}>{modalTitle}</Text>
-          <View style={styles.paletteContainer}>
-            <TriangleColorPicker
-              color={currColor}
-              oldColor={oldColor}
-              onColorChange={this.onColorChange}
-              onOldColorSelected={this.onColorChange}
-              style={styles.colorPicker}
-            />
-          </View>
-          <View style={styles.closeTextContainer}>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={this.onCancelModal}
-            >
-              <Text style={[styles.closeText, styles.closeTextCancel]}>
-                CANCEL
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={this.onCloseModal}
-            >
-              <Text style={[styles.closeText, styles.closeTextSave]}>
-                SAVE
-              </Text>
-            </TouchableOpacity>
-          </View>
+      <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible={visible}>
+        <Text style={editTextTitleStyle}>{modalTitle}</Text>
+        <View style={styles.paletteContainer}>
+          <TriangleColorPicker
+            color={currColor}
+            oldColor={oldColor}
+            onColorChange={this.onColorChange}
+            onOldColorSelected={this.onColorChange}
+            style={styles.colorPicker}
+          />
         </View>
       </ModalWrapper>
     );
@@ -115,13 +93,6 @@ class CardItemColors extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  modalContent: {
-    width: '100%',
-    height: '65%',
-    backgroundColor: $white,
-    borderRadius: 3,
-    padding: 20,
-  },
   editText: {
     fontSize: 12,
     letterSpacing: 2,
@@ -137,23 +108,6 @@ const styles = StyleSheet.create({
   },
   colorPicker: {
     flex: 1,
-  },
-  closeTextContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 15,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: '600',
-    paddingRight: 20,
-  },
-  closeTextCancel: {
-    color: $lightRed,
-  },
-  closeTextSave: {
-    color: $darkGreen,
   },
 });
 

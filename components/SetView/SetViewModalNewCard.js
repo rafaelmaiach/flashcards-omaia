@@ -1,18 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  View, StyleSheet, TouchableOpacity, Text, TextInput,
-} from 'react-native';
+import { StyleSheet, Text, TextInput } from 'react-native';
 import uuidv4 from 'uuid/v4';
 import ModalWrapper from '../Common/ModalWrapper';
 
 import { createCards } from '../../actions/cards';
 import { addNewCardToSet } from '../../actions/sets';
 
-import {
-  $white, $black, $lightRed, $darkGreen,
-} from '../../utils/colors';
+import { $white, $black } from '../../utils/colors';
 
 class CardItemText extends PureComponent {
   static propTypes = {
@@ -73,54 +69,27 @@ class CardItemText extends PureComponent {
 
     return (
       <ModalWrapper onCancel={this.onCancelModal} visible>
-        <View style={styles.modalContent}>
-          <Text style={modalTitleStyles}>FRONT CARD TEXT</Text>
-          <TextInput
-            maxLength={75}
-            onChangeText={this.onChangeFrontText}
-            style={modalInputStyles}
-            value={frontCardText}
-          />
+        <Text style={modalTitleStyles}>FRONT CARD TEXT</Text>
+        <TextInput
+          maxLength={75}
+          onChangeText={this.onChangeFrontText}
+          style={modalInputStyles}
+          value={frontCardText}
+        />
 
-          <Text style={modalTitleStyles}>BACK CARD TEXT</Text>
-          <TextInput
-            maxLength={75}
-            onChangeText={this.onChangeBackText}
-            style={modalInputStyles}
-            value={backCardText}
-          />
-
-          <View style={styles.closeTextContainer}>
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={this.onCancelModal}
-            >
-              <Text style={[styles.closeText, styles.cancelText]}>
-                CANCEL
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.85}
-              onPress={this.onCloseModal}
-            >
-              <Text style={[styles.closeText, styles.saveText]}>
-                SAVE
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Text style={modalTitleStyles}>BACK CARD TEXT</Text>
+        <TextInput
+          maxLength={75}
+          onChangeText={this.onChangeBackText}
+          style={modalInputStyles}
+          value={backCardText}
+        />
       </ModalWrapper>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  modalContent: {
-    width: '100%',
-    backgroundColor: $white,
-    borderRadius: 3,
-    padding: 20,
-  },
   modalInputTitle: {
     fontSize: 12,
     letterSpacing: 2,
@@ -133,23 +102,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: $black,
     borderBottomWidth: 2,
-  },
-  closeTextContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 20,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  cancelText: {
-    color: $lightRed,
-    paddingRight: 20,
-  },
-  saveText: {
-    color: $darkGreen,
   },
 });
 

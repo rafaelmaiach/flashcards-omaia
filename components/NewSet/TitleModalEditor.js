@@ -2,16 +2,15 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Text, TouchableOpacity, View, StyleSheet, TextInput,
+  Text, View, StyleSheet, TextInput,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ModalWrapper from '../Common/ModalWrapper';
+import ModalFooter from '../Common/ModalFooter';
 
 import { editTitle } from '../../actions/newSet';
 
-import {
-  $white, $black, $lightBlue, $lightRed, $darkGreen,
-} from '../../utils/colors';
+import { $white, $black, $lightBlue } from '../../utils/colors';
 
 class TitleModalEditor extends PureComponent {
   static propTypes = {
@@ -63,42 +62,20 @@ class TitleModalEditor extends PureComponent {
     const { visible } = this.props;
 
     return (
-      <ModalWrapper onCancel={this.onCancelModal} visible={visible}>
-        <View style={styles.modalContent}>
-          <Text style={styles.editSetTitle}>EDIT TITLE</Text>
-          <TextInput
-            maxLength={50}
-            onChangeText={this.onChangeText}
-            style={styles.modalInput}
-            value={newTitle}
-          />
-          <View style={styles.closeTextContainer}>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={this.onCancelModal}
-            >
-              <Text style={[styles.closeText, styles.cancelText]}>CANCEL</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.75}
-              onPress={this.onCloseModal}
-            >
-              <Text style={[styles.closeText, styles.saveText]}>SAVE</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+      <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible={visible}>
+        <Text style={styles.editSetTitle}>EDIT TITLE</Text>
+        <TextInput
+          maxLength={50}
+          onChangeText={this.onChangeText}
+          style={styles.modalInput}
+          value={newTitle}
+        />
       </ModalWrapper>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  modalContent: {
-    width: '100%',
-    backgroundColor: $white,
-    borderRadius: 3,
-    padding: 20,
-  },
   editSetTitle: {
     fontSize: 12,
     letterSpacing: 2,
@@ -112,23 +89,6 @@ const styles = StyleSheet.create({
     color: $black,
     borderBottomColor: $lightBlue,
     borderBottomWidth: 2,
-  },
-  closeTextContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 20,
-  },
-  closeText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  cancelText: {
-    color: $lightRed,
-    paddingRight: 20,
-  },
-  saveText: {
-    color: $darkGreen,
   },
 });
 
