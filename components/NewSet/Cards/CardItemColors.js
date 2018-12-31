@@ -8,6 +8,10 @@ import ModalWrapper from '../../Common/ModalWrapper';
 
 import { editCardColor } from '../../../actions/newSet';
 
+/**
+ * @class CardItemColors
+ * @description Create the modal to change the card color
+ */
 class CardItemColors extends PureComponent {
   static propTypes = {
     bgColor: PropTypes.string.isRequired,

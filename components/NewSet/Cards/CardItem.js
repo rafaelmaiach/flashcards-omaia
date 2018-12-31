@@ -7,13 +7,17 @@ import {
 import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 
+import CardItemText from './CardItemText';
+import CardItemFooter from './CardItemFooter';
+
 import { editCardColor } from '../../../actions/newSet';
 
 import { normalizeFontSize } from '../../../utils/helpers';
 
-import CardItemText from './CardItemText';
-import CardItemFooter from './CardItemFooter';
-
+/**
+ * @class CardItem
+ * @description Create the card for new set
+ */
 class CardItem extends PureComponent {
   static propTypes = {
     backText: PropTypes.string.isRequired,

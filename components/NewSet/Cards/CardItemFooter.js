@@ -1,17 +1,21 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  View, StyleSheet, TouchableOpacity, Alert,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import chroma from 'chroma-js';
 
-import { removeCardNewSet } from '../../../actions/newSet';
-import { $white } from '../../../utils/colors';
-
 import CardItemColors from './CardItemColors';
 
+import { removeCardNewSet } from '../../../actions/newSet';
+
+import { $white } from '../../../utils/colors';
+import { createAlert } from '../../../utils/helpers';
+
+/**
+ * @class CardItemFooter
+ * @description Create the card footer to have some control buttons
+ */
 class CardItemFooter extends PureComponent {
   static propTypes = {
     bgColor: PropTypes.string.isRequired,
@@ -46,15 +50,13 @@ class CardItemFooter extends PureComponent {
   showDeleteCard = () => {
     const { id, removeCard } = this.props;
 
-    Alert.alert(
-      'Delete Card?',
-      'This will permanently delete this card.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => removeCard(id) },
-      ],
-      { cancelable: false },
-    );
+    const params = {
+      title: 'Delete Card?',
+      message: 'This will permanently delete this card.',
+      onPress: () => removeCard(id),
+    };
+
+    createAlert(params);
   }
 
   render() {

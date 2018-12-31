@@ -6,12 +6,17 @@ import {
 } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import chroma from 'chroma-js';
+
+import CardItem from './CardItem';
+
 import { addCardNewSet } from '../../../actions/newSet';
 
 import { $white, $lightBlue, $grey } from '../../../utils/colors';
 
-import CardItem from './CardItem';
-
+/**
+ * @class CardList
+ * @description Create the list of cards on new set
+ */
 class CardsList extends PureComponent {
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -26,6 +31,7 @@ class CardsList extends PureComponent {
     this.sliderItemWidth = width * 0.8;
   }
 
+  // Scroll to the end of list when a new card is inserted
   componentDidUpdate(prevProps) {
     const { cards } = this.props;
 

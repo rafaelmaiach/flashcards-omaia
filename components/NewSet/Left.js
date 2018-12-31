@@ -10,6 +10,11 @@ import { resetNewSet } from '../../actions/newSet';
 import { resetStatusBarColor } from '../../actions/statusBar';
 import { $white } from '../../utils/colors';
 
+/**
+ * @class Left
+ * @description Create the left component on header for new set screen
+ * It acts like a back button
+ */
 const Left = (props) => {
   const {
     navigation, resetNewSetInfo, resetStatusBar, isSetView,

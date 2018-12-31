@@ -14,6 +14,10 @@ import { setStatusBarColor } from '../../actions/statusBar';
 
 import { newSetPaletteColor, $lightBlue } from '../../utils/colors';
 
+/**
+ * @class SetColorPalette
+ * @description Create the modal to change the set color
+ */
 class SetColorPalette extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,

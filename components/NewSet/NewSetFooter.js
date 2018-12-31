@@ -7,6 +7,7 @@ import {
 import { withNavigation } from 'react-navigation';
 import { DangerZone } from 'expo';
 import uuidv4 from 'uuid/v4';
+
 import { createSet } from '../../actions/sets';
 import { resetNewSet } from '../../actions/newSet';
 import { createCards } from '../../actions/cards';
@@ -18,6 +19,10 @@ import { $darkBlue } from '../../utils/colors';
 const { Lottie } = DangerZone;
 const SubmitIcon = require('../../assets/lottieAnimations/submitIcon.json');
 
+/**
+ * @class NewSetFooter
+ * @description Create the footer for new set screen to handle submit set
+ */
 class NewSetFooter extends PureComponent {
   static defaultProps = {
     id: '',

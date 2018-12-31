@@ -34,7 +34,7 @@ class TitleModalEditor extends PureComponent {
     }
   }
 
-  onChangeText = newTitle => this.setState({ newTitle });
+  onChangeText = newTitle => this.setState(() => ({ newTitle }));
 
   onCloseModal = () => {
     const { newTitle } = this.state;

@@ -1,11 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import ModalWrapper from '../../Common/ModalWrapper';
 import ModalInput from '../../Common/ModalInput';
 
 import { editCardText } from '../../../actions/newSet';
 
+/**
+ * @class CardItemText
+ * @description Create the modal to change the card text
+ */
 class CardItemText extends PureComponent {
   static propTypes = {
     backText: PropTypes.string.isRequired,
@@ -47,7 +52,7 @@ class CardItemText extends PureComponent {
     toggleModalText();
   }
 
-  onChangeText = cardText => this.setState({ cardText });
+  onChangeText = cardText => this.setState(() => ({ cardText }));
 
   render() {
     const { cardText } = this.state;

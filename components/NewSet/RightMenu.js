@@ -5,11 +5,17 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DangerZone } from 'expo';
+
 import { $white } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
 const EditIcon = require('../../assets/lottieAnimations/editIcon.json');
 
+/**
+ * @class RightMenu
+ * @description Create the right menu component on header for new set screen
+ * It has some components to open color and title edition modals
+ */
 class RightMenu extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
