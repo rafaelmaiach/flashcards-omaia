@@ -4,9 +4,15 @@ import {
   TouchableHighlight, TouchableOpacity, Dimensions, Animated, StyleSheet, Text, Platform,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { openNewSetAnimation, closeNewSetAnimation } from './animations';
 import { $darkBlue, $black, $fullWhite } from '../../utils/colors';
 
+/**
+ * @class AnimatedNewEntryButton
+ * @description Creates the animated component that handles
+ * the icon to navigate to New Set Screen
+ */
 class AnimatedNewSetButton extends PureComponent {
   static propTypes = {
     navigateToNewSet: PropTypes.func.isRequired,
@@ -17,6 +23,7 @@ class AnimatedNewSetButton extends PureComponent {
   constructor(props) {
     super(props);
 
+    // Set the modal height to dont overlay footer
     const { height } = Dimensions.get('window');
     this.windowHeight = Platform.OS === 'ios' ? height * 0.876 : height * 0.867;
 
@@ -24,6 +31,7 @@ class AnimatedNewSetButton extends PureComponent {
     this.buttonContainerOpacity = new Animated.Value(0);
   }
 
+  // Handle when the modal need to be closed or open
   componentWillReceiveProps(nextProps) {
     const { newEntryIconClicked } = nextProps;
 

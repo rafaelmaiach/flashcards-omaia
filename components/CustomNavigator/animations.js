@@ -42,7 +42,20 @@ const closeNewSetAnimation = (params) => {
   ]);
 };
 
+const animateNewEntryIcon = (params) => {
+  const { progress, newEntryIconClicked } = params;
+
+  return Animated.timing(
+    progress,
+    {
+      toValue: newEntryIconClicked ? 1 : 0,
+      duration: 800,
+    },
+  );
+};
+
 export {
   openNewSetAnimation,
   closeNewSetAnimation,
+  animateNewEntryIcon,
 };

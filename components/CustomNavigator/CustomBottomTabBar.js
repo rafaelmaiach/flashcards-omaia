@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import TabBarButton from './TabBarButton';
 import AnimatedNewEntryButton from './AnimatedNewEntryButton';
+
 import { $grey, $fullWhite } from '../../utils/colors';
 
+/**
+ * @class CustomBottomTabBar
+ * @description Create the bottom tab navigator customized for have icons
+ */
 class CustomBottomTabBar extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,

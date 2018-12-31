@@ -3,11 +3,17 @@ import { StyleSheet, Animated } from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DangerZone } from 'expo';
+
+import { animateNewEntryIcon } from './animations';
 import { hexToRgb, $yellow, $darkBlue } from '../../utils/colors';
 
 const { Lottie } = DangerZone;
 const NewEntryIcon = require('../../assets/lottieAnimations/newEntryIcon.json');
 
+/**
+ * @class TabBarButton
+ * @description Create the button for the navigation footer
+ */
 class TabBarButton extends PureComponent {
   constructor(props) {
     super(props);
@@ -15,15 +21,16 @@ class TabBarButton extends PureComponent {
     this.progress = new Animated.Value(0);
   }
 
+  // Animate the icon on click
   animateNewEntry = () => {
     const { newEntryIconClicked } = this.props;
-    Animated.timing(
-      this.progress,
-      {
-        toValue: newEntryIconClicked ? 1 : 0,
-        duration: 800,
-      },
-    ).start();
+
+    const params = {
+      progress: this.progress,
+      newEntryIconClicked,
+    };
+
+    animateNewEntryIcon(params).start();
   }
 
   render() {

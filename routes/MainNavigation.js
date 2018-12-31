@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
-import BottomTabBar from '../components/CustomNavigator/BottomTabBar';
+import CustomBottomTabBar from '../components/CustomNavigator/CustomBottomTabBar';
 import Home from '../screens/Home';
 import Trash from '../screens/Trash';
 
@@ -18,7 +18,7 @@ const NavigationTabs = createMaterialTopTabNavigator(
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     animationEnabled: true,
-    tabBarComponent: props => <BottomTabBar {...props} />,
+    tabBarComponent: props => <CustomBottomTabBar {...props} />,
   },
 );
 
