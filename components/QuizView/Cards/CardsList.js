@@ -1,6 +1,5 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
@@ -66,9 +65,5 @@ class CardsList extends PureComponent {
     );
   }
 }
-
-// const mapStateToProps = ({ quiz }) => ({
-//   cards: Object.values(quiz),
-// });
 
 export default CardsList;
