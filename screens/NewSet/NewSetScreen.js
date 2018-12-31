@@ -8,7 +8,7 @@ import {
   RightMenu,
   NewSetFooter,
   TitleModalEditor,
-  ColorPalette,
+  SetColorPalette,
 } from '../../components/NewSet';
 
 import { setEditionInfo } from '../../actions/newSet';
@@ -87,7 +87,7 @@ class NewSetScreen extends PureComponent {
           toggleModalTitle={this.toggleModalTitle}
           visible={titleModalVisible}
         />
-        <ColorPalette
+        <SetColorPalette
           navigation={navigation}
           toggleModalSetBgColor={this.toggleModalSetBgColor}
           visible={setBgColorModalVisible}

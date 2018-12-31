@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import {
   View, StyleSheet, TouchableOpacity, Text, TextInput,
 } from 'react-native';
-import Modal from 'react-native-modal';
 import uuidv4 from 'uuid/v4';
+import ModalWrapper from '../Common/ModalWrapper';
 
 import { createCards } from '../../actions/cards';
 import { addNewCardToSet } from '../../actions/sets';
@@ -72,15 +72,7 @@ class CardItemText extends PureComponent {
 
 
     return (
-      <Modal
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        backdropColor={$black}
-        backdropOpacity={0.5}
-        isVisible
-        onBackButtonPress={this.onCancelModal}
-        onBackdropPress={this.onCancelModal}
-      >
+      <ModalWrapper onCancel={this.onCancelModal} visible>
         <View style={styles.modalContent}>
           <Text style={modalTitleStyles}>FRONT CARD TEXT</Text>
           <TextInput
@@ -117,7 +109,7 @@ class CardItemText extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </ModalWrapper>
     );
   }
 }

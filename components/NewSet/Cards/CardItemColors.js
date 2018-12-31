@@ -4,13 +4,11 @@ import { connect } from 'react-redux';
 import {
   View, StyleSheet, TouchableOpacity, Text,
 } from 'react-native';
-import Modal from 'react-native-modal';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
+import ModalWrapper from '../../Common/ModalWrapper';
 import { editCardColor } from '../../../actions/newSet';
 
-import {
-  $white, $black, $lightRed, $darkGreen,
-} from '../../../utils/colors';
+import { $white, $lightRed, $darkGreen } from '../../../utils/colors';
 
 class CardItemColors extends PureComponent {
   static propTypes = {
@@ -80,15 +78,7 @@ class CardItemColors extends PureComponent {
     };
 
     return (
-      <Modal
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        backdropColor={$black}
-        backdropOpacity={0.5}
-        isVisible={visible}
-        onBackButtonPress={this.onCancelModal}
-        onBackdropPress={this.onCancelModal}
-      >
+      <ModalWrapper onCancel={this.onCancelModal} visible={visible}>
         <View style={styles.modalContent}>
           <Text style={editTextTitleStyle}>{modalTitle}</Text>
           <View style={styles.paletteContainer}>
@@ -119,7 +109,7 @@ class CardItemColors extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </ModalWrapper>
     );
   }
 }

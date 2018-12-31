@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   View, StyleSheet, TouchableOpacity, Text, TextInput,
 } from 'react-native';
-import Modal from 'react-native-modal';
+import ModalWrapper from '../../Common/ModalWrapper';
 import { editCardText } from '../../../actions/newSet';
 
 import {
@@ -60,15 +60,7 @@ class CardItemText extends PureComponent {
     const titleText = cardSide === 'front' ? 'EDIT FRONT CARD TEXT' : 'EDIT BACK CARD TEXT';
 
     return (
-      <Modal
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        backdropColor={$black}
-        backdropOpacity={0.5}
-        isVisible
-        onBackButtonPress={this.onCancelModal}
-        onBackdropPress={this.onCancelModal}
-      >
+      <ModalWrapper onCancel={this.onCancelModal} visible>
         <View style={styles.modalContent}>
           <Text style={styles.editSetTitle}>{titleText}</Text>
           <TextInput
@@ -96,7 +88,7 @@ class CardItemText extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </ModalWrapper>
     );
   }
 }

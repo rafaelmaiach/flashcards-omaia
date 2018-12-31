@@ -5,7 +5,8 @@ import {
   Text, TouchableOpacity, View, StyleSheet, TextInput,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import Modal from 'react-native-modal';
+import ModalWrapper from '../Common/ModalWrapper';
+
 import { editTitle } from '../../actions/newSet';
 
 import {
@@ -62,15 +63,7 @@ class TitleModalEditor extends PureComponent {
     const { visible } = this.props;
 
     return (
-      <Modal
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        backdropColor={$black}
-        backdropOpacity={0.5}
-        isVisible={visible}
-        onBackButtonPress={this.onCancelModal}
-        onBackdropPress={this.onCancelModal}
-      >
+      <ModalWrapper onCancel={this.onCancelModal} visible={visible}>
         <View style={styles.modalContent}>
           <Text style={styles.editSetTitle}>EDIT TITLE</Text>
           <TextInput
@@ -94,7 +87,7 @@ class TitleModalEditor extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </ModalWrapper>
     );
   }
 }

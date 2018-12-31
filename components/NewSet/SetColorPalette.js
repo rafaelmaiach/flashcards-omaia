@@ -5,16 +5,18 @@ import {
   Text, TouchableOpacity, View, StyleSheet,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import Modal from 'react-native-modal';
 import chroma from 'chroma-js';
+
+import ModalWrapper from '../Common/ModalWrapper';
+
 import { editBackgroundColor, resetNewSet } from '../../actions/newSet';
 import { setStatusBarColor } from '../../actions/statusBar';
 
 import {
-  newSetPaletteColor, $white, $black, $lightBlue, $lightRed, $darkGreen,
+  newSetPaletteColor, $white, $lightBlue, $lightRed, $darkGreen,
 } from '../../utils/colors';
 
-class ColorPalette extends PureComponent {
+class SetColorPalette extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     navigation: PropTypes.object.isRequired,
@@ -89,15 +91,7 @@ class ColorPalette extends PureComponent {
 
     const paletteColor = this.createPaletteColor(newBackgroundColor);
     return (
-      <Modal
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        backdropColor={$black}
-        backdropOpacity={0.5}
-        isVisible={visible}
-        onBackButtonPress={this.onCancelModal}
-        onBackdropPress={this.onCancelModal}
-      >
+      <ModalWrapper onCancel={this.onCancelModal} visible={visible}>
         <View style={styles.modalContent}>
           <Text style={styles.editText}>EDIT BACKGROUND COLOR</Text>
           <View style={styles.paletteContainer}>
@@ -118,7 +112,7 @@ class ColorPalette extends PureComponent {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </ModalWrapper>
     );
   }
 }
@@ -182,4 +176,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-export default connector(withNavigation(ColorPalette));
+export default connector(withNavigation(SetColorPalette));
