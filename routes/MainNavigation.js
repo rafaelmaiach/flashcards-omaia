@@ -4,6 +4,7 @@ import CustomBottomTabBar from '../components/CustomNavigator/CustomBottomTabBar
 import Home from '../screens/Home';
 import Trash from '../screens/Trash';
 
+// Create the app main navigator
 const NavigationTabs = createMaterialTopTabNavigator(
   {
     Home: {

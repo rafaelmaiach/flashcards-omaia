@@ -4,10 +4,12 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './store';
-import { $darkBlue } from './utils/colors';
-import { setLocalNotification } from './utils/notifications';
+
 import StatusBar from './components/StatusBar';
 import MainNavigation from './routes/MainNavigation';
+
+import { $darkBlue } from './utils/colors';
+import { setLocalNotification } from './utils/notifications';
 
 class App extends Component {
   componentDidMount() {

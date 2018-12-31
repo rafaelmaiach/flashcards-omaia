@@ -6,16 +6,20 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { setStatusBarColor } from '../../actions/statusBar';
-
 import Left from '../../components/NewSet/Left';
 import CardsViewList from '../../components/SetView/SetViewCardList';
 import ModalNewCard from '../../components/SetView/SetViewModalNewCard';
 
-import commonNavigationOptions from '../commonNavigationOptions';
+import { setStatusBarColor } from '../../actions/statusBar';
 
 import { $darkBlue } from '../../utils/colors';
 
+import commonNavigationOptions from '../commonNavigationOptions';
+
+/**
+ * @class SetView
+ * @description Create the Set View screen container
+ */
 class SetView extends PureComponent {
   static propTypes = {
     changeStatusBarColor: PropTypes.func.isRequired,

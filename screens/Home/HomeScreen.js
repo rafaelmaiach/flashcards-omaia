@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 
+import SetList from '../../components/SetList/SetList';
+
 import { resetStatusBarColor } from '../../actions/statusBar';
 
-import SetList from '../../components/SetList/SetList';
-import commonNavigationOptions from '../commonNavigationOptions';
 import { $white, $darkBlue } from '../../utils/colors';
 
+import commonNavigationOptions from '../commonNavigationOptions';
+
+/**
+ * @class HomeScreen
+ * @description Create the Home container
+ */
 class HomeScreen extends PureComponent {
   static propTypes = {
     resetStatusBar: PropTypes.func.isRequired,

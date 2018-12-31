@@ -11,14 +11,19 @@ import {
   SetColorPalette,
 } from '../../components/NewSet';
 
+import CardsList from '../../components/NewSet/Cards/CardsList';
+
 import { setEditionInfo } from '../../actions/newSet';
 import { setStatusBarColor } from '../../actions/statusBar';
 
-import CardsList from '../../components/NewSet/Cards/CardsList';
-
 import { $white, newSetPaletteColor } from '../../utils/colors';
+
 import commonNavigationOptions from '../commonNavigationOptions';
 
+/**
+ * @class NewSetScreen
+ * @description Create the New Set Page container
+ */
 class NewSetScreen extends PureComponent {
   static defaultProps = {
     setInfo: null,

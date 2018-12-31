@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { resetQuiz } from '../../actions/quiz';
-
 import CardsList from '../../components/QuizView/QuizCards/QuizList';
 import QuizResult from '../../components/QuizView/QuizResult';
+
+import { resetQuiz } from '../../actions/quiz';
+
 import commonNavigationOptions from '../commonNavigationOptions';
 
+/**
+ * @class QuizView
+ * @description Create the Quiz View screen container
+ */
 class QuizView extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,

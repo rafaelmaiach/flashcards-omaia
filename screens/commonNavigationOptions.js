@@ -1,6 +1,7 @@
 import { Constants } from 'expo';
 import { $darkBlue, $white } from '../utils/colors';
 
+// Setup some configuration for navigation
 const commonNavigationOptions = {
   headerStyle: {
     height: 60,

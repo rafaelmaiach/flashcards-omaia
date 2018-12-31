@@ -16,6 +16,10 @@ import { createAlert } from '../../utils/helpers';
 
 import commonNavigationOptions from '../commonNavigationOptions';
 
+/**
+ * @class TrashScreen
+ * @description Create the Trash screen container
+ */
 class TrashScreen extends PureComponent {
   static propTypes = {
     clearCards: PropTypes.func.isRequired,
