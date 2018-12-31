@@ -56,6 +56,12 @@ class SetViewCardItem extends PureComponent {
     const { speakingText } = this.state;
     const { frontText, backText, themeColor } = this.props;
 
+    const frontTextContainerStyle = {
+      ...styles.frontTextContainer,
+      borderRightWidth: 0.5,
+      borderColor: `${themeColor}33`,
+    };
+
     const highlightStyle = {
       color: themeColor,
       fontWeight: 'bold',
@@ -72,7 +78,7 @@ class SetViewCardItem extends PureComponent {
 
     return (
       <View style={[styles.cardContainer, borderColorTheme]}>
-        <View style={styles.frontTextContainer}>
+        <View style={frontTextContainerStyle}>
           <Text style={frontTextStyle}>{frontText}</Text>
         </View>
         <View style={styles.backTextContainer}>
