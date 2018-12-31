@@ -15,37 +15,3 @@ const store = createStore(persistedReducer);
 const persistor = persistStore(store);
 
 export { store, persistor };
-
-/*
-  STORE LAYOUT
-
-  {
-    newSet: {
-      title,
-      backgroundColor,
-    },
-    sets: {
-      byId: {
-        id: {
-          id,
-          title,
-          backgroundColor,
-          isDeleted,
-          cards: [cardId],
-        }
-      }
-    },
-    cards: {
-      byId: {
-        id: {
-          id,
-          frontText,
-          backText,
-          backgroundColor,
-          foregroundColor,
-        }
-      }
-    },
-  }
-
-*/
