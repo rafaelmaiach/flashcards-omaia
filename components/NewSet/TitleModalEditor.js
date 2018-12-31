@@ -1,21 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  Text, View, StyleSheet, TextInput,
-} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ModalWrapper from '../Common/ModalWrapper';
-import ModalFooter from '../Common/ModalFooter';
+import ModalInput from '../Common/ModalInput';
 
 import { editTitle } from '../../actions/newSet';
 
-import { $white, $black, $lightBlue } from '../../utils/colors';
-
 class TitleModalEditor extends PureComponent {
+  static defaultProps = {
+    themeColor: '',
+  }
+
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     submitNewTitle: PropTypes.func.isRequired,
+    themeColor: PropTypes.string,
     title: PropTypes.string.isRequired,
     toggleModalTitle: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
@@ -59,38 +59,20 @@ class TitleModalEditor extends PureComponent {
 
   render() {
     const { newTitle } = this.state;
-    const { visible } = this.props;
+    const { visible, themeColor } = this.props;
 
     return (
       <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible={visible}>
-        <Text style={styles.editSetTitle}>EDIT TITLE</Text>
-        <TextInput
-          maxLength={50}
-          onChangeText={this.onChangeText}
-          style={styles.modalInput}
-          value={newTitle}
+        <ModalInput
+          inputValue={newTitle}
+          label="EDIT TITLE"
+          onChange={this.onChangeText}
+          themeColor={themeColor}
         />
       </ModalWrapper>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  editSetTitle: {
-    fontSize: 12,
-    letterSpacing: 2,
-    color: $lightBlue,
-    fontWeight: '800',
-    marginBottom: 20,
-  },
-  modalInput: {
-    height: 40,
-    fontSize: 16,
-    color: $black,
-    borderBottomColor: $lightBlue,
-    borderBottomWidth: 2,
-  },
-});
 
 const mapStateToProps = ({ newSet }) => ({
   title: newSet.title,

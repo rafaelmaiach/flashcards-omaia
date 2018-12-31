@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, TextInput } from 'react-native';
 import uuidv4 from 'uuid/v4';
 import ModalWrapper from '../Common/ModalWrapper';
+import ModalInput from '../Common/ModalInput';
 
 import { createCards } from '../../actions/cards';
 import { addNewCardToSet } from '../../actions/sets';
 
-import { $white, $black } from '../../utils/colors';
+import { $white } from '../../utils/colors';
 
 class CardItemText extends PureComponent {
   static propTypes = {
@@ -19,8 +19,8 @@ class CardItemText extends PureComponent {
   }
 
   state = {
-    frontCardText: '',
-    backCardText: '',
+    frontCardText: 'Write a question',
+    backCardText: 'Write an answer',
   };
 
   onCloseModal = () => {
@@ -56,54 +56,24 @@ class CardItemText extends PureComponent {
     const { frontCardText, backCardText } = this.state;
     const { themeColor } = this.props;
 
-    const modalTitleStyles = {
-      ...styles.modalInputTitle,
-      color: themeColor,
-    };
-
-    const modalInputStyles = {
-      ...styles.modalInput,
-      borderColor: themeColor,
-    };
-
-
     return (
-      <ModalWrapper onCancel={this.onCancelModal} visible>
-        <Text style={modalTitleStyles}>FRONT CARD TEXT</Text>
-        <TextInput
-          maxLength={75}
-          onChangeText={this.onChangeFrontText}
-          style={modalInputStyles}
-          value={frontCardText}
+      <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible>
+        <ModalInput
+          inputValue={frontCardText}
+          label="EDIT FRONT CARD TEXT"
+          onChange={this.onChangeFrontText}
+          themeColor={themeColor}
         />
-
-        <Text style={modalTitleStyles}>BACK CARD TEXT</Text>
-        <TextInput
-          maxLength={75}
-          onChangeText={this.onChangeBackText}
-          style={modalInputStyles}
-          value={backCardText}
+        <ModalInput
+          inputValue={backCardText}
+          label="EDIT BACK CARD TEXT"
+          onChange={this.onChangeBackText}
+          themeColor={themeColor}
         />
       </ModalWrapper>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  modalInputTitle: {
-    fontSize: 12,
-    letterSpacing: 2,
-    fontWeight: '800',
-    marginBottom: 10,
-    marginTop: 20,
-  },
-  modalInput: {
-    height: 40,
-    fontSize: 16,
-    color: $black,
-    borderBottomWidth: 2,
-  },
-});
 
 const mapDispatchToProps = dispatch => ({
   addCardToSet: (setId, cardId, card) => {

@@ -112,6 +112,7 @@ class CardItem extends PureComponent {
             cardId={cardId}
             cardSide={side}
             frontText={frontText}
+            themeColor={themeColor}
             toggleModalText={this.toggleModalText}
           />
         )}

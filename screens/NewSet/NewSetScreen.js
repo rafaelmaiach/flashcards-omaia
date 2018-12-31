@@ -81,9 +81,12 @@ class NewSetScreen extends PureComponent {
     const { titleModalVisible, setBgColorModalVisible } = this.state;
     const { navigation } = this.props;
 
+    const themeColor = navigation.getParam('backgroundColor');
+
     return (
       <Fragment>
         <TitleModalEditor
+          themeColor={themeColor}
           toggleModalTitle={this.toggleModalTitle}
           visible={titleModalVisible}
         />
