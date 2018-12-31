@@ -4,6 +4,11 @@ import { View, StatusBar, StyleSheet } from 'react-native';
 import { Constants } from 'expo';
 import chroma from 'chroma-js';
 
+/**
+ * @function AppStatusBar
+ * @param {object} props - Status bar props
+ * @description Create a custom status bar
+ */
 const AppStatusBar = ({ backgroundColor, bgColor, ...props }) => {
   const color = bgColor ? chroma(bgColor).darken(1.5).hex() : backgroundColor;
 
