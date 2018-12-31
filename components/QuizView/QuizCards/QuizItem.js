@@ -6,11 +6,15 @@ import {
 import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 
-import { normalizeFontSize } from '../../../utils/helpers';
-
 import QuizFooter from './QuizFooter';
 
-class CardItem extends PureComponent {
+import { normalizeFontSize } from '../../../utils/helpers';
+
+/**
+ * @class QuizItem
+ * @description Create the card on quiz
+ */
+class QuizItem extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
     backText: PropTypes.string.isRequired,
@@ -29,6 +33,7 @@ class CardItem extends PureComponent {
     };
   }
 
+  // Get the container size
   getDimensions = (event) => {
     const { width, height } = event.nativeEvent.layout;
 
@@ -152,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardItem;
+export default QuizItem;

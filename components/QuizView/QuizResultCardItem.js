@@ -6,6 +6,10 @@ import { Entypo, Octicons } from '@expo/vector-icons';
 
 import { $white, $lightRed, $green } from '../../utils/colors';
 
+/**
+ * @class QuizResultCardList
+ * @description Create the cards for quiz result list
+ */
 class QuizResultCardItem extends PureComponent {
   static propTypes = {
     backText: PropTypes.string.isRequired,

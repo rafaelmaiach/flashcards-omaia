@@ -4,13 +4,17 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import { $darkBlue } from '../../../utils/colors';
 
-const Pagination = ({ activeIndex, length }) => (
+/**
+ * @function QuizPagination
+ * @description Create the pagination component for quiz
+ */
+const QuizPagination = ({ activeIndex, length }) => (
   <View style={styles.container}>
     <Text style={styles.pages}>{`${activeIndex + 1}/${length}`}</Text>
   </View>
 );
 
-Pagination.propTypes = {
+QuizPagination.propTypes = {
   activeIndex: PropTypes.number.isRequired,
   length: PropTypes.number.isRequired,
 };
@@ -29,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pagination;
+export default QuizPagination;

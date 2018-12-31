@@ -10,7 +10,10 @@ import QuizResultCardList from './QuizResultCardList';
 import { $darkBlue, $green, $lightRed } from '../../utils/colors';
 import { clearLocalNotification, setLocalNotification } from '../../utils/notifications';
 
-
+/**
+ * @class QuizResult
+ * @description Create the quiz result view
+ */
 class QuizResult extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -18,6 +21,7 @@ class QuizResult extends PureComponent {
     startQuiz: PropTypes.func.isRequired,
   }
 
+  // Clear and set a new local notification because the user studied a card on that day
   componentDidMount() {
     clearLocalNotification()
       .then(setLocalNotification);
@@ -70,7 +74,7 @@ class QuizResult extends PureComponent {
         </View>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
-            activeOpacity={0.75}
+            activeOpacity={0.85}
             onPress={this.startNewQuiz}
             style={[styles.button, styles.titleTotal]}
           >
@@ -79,7 +83,7 @@ class QuizResult extends PureComponent {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            activeOpacity={0.75}
+            activeOpacity={0.85}
             onPress={this.goToSetView}
             style={[styles.button, styles.titleTotal]}
           >

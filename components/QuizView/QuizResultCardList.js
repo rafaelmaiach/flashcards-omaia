@@ -4,6 +4,10 @@ import { View, FlatList, StyleSheet } from 'react-native';
 
 import QuizResultCardItem from './QuizResultCardItem';
 
+/**
+ * @class QuizResultCardList
+ * @description Create the cards for quiz result list
+ */
 class QuizResultCardList extends PureComponent {
   static propTypes = {
     quizResult: PropTypes.arrayOf(PropTypes.object).isRequired,

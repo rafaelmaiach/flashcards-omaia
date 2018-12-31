@@ -11,7 +11,11 @@ import { createQuizAnswer } from '../../../actions/quiz';
 
 import { $white, $green, $lightRed } from '../../../utils/colors';
 
-class CardItemFooter extends PureComponent {
+/**
+ * @class QuizFooter
+ * @description Create footer for the cards on quiz
+ */
+class QuizFooter extends PureComponent {
   static propTypes = {
     activeIndex: PropTypes.number.isRequired,
     cardInfo: PropTypes.object.isRequired,
@@ -32,6 +36,7 @@ class CardItemFooter extends PureComponent {
     this.updateAnswerCorrect = () => this.saveAnswer(cardInfo, true);
   }
 
+  // Save the user's answer on store
   saveAnswer = (card, answer) => {
     const { createAnswer } = this.props;
 
@@ -126,4 +131,4 @@ const mapDispatchToProps = dispatch => ({
   createAnswer: (card, answer) => dispatch(createQuizAnswer(card, answer)),
 });
 
-export default connect(null, mapDispatchToProps)(CardItemFooter);
+export default connect(null, mapDispatchToProps)(QuizFooter);

@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import { shuffle } from '../../../utils/helpers';
-
 import QuizItem from './QuizItem';
 import QuizPagination from './QuizPagination';
 
-class CardsList extends PureComponent {
+import { shuffle } from '../../../utils/helpers';
+
+/**
+ * @class QuizList
+ * @description Create quiz list
+ */
+class QuizList extends PureComponent {
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object).isRequired,
     setQuizFinished: PropTypes.func.isRequired,
@@ -77,4 +81,4 @@ class CardsList extends PureComponent {
   }
 }
 
-export default CardsList;
+export default QuizList;
