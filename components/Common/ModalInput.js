@@ -4,6 +4,10 @@ import { Text, TextInput, StyleSheet } from 'react-native';
 
 import { $lightBlue, $darkBlue } from '../../utils/colors';
 
+/**
+ * @class ModalWrapper
+ * @description Create an input field with label for modal
+ */
 class ModalInput extends PureComponent {
   static defaultProps = {
     themeColor: '',

@@ -7,6 +7,11 @@ import ModalFooter from './ModalFooter';
 
 import { $black, $white } from '../../utils/colors';
 
+/**
+ * @class ModalWrapper
+ * @description A Modal wrapper to handle the close modal when
+ * background or back navigation is pressed
+ */
 class ModalWrapper extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,

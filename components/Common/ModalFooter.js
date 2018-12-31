@@ -6,6 +6,12 @@ import {
 
 import { $lightRed, $darkGreen } from '../../utils/colors';
 
+/**
+ * @function ModalFooter
+ * @param {object} props - Modal footer props
+ * @description Responsible for close and save the modal information
+ * @return ModalFooter component
+ */
 const ModalFooter = (props) => {
   const { onCancel, onClose } = props;
 
