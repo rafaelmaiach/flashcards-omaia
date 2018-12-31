@@ -4,11 +4,14 @@ import {
   View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { Speech } from 'expo';
-
 import { AntDesign } from '@expo/vector-icons';
 
 import { $white } from '../../utils/colors';
 
+/**
+ * @class SetViewCardItem
+ * @description Create the card for set view
+ */
 class SetViewCardItem extends PureComponent {
   static propTypes = {
     backText: PropTypes.string.isRequired,
@@ -21,10 +24,13 @@ class SetViewCardItem extends PureComponent {
     speaking: false,
   }
 
+  // Stops the speak
   resetSpeak = () => this.setState(() => ({ speakingText: '', speaking: false }));
 
+  // Resets the highlight text color
   resetHighlight = () => this.setState(() => ({ speakingText: '' }));
 
+  // Start playing audio for the front card text
   startFrontSound = () => {
     const { speaking } = this.state;
     const { frontText } = this.props;
@@ -37,6 +43,7 @@ class SetViewCardItem extends PureComponent {
     }
   }
 
+  // Start playing audio for the back card text
   startBackSound = () => {
     const { backText } = this.props;
 
@@ -48,8 +55,10 @@ class SetViewCardItem extends PureComponent {
     });
   }
 
+  // Add highlight to front card text
   setFrontTextHighlight = () => this.setState(() => ({ speakingText: 'front', speaking: true }));
 
+  // Add highlight to back card text
   setBackTextHighlight = () => this.setState(() => ({ speakingText: 'back' }));
 
   render() {

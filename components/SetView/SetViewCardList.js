@@ -4,6 +4,10 @@ import { FlatList } from 'react-native';
 
 import SetViewCardItem from './SetViewCardItem';
 
+/**
+ * @class SetViewCardList
+ * @description Create the list to show all cards on set view
+ */
 class SetViewCardList extends PureComponent {
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -10,7 +10,11 @@ import { addNewCardToSet } from '../../actions/sets';
 
 import { $white } from '../../utils/colors';
 
-class CardItemText extends PureComponent {
+/**
+ * @class SetViewModalNewCard
+ * @description Create the modal to add a new card on set view
+ */
+class SetViewModalNewCard extends PureComponent {
   static propTypes = {
     addCardToSet: PropTypes.func.isRequired,
     setId: PropTypes.string.isRequired,
@@ -83,4 +87,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const connector = connect(null, mapDispatchToProps);
-export default connector(CardItemText);
+export default connector(SetViewModalNewCard);
