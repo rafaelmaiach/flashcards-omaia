@@ -83,11 +83,11 @@ class SetView extends PureComponent {
         <View style={styles.container}>
           <View style={styles.studyContainer}>
             <TouchableOpacity
-              activeOpacity={0.65}
+              activeOpacity={0.75}
               onPress={this.navigateToQuiz}
               style={[styles.studyBox, bgColorTheme, borderColorTheme]}
             >
-              <MaterialCommunityIcons color={backgroundColor} name="brain" size={30} />
+              <MaterialCommunityIcons color={backgroundColor} name="brain" size={35} />
               <Text style={[styles.studyBoxText, colorTheme]}>
                 QUIZ
               </Text>
@@ -133,15 +133,16 @@ const styles = StyleSheet.create({
   },
   studyBox: {
     width: '50%',
-    height: '65%',
+    height: '75%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,
     borderWidth: 3,
   },
   studyBoxText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginTop: 5,
   },
   cardsContainer: {
     paddingLeft: 30,

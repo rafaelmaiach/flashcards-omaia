@@ -7,38 +7,36 @@ import {
 import { MaterialIcons, Entypo, Octicons } from '@expo/vector-icons';
 import chroma from 'chroma-js';
 
-import { updateCardAnswer } from '../../../actions/quiz';
+import { createQuizAnswer } from '../../../actions/quiz';
 
 import { $white, $green, $lightRed } from '../../../utils/colors';
 
 class CardItemFooter extends PureComponent {
   static propTypes = {
     activeIndex: PropTypes.number.isRequired,
-    bgColor: PropTypes.string.isRequired,
+    cardInfo: PropTypes.object.isRequired,
     carouselRef: PropTypes.object.isRequired,
+    createAnswer: PropTypes.func.isRequired,
     flipCard: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
     quizLength: PropTypes.number.isRequired,
     setActiveIndex: PropTypes.func.isRequired,
     setQuizFinished: PropTypes.func.isRequired,
     side: PropTypes.string.isRequired,
-    updateAnswer: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props);
-    const { id } = props;
+    const { cardInfo } = props;
 
-    this.updateAnswerIncorrect = () => this.saveAnswer(id, false);
-    this.updateAnswerCorrect = () => this.saveAnswer(id, true);
+    this.updateAnswerIncorrect = () => this.saveAnswer(cardInfo, false);
+    this.updateAnswerCorrect = () => this.saveAnswer(cardInfo, true);
   }
 
-  saveAnswer = (id, answer) => {
-    const { updateAnswer } = this.props;
+  saveAnswer = (card, answer) => {
+    const { createAnswer } = this.props;
 
+    createAnswer(card, answer);
     this.goToNextItem();
-
-    updateAnswer(id, answer);
   }
 
   goToNextItem = () => {
@@ -62,13 +60,13 @@ class CardItemFooter extends PureComponent {
   render() {
     const {
       side,
-      bgColor,
       flipCard,
+      cardInfo,
     } = this.props;
 
     const footerStyles = {
       ...styles.footerContainer,
-      backgroundColor: chroma(bgColor).darken(1).hex(),
+      backgroundColor: chroma(cardInfo.backgroundColor).darken(1).hex(),
     };
 
     const flipIcon = side === 'front' ? 'flip-to-back' : 'flip-to-front';
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateAnswer: (cardId, answer) => dispatch(updateCardAnswer(cardId, answer)),
+  createAnswer: (card, answer) => dispatch(createQuizAnswer(card, answer)),
 });
 
 export default connect(null, mapDispatchToProps)(CardItemFooter);

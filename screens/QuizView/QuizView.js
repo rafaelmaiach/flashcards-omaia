@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { createQuizCards } from '../../actions/quiz';
+import { resetQuiz } from '../../actions/quiz';
 
-import CardsList from '../../components/QuizView/Cards/CardsList';
+import CardsList from '../../components/QuizView/QuizCards/QuizList';
 import QuizResult from '../../components/QuizView/QuizResult';
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class QuizView extends PureComponent {
   static propTypes = {
-    createQuiz: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired,
+    resetQuizView: PropTypes.func.isRequired,
     set: PropTypes.object.isRequired,
   }
 
@@ -33,21 +34,21 @@ class QuizView extends PureComponent {
   }
 
   componentDidMount() {
-    const { set, createQuiz } = this.props;
+    const { resetQuizView } = this.props;
 
-    createQuiz(set.cards);
+    resetQuizView();
   }
 
   setQuizFinished = () => this.setState(() => ({ quizFinished: true }));
 
   render() {
     const { quizFinished } = this.state;
-    const { set: { cards } } = this.props;
+    const { set: { cards }, navigation } = this.props;
 
     return (
       <View style={styles.container}>
         {quizFinished
-          ? <QuizResult />
+          ? <QuizResult navigation={navigation} />
           : (
             <View style={styles.carouselContainer}>
               <CardsList cards={cards} setQuizFinished={this.setQuizFinished} />
@@ -71,11 +72,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  const {
-    sets, cards, selectedSet, quiz,
-  } = state;
-
+const mapStateToProps = ({ sets, cards, selectedSet }) => {
   const currentSet = sets.byId[selectedSet.id];
 
   const set = {
@@ -85,12 +82,11 @@ const mapStateToProps = (state) => {
 
   return {
     set,
-    quiz,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  createQuiz: cards => dispatch(createQuizCards(cards)),
+  resetQuizView: () => dispatch(resetQuiz()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizView);

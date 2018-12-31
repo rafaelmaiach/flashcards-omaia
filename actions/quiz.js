@@ -1,22 +1,21 @@
-const CREATE_QUIZ_CARDS = 'CREATE_QUIZ_CARDS';
-const UPDATE_CARD_ANSWER = 'UPDATE_CARD_ANSWER';
+const CREATE_QUIZ_ANSWER = 'CREATE_QUIZ_ANSWER';
+const RESET_QUIZ = 'RESET_QUIZ';
 
-const createQuizCards = cards => ({
-  type: CREATE_QUIZ_CARDS,
-  payload: cards,
-});
-
-const updateCardAnswer = (cardId, answer) => ({
-  type: UPDATE_CARD_ANSWER,
+const createQuizAnswer = (card, answer) => ({
+  type: CREATE_QUIZ_ANSWER,
   payload: {
-    cardId,
+    card,
     answer,
   },
 });
 
+const resetQuiz = () => ({
+  type: RESET_QUIZ,
+});
+
 export {
-  CREATE_QUIZ_CARDS,
-  UPDATE_CARD_ANSWER,
-  createQuizCards,
-  updateCardAnswer,
+  RESET_QUIZ,
+  CREATE_QUIZ_ANSWER,
+  resetQuiz,
+  createQuizAnswer,
 };

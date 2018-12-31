@@ -1,35 +1,25 @@
 import {
-  CREATE_QUIZ_CARDS,
-  UPDATE_CARD_ANSWER,
+  CREATE_QUIZ_ANSWER,
+  RESET_QUIZ,
 } from '../actions/quiz';
 
-const quiz = (state = {}, action) => {
+const initialState = {};
+
+const quiz = (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_QUIZ_CARDS: {
-      const cardsById = action.payload.reduce((acc, curr) => {
-        if (!acc[curr.id]) {
-          acc[curr.id] = { ...curr, isCorrect: false };
-          return acc;
-        }
+    case CREATE_QUIZ_ANSWER: {
+      const { card, answer } = action.payload;
 
-        return acc;
-      }, {});
-
-      return { ...cardsById };
-    }
-    case UPDATE_CARD_ANSWER: {
-      const { cardId, answer } = action.payload;
-
-      const stateCopy = {
+      return {
         ...state,
-        [cardId]: {
-          ...state[cardId],
+        [card.id]: {
+          ...card,
+          isCorrect: answer,
         },
       };
-
-      stateCopy[cardId].isCorrect = answer;
-
-      return stateCopy;
+    }
+    case RESET_QUIZ: {
+      return initialState;
     }
     default: {
       return state;

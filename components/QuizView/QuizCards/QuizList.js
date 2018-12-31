@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
-import CardItem from './CardItem';
-import Pagination from './Pagination';
+import { shuffle } from '../../../utils/helpers';
+
+import QuizItem from './QuizItem';
+import QuizPagination from './QuizPagination';
 
 class CardsList extends PureComponent {
   static propTypes = {
@@ -19,24 +21,34 @@ class CardsList extends PureComponent {
 
     this.state = {
       activeIndex: 0,
+      shuffledCards: [],
     };
 
     this.sliderWidth = width;
     this.sliderItemWidth = width * 0.8;
   }
 
+  componentDidMount() {
+    this.setupCards();
+  }
+
+  setupCards = () => {
+    const { cards } = this.props;
+    this.setState(() => ({ shuffledCards: shuffle(cards) }));
+  }
+
   keyExtractor = item => item.id;
 
-  renderItem = ({ item }) => {
-    const { activeIndex } = this.state;
-    const { cards, setQuizFinished } = this.props;
+  renderItem = ({ item, index }) => {
+    const { shuffledCards } = this.state;
+    const { setQuizFinished } = this.props;
 
     return (
-      <CardItem
+      <QuizItem
         {...item}
-        activeIndex={activeIndex}
+        activeIndex={index}
         carouselRef={this.carousel}
-        quizLength={cards.length}
+        quizLength={shuffledCards.length}
         setActiveIndex={this.setActiveIndex}
         setQuizFinished={setQuizFinished}
       />
@@ -46,21 +58,20 @@ class CardsList extends PureComponent {
   setActiveIndex = index => this.setState(() => ({ activeIndex: index }));
 
   render() {
-    const { activeIndex } = this.state;
-    const { cards } = this.props;
+    const { activeIndex, shuffledCards } = this.state;
 
     return (
       <Fragment>
         <Carousel
           ref={(c) => { this.carousel = c; }}
-          data={cards}
+          data={shuffledCards}
           inactiveSlideOpacity={0}
           itemWidth={this.sliderItemWidth}
           renderItem={this.renderItem}
           scrollEnabled={false}
           sliderWidth={this.sliderWidth}
         />
-        <Pagination activeIndex={activeIndex} length={cards.length} />
+        <QuizPagination activeIndex={activeIndex} length={shuffledCards.length} />
       </Fragment>
     );
   }

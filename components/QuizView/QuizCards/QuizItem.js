@@ -6,7 +6,7 @@ import {
 import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 
-import CardItemFooter from './CardItemFooter';
+import QuizFooter from './QuizFooter';
 
 class CardItem extends PureComponent {
   static propTypes = {
@@ -65,6 +65,10 @@ class CardItem extends PureComponent {
       ...rest
     } = this.props;
 
+    const cardInfo = {
+      id, backgroundColor, foregroundColor, frontText, backText,
+    };
+
     const textLength = side === 'front' ? frontText.length : backText.length;
     const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
     const cardFontSize = fontSize > 30 ? 30 : fontSize;
@@ -110,10 +114,9 @@ class CardItem extends PureComponent {
             </View>
           </CardFlip>
         </Animated.View>
-        <CardItemFooter
-          bgColor={backgroundColor}
+        <QuizFooter
+          cardInfo={cardInfo}
           flipCard={this.flipCard}
-          id={id}
           side={side}
           {...rest}
         />
