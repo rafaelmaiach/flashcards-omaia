@@ -6,6 +6,8 @@ import {
 import CardFlip from 'react-native-card-flip';
 import chroma from 'chroma-js';
 
+import { normalizeFontSize } from '../../../utils/helpers';
+
 import QuizFooter from './QuizFooter';
 
 class CardItem extends PureComponent {
@@ -70,8 +72,8 @@ class CardItem extends PureComponent {
     };
 
     const textLength = side === 'front' ? frontText.length : backText.length;
-    const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
-    const cardFontSize = fontSize > 30 ? 30 : fontSize;
+    const cardFontSize = normalizeFontSize(textLength, cardWidth, cardHeight);
+
 
     const flipTextStyles = {
       ...styles.flipText,

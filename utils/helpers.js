@@ -25,6 +25,12 @@ const shuffle = (array) => {
   return arrayCopy;
 };
 
+const normalizeFontSize = (textLength, cardWidth, cardHeight) => {
+  const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
+  return fontSize > 30 ? 30 : fontSize;
+};
+
 export {
   shuffle,
+  normalizeFontSize,
 };

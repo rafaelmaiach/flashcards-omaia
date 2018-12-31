@@ -9,6 +9,8 @@ import chroma from 'chroma-js';
 
 import { editCardColor } from '../../../actions/newSet';
 
+import { normalizeFontSize } from '../../../utils/helpers';
+
 import CardItemText from './CardItemText';
 import CardItemFooter from './CardItemFooter';
 
@@ -80,8 +82,7 @@ class CardItem extends PureComponent {
     } = this.props;
 
     const textLength = side === 'front' ? frontText.length : backText.length;
-    const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
-    const cardFontSize = fontSize > 30 ? 30 : fontSize;
+    const cardFontSize = normalizeFontSize(textLength, cardWidth, cardHeight);
 
     const flipTextStyles = {
       ...styles.flipText,
