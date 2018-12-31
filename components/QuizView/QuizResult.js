@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  View, Text, StyleSheet,
+  View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 
 import QuizResultCardList from './QuizResultCardList';
@@ -13,7 +13,19 @@ import {
 
 class QuizResult extends PureComponent {
   static propTypes = {
+    navigation: PropTypes.object.isRequired,
     quizResult: PropTypes.arrayOf(PropTypes.object).isRequired,
+    startQuiz: PropTypes.func.isRequired,
+  }
+
+  startNewQuiz = () => {
+    const { startQuiz } = this.props;
+    startQuiz();
+  }
+
+  goToSetView = () => {
+    const { navigation } = this.props;
+    navigation.goBack();
   }
 
   render() {
@@ -51,6 +63,26 @@ class QuizResult extends PureComponent {
             </Text>
           </View>
         </View>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            activeOpacity={0.75}
+            onPress={this.startNewQuiz}
+            style={[styles.button, styles.titleTotal]}
+          >
+            <Text style={[styles.buttonText, styles.titleTotalText]}>
+              NEW QUIZ
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.75}
+            onPress={this.goToSetView}
+            style={[styles.button, styles.titleTotal]}
+          >
+            <Text style={[styles.buttonText, styles.titleTotalText]}>
+              GO BACK
+            </Text>
+          </TouchableOpacity>
+        </View>
         <QuizResultCardList quizResult={quizResult} />
       </View>
     );
@@ -76,6 +108,26 @@ const styles = StyleSheet.create({
     minHeight: 100,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 20,
+  },
+  button: {
+    borderWidth: 3,
+    borderRadius: 3,
+    width: '45%',
+    minHeight: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   resultText: {
     fontSize: 14,
