@@ -7,15 +7,20 @@ import {
 
 import QuizResultCardList from './QuizResultCardList';
 
-import {
-  $darkBlue, $green, $lightRed,
-} from '../../utils/colors';
+import { $darkBlue, $green, $lightRed } from '../../utils/colors';
+import { clearLocalNotification, setLocalNotification } from '../../utils/notifications';
+
 
 class QuizResult extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     quizResult: PropTypes.arrayOf(PropTypes.object).isRequired,
     startQuiz: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    clearLocalNotification()
+      .then(setLocalNotification);
   }
 
   startNewQuiz = () => {
