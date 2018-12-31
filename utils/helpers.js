@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+
 /**
  * Randomly shuffle an array
  * https://stackoverflow.com/a/2450976/1293256
@@ -25,12 +27,30 @@ const shuffle = (array) => {
   return arrayCopy;
 };
 
-const normalizeFontSize = (textLength, cardWidth, cardHeight) => {
-  const fontSize = Math.sqrt(cardWidth * cardHeight / textLength);
+// Define a maximum font size for text and normalize its value to have a good value based on
+// containers size
+const normalizeFontSize = (textLength, containerWidth, containerHeight) => {
+  const fontSize = Math.sqrt(containerWidth * containerHeight / textLength);
   return fontSize > 30 ? 30 : fontSize;
+};
+
+// Create a custom alert
+const createAlert = (params) => {
+  const { title, message, onPress } = params;
+
+  return Alert.alert(
+    title,
+    message,
+    [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'OK', onPress },
+    ],
+    { cancelable: false },
+  );
 };
 
 export {
   shuffle,
   normalizeFontSize,
+  createAlert,
 };

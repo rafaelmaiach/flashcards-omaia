@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import SetItem from '../SetItem/SetItem';
 
+/**
+ * @class SetList
+ * @description Create the list of sets for home screen and trash screen
+ */
 class SetList extends PureComponent {
   static propTypes = {
     sets: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -8,12 +8,16 @@ import Ripple from 'react-native-material-ripple';
 import Swipeout from 'react-native-swipeout';
 import chroma from 'chroma-js';
 
-import { setSelectedSet } from '../../actions/selectedSet';
-
 import HiddenSetItem from './HiddenSetItem';
+
+import { setSelectedSet } from '../../actions/selectedSet';
 
 import { $white } from '../../utils/colors';
 
+/**
+ * @class SetItem
+ * @description Create each item for set list
+ */
 class SetItem extends PureComponent {
   static propTypes = {
     backgroundColor: PropTypes.string.isRequired,
@@ -28,6 +32,7 @@ class SetItem extends PureComponent {
     active: false,
   }
 
+  // Create the buttons for swipe element
   createSwipeoutButtons = (darkenColor, rgbColor) => {
     const {
       id,
@@ -44,6 +49,7 @@ class SetItem extends PureComponent {
       cards,
     };
 
+    // By default, it has only the delete button
     const swipeoutBtnsDefault = [{
       component: (
         <HiddenSetItem
@@ -55,6 +61,8 @@ class SetItem extends PureComponent {
         />),
     }];
 
+    // If in trash screen (deleted set) it will show only the restore
+    // Otherwise will show edit and remove
     const swipeoutBtns = isDeleted
       ? [...swipeoutBtnsDefault]
       : [{

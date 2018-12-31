@@ -5,11 +5,15 @@ import {
   View, TouchableOpacity, Text, StyleSheet, Alert,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { deleteTrashSets } from '../../actions/sets';
-import { deleteCards } from '../../actions/cards';
-import { $white, $darkBlue } from '../../utils/colors';
 
 import SetList from '../../components/SetList/SetList';
+
+import { deleteTrashSets } from '../../actions/sets';
+import { deleteCards } from '../../actions/cards';
+
+import { $white, $darkBlue } from '../../utils/colors';
+import { createAlert } from '../../utils/helpers';
+
 import commonNavigationOptions from '../commonNavigationOptions';
 
 class TrashScreen extends PureComponent {
@@ -33,15 +37,13 @@ class TrashScreen extends PureComponent {
       return;
     }
 
-    Alert.alert(
-      'Clear Trash?',
-      'This will permanently delete all sets.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => this.emptyTrash(deletedIds) },
-      ],
-      { cancelable: false },
-    );
+    const params = {
+      title: 'Clear Trash?',
+      message: 'This will permanently delete all sets.',
+      onPress: () => this.emptyTrash(deletedIds),
+    };
+
+    createAlert(params);
   }
 
   emptyTrash = (deletedIds) => {

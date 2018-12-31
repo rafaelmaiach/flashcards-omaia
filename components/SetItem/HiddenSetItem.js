@@ -1,13 +1,21 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import Ripple from 'react-native-material-ripple';
-import { deleteSet, restoreSet } from '../../actions/sets';
-import { $white } from '../../utils/colors';
 
+import { deleteSet, restoreSet } from '../../actions/sets';
+
+import { $white } from '../../utils/colors';
+import { createAlert } from '../../utils/helpers';
+
+/**
+ * @class HiddenSetItem
+ * @description Creates the hidden component behind set item
+ * It shows the control buttons on swipe
+ */
 class HiddenSetItem extends PureComponent {
   static defaultProps = {
     isEdit: false,
@@ -28,34 +36,33 @@ class HiddenSetItem extends PureComponent {
     setInfo: PropTypes.object,
   };
 
+  // Show an alert to confirm the set delete action
   showAlertDelete = () => {
     const { id, moveToTrash } = this.props;
 
-    Alert.alert(
-      'Delete Set',
-      'Are you sure you want to delete this set?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => moveToTrash(id, 'move') },
-      ],
-      { cancelable: false },
-    );
+    const params = {
+      title: 'Delete Set',
+      message: 'Are you sure you want to delete this set?',
+      onPress: () => moveToTrash(id, 'move'),
+    };
+
+    createAlert(params);
   };
 
+  // Show an alert to confirm the set restore action
   showAlertRestore = () => {
     const { id, restoreFromTrash } = this.props;
 
-    Alert.alert(
-      'Restore Set',
-      'Are you sure you want to restore this set?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'OK', onPress: () => restoreFromTrash(id) },
-      ],
-      { cancelable: false },
-    );
+    const params = {
+      title: 'Restore Set',
+      message: 'Are you sure you want to restore this set?',
+      onPress: () => restoreFromTrash(id),
+    };
+
+    createAlert(params);
   };
 
+  // Go to edit page passing the set information to be editted
   goToEdition = () => {
     const { navigation, setInfo, closeSwipeout } = this.props;
 
@@ -65,6 +72,7 @@ class HiddenSetItem extends PureComponent {
     });
   }
 
+  // Check if the click was on remove set or edit set
   onPress = () => {
     const { isDeleted, isEdit, closeSwipeout } = this.props;
 
