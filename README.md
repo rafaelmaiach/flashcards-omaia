@@ -25,8 +25,11 @@ The **Flashcards Project** is the third and last project from the **Udacity's Re
 To clone and run this application, you'll need [Git](https://git-scm.com/), a device with [Expo](https://expo.io/) installed or a device simulator installed on your computer like [XCode](https://developer.apple.com/xcode/) for iOS or [Android Studio](https://developer.android.com/studio/) for Android. After installation, clone and install the project dependencies:
 
 ```bash
-# Clone this repository
+# Clone this repository with https
 $ git clone https://github.com/rafaelmaiach/flashcards-omaia.git
+
+# OR clone with SSH
+$ git clone git@github.com:rafaelmaiach/flashcards-omaia.git
 
 # Go into the repository and install the application dependencies
 $ cd flashcards-omaia
