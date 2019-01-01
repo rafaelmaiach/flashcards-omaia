@@ -79,7 +79,7 @@ class QuizResult extends PureComponent {
             style={[styles.button, styles.titleTotal]}
           >
             <Text style={[styles.buttonText, styles.titleTotalText]}>
-              NEW QUIZ
+              RESTART QUIZ
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -88,7 +88,7 @@ class QuizResult extends PureComponent {
             style={[styles.button, styles.titleTotal]}
           >
             <Text style={[styles.buttonText, styles.titleTotalText]}>
-              GO BACK
+              BACK TO SET
             </Text>
           </TouchableOpacity>
         </View>
