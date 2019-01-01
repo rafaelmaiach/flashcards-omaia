@@ -112,6 +112,7 @@ class SetItem extends PureComponent {
     } = this.props;
 
     const cardsQuantity = cards.length;
+    const cardsQuantityText = `${cardsQuantity} card${cardsQuantity === 1 ? '' : 's'}`;
 
     const chromaBackground = chroma(backgroundColor);
     const darkenColor = chromaBackground.darken(0.9).hex();
@@ -149,7 +150,7 @@ class SetItem extends PureComponent {
         <View style={containerStyles}>
           <Ripple {...rippleProps} onPress={this.onPressItem}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.cardsQuantity}>{`${cardsQuantity} cards`}</Text>
+            <Text style={styles.cardsQuantity}>{cardsQuantityText}</Text>
           </Ripple>
           <View style={[styles.caret, caretBorder]}>
             <AntDesign color={darkenColor} name="caretleft" size={30} />
