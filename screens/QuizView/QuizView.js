@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   carouselContainer: {
-    height: '80%',
+    height: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: '20%',

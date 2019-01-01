@@ -27,24 +27,34 @@ class CardsList extends PureComponent {
 
     const { width } = Dimensions.get('window');
 
+    this.state = {
+      carouselSize: null,
+    };
+
     this.sliderWidth = width;
     this.sliderItemWidth = width * 0.8;
   }
 
-  // Scroll to the end of list when a new card is inserted
-  componentDidUpdate(prevProps) {
+  scrollToEnd = (size) => {
+    const { carouselSize } = this.state;
     const { cards } = this.props;
 
-    if (cards.length < prevProps.cards.length) {
-      return true;
+    // Make the carousel start on the first card
+    if (!carouselSize) {
+      this.carousel.snapToItem(0);
+      this.setState(() => ({ carouselSize: size }));
+      return;
     }
 
-    if (cards.length > prevProps.cards.length) {
-      this.scrollToEnd();
-      return true;
+    // When adding a new card, scroll to it (last position)
+    if (size > carouselSize) {
+      this.carousel.snapToItem(cards.length - 1);
+    } else {
+      // Otherwise, scroll to the previous one when deleting
+      this.carousel.snapToPrev();
     }
 
-    return false;
+    this.setState(() => ({ carouselSize: size }));
   }
 
   keyExtractor = item => item.id;
@@ -55,17 +65,6 @@ class CardsList extends PureComponent {
     const { createTempSetCards } = this.props;
 
     createTempSetCards();
-
-    if (this.carousel) {
-      this.carousel.snapToItem(0);
-    }
-  }
-
-  scrollToEnd = () => {
-    if (this.carousel) {
-      const { cards } = this.props;
-      this.carousel.snapToItem(cards.length - 1);
-    }
   }
 
   render() {
@@ -83,8 +82,9 @@ class CardsList extends PureComponent {
             ref={(c) => { this.carousel = c; }}
             data={cards}
             horizontal
-            inactiveSlideOpacity={0}
+            inactiveSlideOpacity={0.5}
             itemWidth={this.sliderItemWidth}
+            onContentSizeChange={this.scrollToEnd}
             renderItem={this.renderItem}
             sliderWidth={this.sliderWidth}
           />
