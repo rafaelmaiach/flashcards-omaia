@@ -98,7 +98,7 @@ class NewSetFooter extends PureComponent {
             source={SubmitIcon}
             style={styles.lottie}
           />
-          <Text style={styles.submitText}>Submit</Text>
+          <Text style={styles.submitText}>Save Set</Text>
         </TouchableOpacity>
       </View>
     );

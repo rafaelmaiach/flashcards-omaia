@@ -93,7 +93,7 @@ class SetView extends PureComponent {
             >
               <MaterialCommunityIcons color={backgroundColor} name="brain" size={35} />
               <Text style={[styles.studyBoxText, colorTheme]}>
-                QUIZ
+                START QUIZ
               </Text>
             </TouchableOpacity>
           </View>
