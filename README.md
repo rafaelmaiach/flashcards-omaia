@@ -10,6 +10,7 @@ The **Flashcards Project** is the third and last project from the **Udacity's Re
   - [Table of contents](#table-of-contents)
   - [How to install](#how-to-install)
   - [How to run](#how-to-run)
+  - [Tested Simulators and Devices](#tested-simulators-and-devices)
   - [How it works](#how-it-works)
     - [Home Screen](#home-screen)
     - [Trash Screen](#trash-screen)
@@ -51,6 +52,15 @@ npm start
 ```
 
 [(Back to top)](#table-of-contents)
+
+## Tested Simulators and Devices
+The project was tested in three environments:
+- iPhone 8 using iOS Simulator on XCode
+- Nexus 5X API 28 x86 - Android 9.0 on Android Studio
+- Redmi Note 3 Pro - Xiaomi - that is my physical device
+
+[(Back to top)](#table-of-contents)
+
 
 ## How it works
 The initial screens are: Home, New Deck and Trash which are navigated through buttons on footer of each one.
