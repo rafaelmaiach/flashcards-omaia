@@ -46,7 +46,8 @@ class NewSetScreen extends PureComponent {
     const title = navigation.getParam('title') || setInfo.title;
     const bgColor = navigation.getParam('backgroundColor') || setInfo.backgroundColor;
 
-    const titleSlice = `${title.slice(0, 15)}...`;
+    // Temporary fix for title bugging on right menu
+    const titleSlice = `${title.slice(0, 13)}...`;
 
     return ({
       ...commonNavigationOptions,
