@@ -68,7 +68,7 @@ class SetViewCardItem extends PureComponent {
     const frontTextContainerStyle = {
       ...styles.frontTextContainer,
       borderRightWidth: 0.5,
-      borderColor: `${themeColor}33`,
+      borderColor: `${themeColor}`,
     };
 
     const highlightStyle = {

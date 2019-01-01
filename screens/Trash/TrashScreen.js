@@ -53,7 +53,12 @@ class TrashScreen extends PureComponent {
   emptyTrash = (deletedIds) => {
     const { clearTrash, clearCards, sets } = this.props;
 
-    const setCardsIds = sets.flatMap(set => set.cards);
+    // Get all cards ids from deleted sets
+    const setCardsIds = sets
+      .map(set => set.cards)
+      .filter(ids => ids.length > 0)
+      .reduce((acc, curr) => acc.concat([...curr]), []);
+
     clearCards(setCardsIds);
     clearTrash(deletedIds);
   }
@@ -105,8 +110,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
-  const { sets } = state;
+const mapStateToProps = ({ sets }) => {
   const setsById = Object.values(sets.byId);
   const deletedSets = setsById.filter(set => set.isDeleted);
   const deletedIds = deletedSets.map(set => set.id);

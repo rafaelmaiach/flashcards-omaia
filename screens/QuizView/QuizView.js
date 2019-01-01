@@ -26,7 +26,7 @@ class QuizView extends PureComponent {
 
     return ({
       ...commonNavigationOptions,
-      title: `QUIZ (${set.title})`,
+      title: 'QUIZ',
       headerStyle: {
         ...commonNavigationOptions.headerStyle,
         backgroundColor: set.backgroundColor,

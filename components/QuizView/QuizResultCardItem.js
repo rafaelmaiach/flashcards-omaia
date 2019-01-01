@@ -25,9 +25,15 @@ class QuizResultCardItem extends PureComponent {
     const bgColorTheme = { backgroundColor: themeColor };
     const borderColorTheme = { borderColor: themeColor };
 
+    const frontStyles = {
+      ...styles.textContainer,
+      borderRightWidth: 0.5,
+      borderColor: `${themeColor}`,
+    };
+
     return (
       <View style={[styles.cardContainer, borderColorTheme]}>
-        <View style={styles.textContainer}>
+        <View style={frontStyles}>
           <Text style={styles.text}>{frontText}</Text>
         </View>
         <View style={styles.textContainer}>

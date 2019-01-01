@@ -46,9 +46,11 @@ class NewSetScreen extends PureComponent {
     const title = navigation.getParam('title') || setInfo.title;
     const bgColor = navigation.getParam('backgroundColor') || setInfo.backgroundColor;
 
+    const titleSlice = `${title.slice(0, 15)}...`;
+
     return ({
       ...commonNavigationOptions,
-      title,
+      title: `${title.length <= 15 ? title : titleSlice}`,
       headerRight: <RightMenu navigation={navigation} />,
       headerLeft: <Left navigation={navigation} />,
       headerStyle: {
