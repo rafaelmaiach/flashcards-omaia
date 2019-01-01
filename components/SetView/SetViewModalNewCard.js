@@ -64,13 +64,13 @@ class SetViewModalNewCard extends PureComponent {
       <ModalWrapper onCancel={this.onCancelModal} onClose={this.onCloseModal} visible>
         <ModalInput
           inputValue={frontCardText}
-          label="EDIT FRONT CARD TEXT"
+          label="FRONT CARD TEXT"
           onChange={this.onChangeFrontText}
           themeColor={themeColor}
         />
         <ModalInput
           inputValue={backCardText}
-          label="EDIT BACK CARD TEXT"
+          label="BACK CARD TEXT"
           onChange={this.onChangeBackText}
           themeColor={themeColor}
         />
